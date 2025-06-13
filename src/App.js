@@ -66,6 +66,89 @@ function App() {
             <p>Ready to create something beautiful together?</p>
           </div>
         );
+      case 'TV. FILM. PRINT.':
+        return (
+          <div className="page-content media-content">
+            <div className="media-header">
+              <h1>Makeup & Hair for Advertising & Media</h1>
+              <p className="media-intro">
+                Looking to make a lasting impression on screen? We create camera-ready hair and makeup that elevate talent for film, television, advertising, music videos, and other entertainment projects.
+              </p>
+            </div>
+
+            <section className="media-section">
+              <h2>Our Collaborative Process</h2>
+              <p>Every project starts with a personalized consultation. We'll explore your vision, learn your goals, and note any must-haves or no-gos. From there, we design a hair and makeup aesthetic that stays true to your brand and resonates on camera.</p>
+            </section>
+
+            <section className="media-section">
+              <h2>Why We're Different</h2>
+              <div className="features-grid">
+                <div className="feature-item">
+                  <h3>Camera-Ready Results</h3>
+                  <p>From polished natural beauty to bold transformations, we craft looks that translate flawlessly on screen.</p>
+                </div>
+                <div className="feature-item">
+                  <h3>Long-Wear Expertise</h3>
+                  <p>Our products and techniques are chosen specifically for on-set durability, keeping talent fresh through long shooting days.</p>
+                </div>
+                <div className="feature-item">
+                  <h3>On-Set Support</h3>
+                  <p>Need touch-ups during filming? We offer continuous, on-set service so every frame looks perfect.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="media-section">
+              <h2>Rates</h2>
+              <p className="rates-note">All rates include kit rental. Travel outside the Pittsburgh area may incur additional fees.</p>
+              <div className="rates-grid">
+                <div className="rate-item">
+                  <h3>Full day</h3>
+                  <p className="rate-duration">up to 10 hrs</p>
+                  <p className="rate-price">Starting at $750</p>
+                </div>
+                <div className="rate-item">
+                  <h3>Half day</h3>
+                  <p className="rate-duration">up to 5 hrs</p>
+                  <p className="rate-price">Starting at $475</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="media-section">
+              <h2>Notable Talent & Clients</h2>
+              <div className="clients-grid">
+                <div className="client-category">
+                  <h3>Athletes</h3>
+                  <p>Pittsburgh Steelers: Cam Hayward, Chase Claypool, Bud Dupree, Terrell Edmunds</p>
+                </div>
+                <div className="client-category">
+                  <h3>National Sports Announcers</h3>
+                  <p>Jenn Brown, Joe Buck, Holly Sonders, Paul Azinger</p>
+                </div>
+                <div className="client-category">
+                  <h3>TV Personalities</h3>
+                  <p>Chef Palak Patel (Food Network Chopped)</p>
+                </div>
+                <div className="client-category">
+                  <h3>High-Profile Politicians</h3>
+                  <p>Details available upon request</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="media-section">
+              <h2>Selected TV • Film • Print Work</h2>
+              <div className="work-grid">
+                <div className="work-category">
+                  <p>Disney Channel • FOX News & Sports • TLC Return to Amish • Paramount Mayor of Kingstown (S2) • WGN Outsiders • Lifetime Dance Moms • Nike • Facebook • Spotify • U.S. Steel • Westinghouse Nuclear • Burberry • Sheetz • Pittsburgh Penguins Foundation • University of Pittsburgh • Carnegie Mellon University & FBI collaboration • UPMC Health Plan • Aetna • Yelp! • PNC • Edgar Snyder & Associates — and many more.</p>
+                </div>
+              </div>
+              <p className="full-list-note">Full client list available upon request.</p>
+            </section>
+          </div>
+        );
       default:
         return (
           <div className="page-content">
