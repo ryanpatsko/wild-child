@@ -13,9 +13,46 @@ body, .App {
   background-color: var(--background-color);
 }
 
+.main-content {
+  position: relative;
+  background: #f3e6d7;
+  min-height: 100vh;
+  padding: 3.5rem 0 0 0;
+  overflow: hidden;
+}
+
+.main-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('./assets/tulle-background.png') repeat;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: transparent;
+  padding: 0 2rem 3rem 2rem;
+}
+
+@media (max-width: 900px) {
+  .content-container {
+    max-width: 98vw;
+    padding: 0 0.5rem 2rem 0.5rem;
+  }
+  .main-content {
+    padding-top: 2rem;
+  }
+}
+
 :root {
   --primary-color: #000000;
-  --accent-color: #ff69b4;
+  --accent-color: #d04a7c;
   --background-color: #ffffff;
   --text-color: #333333;
   --transition-speed: 0.3s;
@@ -29,8 +66,11 @@ body, .App {
 
 /* Header Styles */
 .main-header {
+  position: relative;
   padding: 2rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: none;
+  overflow: visible;
 }
 
 .header-content {
@@ -41,21 +81,58 @@ body, .App {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  position: relative;
 }
 
 .logo-section {
-  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 2;
+}
+
+.logo-section::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 420px;
+  background: url('./assets/tan-swab.jpg') center center/contain no-repeat;
+  opacity: 0.48;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .site-logo {
-  max-width: 300px;
+  max-width: 340px;
   height: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.header-img {
+  max-height: 160px;
+  height: 100%;
+  width: auto;
+  display: block;
 }
 
 /* Navigation Styles */
 .main-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.2rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -98,13 +175,6 @@ body, .App {
 
 .nav-item.active::after {
   width: 100%;
-}
-
-/* Main Content */
-.main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
 }
 
 /* Home Page Styles */
@@ -253,7 +323,23 @@ body, .App {
 }
 
 .media-section {
-  margin-bottom: 5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.04);
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+.media-section:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 4px;
+  margin: 2.5rem auto 0 auto;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f8e6ef 0%, #f3e6ee 100%);
+  opacity: 0.7;
 }
 
 .media-section h2 {
@@ -374,8 +460,14 @@ body, .App {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .header-img {
+    max-height: 110px;
+  }
   .site-logo {
-    max-width: 200px;
+    max-width: 220px;
+  }
+  .logo-row {
+    gap: 2rem;
   }
   
   .tagline {
@@ -388,13 +480,19 @@ body, .App {
   }
   
   .main-nav {
-    justify-content: center;
+    gap: 0.7rem;
   }
 }
 
 @media (max-width: 768px) {
+  .header-img {
+    max-height: 70px;
+  }
   .site-logo {
-    max-width: 250px;
+    max-width: 140px;
+  }
+  .logo-row {
+    gap: 1rem;
   }
   
   .tagline {
@@ -403,7 +501,7 @@ body, .App {
   }
   
   .main-nav {
-    gap: 1rem;
+    gap: 0.4rem;
   }
   
   .nav-item {
@@ -445,11 +543,11 @@ body, .App {
   }
 
   .media-section {
-    margin-bottom: 3rem;
+    padding: 2rem 1rem 1.5rem 1rem;
   }
-
-  .media-section h2 {
-    font-size: 1.5rem;
+  .media-section:not(:last-child)::after {
+    width: 70px;
+    margin-top: 1.5rem;
   }
 
   .feature-item,
@@ -461,8 +559,14 @@ body, .App {
 }
 
 @media (max-width: 480px) {
+  .header-img {
+    max-height: 44px;
+  }
   .site-logo {
-    max-width: 280px;
+    max-width: 90px;
+  }
+  .logo-row {
+    gap: 0.5rem;
   }
   
   .main-nav {
@@ -476,5 +580,136 @@ body, .App {
   
   .tagline {
     font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .logo-section::before {
+    width: 420px;
+    height: 240px;
+  }
+  .site-logo {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-section::before {
+    width: 240px;
+    height: 130px;
+  }
+  .site-logo {
+    max-width: 120px;
+  }
+}
+
+.beauty-features {
+  list-style: disc inside;
+  margin: 2rem auto;
+  padding: 0;
+  max-width: 600px;
+  font-size: 1.25rem;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.beauty-features li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 1.15em;
+}
+
+.beauty-notes {
+  list-style: disc inside;
+  margin: 2rem auto 0 auto;
+  padding: 0;
+  max-width: 900px;
+  font-size: 1.15rem;
+  color: var(--text-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.beauty-notes li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 1.1em;
+  text-align: center;
+  list-style-position: inside;
+}
+
+ul {
+  list-style: disc inside;
+  margin: 2rem auto 0 auto;
+  padding: 0;
+  max-width: 900px;
+  font-size: 1.15rem;
+  color: var(--text-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 1.1em;
+  text-align: center;
+  list-style-position: inside;
+}
+
+table {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2rem auto;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  background: #fff;
+  color: var(--text-color);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+}
+
+th {
+  background: #faf7fa;
+  font-weight: 600;
+  font-size: 1.15em;
+  color: var(--primary-color);
+  border-bottom: 2px solid #f3e6ee;
+}
+
+td {
+  border-bottom: 1px solid #f3e6ee;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+  th, td {
+    padding: 0.7rem 0.5rem;
+    font-size: 1rem;
+    text-align: left;
+  }
+  th {
+    border-bottom: none;
+  }
+  tr {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f3e6ee;
   }
 }
