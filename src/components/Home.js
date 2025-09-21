@@ -1,18 +1,17 @@
 import React from 'react';
+import Gallery from './Gallery';
 
 const Home = () => {
   return (
     <div className="page-container">
       <div className="hero-section">
-        <h2 className="tagline">HAIR + MAKEUP ARTISTRY</h2>
+        <h1 className="page-title">HAIR + MAKEUP ARTISTRY</h1>
         <p className="intro-text">
           Luxury beauty services with a wild, creative twist. 
           From bridal elegance to avant-garde artistry.
         </p>
       </div>
-      <div className="gallery-placeholder">
-        <p>Gallery coming soon...</p>
-      </div>
+      <Gallery />
     </div>
   );
 };

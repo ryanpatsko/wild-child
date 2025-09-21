@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
 
 const BeautyEvents = () => {
@@ -62,7 +63,7 @@ const BeautyEvents = () => {
       </section>
 
       <div className="cta-section">
-        <p className="body-text">Ready to look—and feel—your best? <strong>Contact us to reserve your date.</strong></p>
+        <p className="body-text">Ready to look—and feel—your best? <strong><Link to="/contact" style={{color: 'inherit', textDecoration: 'none'}}>Contact us to reserve your date.</Link></strong></p>
       </div>
     </div>
   );

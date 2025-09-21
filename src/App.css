@@ -74,6 +74,7 @@ body, .App {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.95);
   border-radius: 0;
+  border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 /* =================================
@@ -161,17 +162,136 @@ body, .App {
 
 
 /* =================================
+   HAMBURGER MENU STYLE
+   ================================= */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  position: absolute;
+  top: 0;
+  right: 2rem;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* =================================
+   MOBILE NAVIGATION STYLE
+   ================================= */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: 6rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-item {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  margin: 0;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+}
+
+.mobile-nav-item:hover:not(.active) {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+  transform: scale(1.02);
+}
+
+.mobile-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0);
+  z-index: 1;
+  transition: background 0.3s ease;
+  border-radius: 0;
+}
+
+.mobile-nav-item:hover:not(.active)::before {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual gradient colors for mobile nav items */
+.mobile-nav-item.block-nav-item-1 { background: linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 100%); }
+.mobile-nav-item.block-nav-item-2 { background: linear-gradient(135deg, var(--theme-color-2) 0%, var(--theme-color-3) 100%); }
+.mobile-nav-item.block-nav-item-3 { background: linear-gradient(135deg, var(--theme-color-3) 0%, var(--theme-color-4) 100%); }
+.mobile-nav-item.block-nav-item-4 { background: linear-gradient(135deg, var(--theme-color-4) 0%, var(--theme-color-5) 100%); }
+.mobile-nav-item.block-nav-item-5 { background: linear-gradient(135deg, var(--theme-color-5) 0%, var(--theme-color-6) 100%); }
+.mobile-nav-item.block-nav-item-6 { background: linear-gradient(135deg, var(--theme-color-6) 0%, var(--theme-color-7) 100%); }
+.mobile-nav-item.block-nav-item-7 { background: linear-gradient(135deg, var(--theme-color-7) 0%, var(--theme-color-8) 100%); }
+.mobile-nav-item.block-nav-item-8 { background: linear-gradient(135deg, var(--theme-color-8) 0%, var(--theme-color-9) 100%); }
+.mobile-nav-item.block-nav-item-9 { background: linear-gradient(135deg, var(--theme-color-9) 0%, var(--theme-color-1) 100%); }
+
+/* =================================
    BLOCK NAVIGATION STYLE
    ================================= */
 .block-nav {
   display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
+  flex-wrap: nowrap;
+  width: 100%;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   margin-bottom: 0;
   background: linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-9) 100%);
   overflow: hidden;
@@ -180,15 +300,15 @@ body, .App {
 
 .block-nav-item {
   flex: 1;
-  padding: 1rem 0.5rem;
+  padding: 0.8rem 0.3rem;
   text-align: center;
   color: white;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: all var(--transition-speed);
+  transition: all 0.6s ease;
   position: relative;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 2;
@@ -196,7 +316,10 @@ body, .App {
   align-items: center;
   justify-content: center;
   min-height: 3rem;
-  min-width: 120px;
+  min-width: 0;
+  overflow: visible;
+  white-space: normal;
+  line-height: 1.2;
 }
 
 .block-nav-item:last-child {
@@ -219,7 +342,7 @@ body, .App {
   bottom: 0;
   background: rgba(255, 255, 255, 0);
   z-index: 1;
-  transition: background var(--transition-speed);
+  transition: background 0.6s ease;
 }
 
 .block-nav-item:hover:not(.active)::before {
@@ -296,27 +419,293 @@ body, .App {
 .border-theme-8 { border-color: var(--theme-color-8); }
 
 /* =================================
-   GLOBAL TYPOGRAPHY
+   WEDDING WIRE BUTTON
    ================================= */
-.page-title {
-  font-family: 'The Nautigal', cursive;
-  font-size: 2.7rem;
-  color: var(--primary-color);
-  margin-bottom: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+.wedding-wire-section {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.wedding-wire-button {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.75rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  max-width: 600px;
+  width: 100%;
+}
+
+.wedding-wire-button:hover {
+  box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.wedding-wire-profile-image {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+}
+
+.wedding-wire-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.wedding-wire-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.wedding-wire-rating-row {
+  display: flex;
+  align-items: center;
+}
+
+.wedding-wire-stars {
+  display: flex;
+  gap: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.wedding-wire-stars .star {
+  color: #ffd700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.wedding-wire-company {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wedding-wire-platform {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.wedding-wire-inner-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.wedding-wire-button:hover .wedding-wire-inner-button {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* =================================
+   FORM STATUS MESSAGES
+   ================================= */
+.form-status {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.form-status.success {
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #166534;
+}
+
+.form-status.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Reviews Section */
+.reviews-section {
+  margin: 3rem 0;
   text-align: center;
 }
 
+.reviews-title {
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #333;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ff6b6b;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.reviews-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.review-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .reviews-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .reviews-stack {
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Brochure Section */
+.brochure-section {
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.brochure-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.brochure-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.brochure-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  border: 2px solid transparent;
+}
+
+.brochure-text {
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.brochure-pdf-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: currentColor;
+}
+
+/* Mobile Responsive for Brochure */
+@media (max-width: 768px) {
+  .brochure-description {
+    font-size: 1rem;
+  }
+  
+  .brochure-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* =================================
+   TEXT CONTENT BLOCKS
+   ================================= */
+.body-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.text-block {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* =================================
+   GLOBAL TYPOGRAPHY
+   ================================= */
+.page-title {
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .section-title {
-  font-family: 'Radley', serif;
-  font-size: 1.5rem;
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
   color: var(--primary-color);
   margin-bottom: 1.5rem;
   font-weight: 400;
   text-align: left;
   position: relative;
   padding-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .section-title::after {
@@ -385,6 +774,7 @@ body, .App {
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 3rem 2.5rem;
   margin-bottom: 3.5rem;
   position: relative;
@@ -556,6 +946,110 @@ body, .App {
 }
 
 /* =================================
+   CONTACT FORM STYLES
+   ================================= */
+.contact-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color var(--transition-speed);
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(208, 74, 124, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #FF1C89 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(208, 74, 124, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .contact-form {
+    padding: 1rem 0;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* =================================
    SPECIAL COMPONENTS
    ================================= */
 .hero-section {
@@ -625,6 +1119,10 @@ body, .App {
   justify-content: center;
   padding: 1rem 0;
   text-align: left;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
 }
 
 .about-features {
@@ -635,14 +1133,19 @@ body, .App {
 
 .feature-item {
   margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .feature-title {
-  font-family: 'The Nautigal', cursive;
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
   font-size: 1.8rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
-  font-weight: 400;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .cta-section {
@@ -683,16 +1186,83 @@ body, .App {
     font-family: 'The Nautigal', cursive;
     color: #000000;
   }
+  
+  /* Prevent nav wrapping at medium screen sizes */
+  .block-nav {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  
+  .block-nav-item {
+    min-width: 0;
+    flex-shrink: 1;
+    font-size: 0.65rem;
+    padding: 0.7rem 0.2rem;
+    white-space: normal;
+    overflow: visible;
+    line-height: 1.1;
+  }
 }
 
 @media (max-width: 768px) {
+  /* Show hamburger menu and hide desktop nav */
+  .hamburger-menu {
+    display: flex;
+  }
+  
+  .desktop-nav {
+    display: none;
+  }
+  
+  .mobile-nav {
+    display: flex;
+  }
+  
+  .wedding-wire-button {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+  
+  .wedding-wire-content {
+    align-items: flex-start;
+  }
+  
+  .wedding-wire-rating-row {
+    justify-content: flex-start;
+  }
+  
+  .wedding-wire-profile-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .wedding-wire-company {
+    font-size: 1.1rem;
+  }
+  
+  .wedding-wire-platform {
+    font-size: 0.8rem;
+  }
+  
+  .wedding-wire-inner-button {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+  
   .page-title {
-    font-size: 2rem;
-    font-family: 'The Nautigal', cursive;
+    font-size: 1.5rem;
+    font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
   }
   
   .section-title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   
   .tagline {

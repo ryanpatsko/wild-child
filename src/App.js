@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import siteLogo from './assets/wcf-lips-logo.png';
@@ -17,6 +17,7 @@ import FAQ from './components/FAQ';
 // Navigation component
 function Navigation() {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const navItems = [
     { name: 'HOME', path: '/' },
@@ -30,24 +31,57 @@ function Navigation() {
     { name: 'FAQ', path: '/faq' }
   ];
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className="main-header">
       <div className="header-content">
         <div className="logo-section">
-          <Link to="/" className="site-title-link">
+          <Link to="/" className="site-title-link" onClick={closeMobileMenu}>
             <h1 className="site-title">Wild Child Fabrications</h1>
             <img src={siteLogo} alt="Wild Child Fabrications - Lips Logo" className="site-logo" />
           </Link>
         </div>
+        
+        {/* Hamburger menu button for mobile */}
+        <button 
+          className="hamburger-menu" 
+          onClick={toggleMobileMenu}
+          aria-label="Toggle mobile menu"
+        >
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
       </div>
       
-      {/* Full-width block navigation */}
-      <nav className="block-nav">
+      {/* Desktop navigation */}
+      <nav className="block-nav desktop-nav">
         {navItems.map((item, index) => (
           <Link
             key={item.name}
             to={item.path}
             className={`block-nav-item block-nav-item-${index + 1} ${location.pathname === item.path ? 'active' : ''}`}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+
+      {/* Mobile navigation menu */}
+      <nav className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+        {navItems.map((item, index) => (
+          <Link
+            key={item.name}
+            to={item.path}
+            className={`mobile-nav-item block-nav-item-${index + 1} ${location.pathname === item.path ? 'active' : ''}`}
+            onClick={closeMobileMenu}
           >
             {item.name}
           </Link>
