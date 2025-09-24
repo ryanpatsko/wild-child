@@ -566,7 +566,7 @@ body, .App {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #333;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 2px solid #ff6b6b;
   display: inline-block;
   padding-bottom: 0.5rem;
@@ -592,7 +592,7 @@ body, .App {
 @media (max-width: 768px) {
   .reviews-title {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
   }
   
   .reviews-stack {
@@ -603,7 +603,7 @@ body, .App {
 
 /* Brochure Section */
 .brochure-section {
-  margin: 4rem 0;
+  margin: 1rem 0;
   text-align: center;
 }
 
@@ -660,6 +660,243 @@ body, .App {
   }
 }
 
+/* FX Images */
+.fx-image-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.fx-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* FX images in rows get 300px max-width */
+.fx-images-row .fx-image {
+  max-width: 300px;
+}
+
+/* Single FX image (fx-1) gets 600px max-width */
+.fx-image-container:not(.fx-images-row .fx-image-container) .fx-image {
+  max-width: 600px;
+}
+
+.fx-images-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.fx-gallery-layout {
+  margin: 3rem 0;
+}
+
+.fx-images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Mobile Responsive for FX Images */
+@media (max-width: 768px) {
+  .fx-images-row,
+  .fx-images-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .fx-image-container {
+    margin: 1.5rem 0;
+  }
+}
+
+/* Testimonials Banner */
+.testimonials-banner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Testimonial Card */
+.testimonial-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+
+.testimonial-initial {
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.testimonial-info {
+  flex: 1;
+}
+
+.testimonial-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-date {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.testimonial-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-stars {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.testimonial-stars .star {
+  color: #ffd700;
+  font-size: 1.1rem;
+  margin-right: 0.1rem;
+}
+
+.testimonial-rating-number {
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.testimonial-chevron {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.testimonial-title {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.testimonial-text p {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-more-btn {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.testimonial-more-btn:hover {
+  color: #ff5252;
+}
+
+/* Mobile Responsive for Testimonial */
+@media (max-width: 768px) {
+  .testimonials-banner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .testimonial-card {
+    padding: 1rem;
+  }
+  
+  .testimonial-avatar {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .testimonial-initial {
+    font-size: 1rem;
+  }
+  
+  .testimonial-name {
+    font-size: 0.95rem;
+  }
+  
+  .testimonial-date {
+    font-size: 0.8rem;
+  }
+  
+  .testimonial-title {
+    font-size: 1rem;
+  }
+}
+
+/* Gallery Section */
+.gallery-section {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.gallery-title {
+  font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #333;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ff6b6b;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+/* Mobile Responsive for Gallery */
+@media (max-width: 768px) {
+  .gallery-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
 /* =================================
    TEXT CONTENT BLOCKS
    ================================= */
@@ -688,7 +925,7 @@ body, .App {
   font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
   font-size: 1.8rem;
   color: var(--primary-color);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   text-align: center;
@@ -775,7 +1012,7 @@ body, .App {
   border-radius: 18px;
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.04);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 3rem 2.5rem;
+  padding: 2rem 2rem;
   margin-bottom: 3.5rem;
   position: relative;
   text-align: left;
@@ -832,7 +1069,7 @@ body, .App {
    ================================= */
 .styled-list {
   list-style: disc inside;
-  margin: 2rem 0;
+  margin: 1rem 0;
   padding: 0;
   max-width: 900px;
   font-size: 1.15rem;

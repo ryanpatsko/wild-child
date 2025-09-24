@@ -3,35 +3,36 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './Gallery.css';
 
-const Gallery = () => {
+const BridalGallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    // Dynamically import all images from the gallery-home folder
+    // Dynamically import all images from the gallery-bridal folder
     const importGalleryImages = async () => {
       try {
-        // Get all image files from the gallery-home folder
+        // Get all image files from the gallery-bridal folder
         const imageFiles = [
-          '122491403_10220592792223139_3374943557985010405_n.jpg',
-          'Screenshot_20241207-093429.png',
-          'Screenshot_20241207-093455.png',
-          'Screenshot_20241207-093846.png',
-          'Screenshot_20241207-093933.png',
-          'Screenshot_20241207-094049.png',
-          'Screenshot_20241207-094111.png'
+          '4A3A1221.jpg',
+          'amy-tyler-wild-native-photo-563.jpg',
+          'amy-tyler-wild-native-photo-635.jpg',
+          'Screenshot_20241207-093221.png',
+          'Screenshot_20241207-093319.png',
+          'Screenshot_20250919_153341_Instagram.jpg',
+          'Screenshot_20250919_153359_Instagram.jpg',
+          'Screenshot_20250919_153416_Instagram.jpg'
         ];
 
         const imagePromises = imageFiles.map(async (filename) => {
           try {
-            const imageModule = await import(`../assets/gallery-home/${filename}`);
+            const imageModule = await import(`../assets/gallery-bridal/${filename}`);
             return {
               original: imageModule.default,
               thumbnail: imageModule.default,
-              originalAlt: `Gallery image - ${filename}`,
-              thumbnailAlt: `Gallery thumbnail - ${filename}`,
+              originalAlt: `Bridal gallery image - ${filename}`,
+              thumbnailAlt: `Bridal gallery thumbnail - ${filename}`,
               filename: filename
             };
           } catch (error) {
@@ -44,7 +45,7 @@ const Gallery = () => {
         setImages(loadedImages);
         setLoading(false);
       } catch (error) {
-        console.error('Error loading gallery images:', error);
+        console.error('Error loading bridal gallery images:', error);
         setLoading(false);
       }
     };
@@ -131,4 +132,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default BridalGallery;

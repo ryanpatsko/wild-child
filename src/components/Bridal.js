@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
-import weddingWireLogo from '../assets/weddingwire-vector-logo-2.jpg';
-import review1 from '../assets/reviews/wedding-wire-review-1.png';
-import review2 from '../assets/reviews/wedding-wire-review-2.png';
-import review3 from '../assets/reviews/wedding-wire-review-3.png';
 import pricingBrochure from '../assets/2026-WCF-Hair-Makeup Packages.pdf';
+import BridalGallery from './BridalGallery';
 
 const Bridal = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded2, setIsExpanded2] = useState(false);
+  const [isExpanded3, setIsExpanded3] = useState(false);
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const toggleExpanded2 = () => {
+    setIsExpanded2(!isExpanded2);
+  };
+
+  const toggleExpanded3 = () => {
+    setIsExpanded3(!isExpanded3);
+  };
+
   return (
     <div className="page-container">
       <div className="page-header">
@@ -18,7 +31,7 @@ const Bridal = () => {
       {/* Pricing Brochure CTA */}
       <div className="brochure-section">
         <div className="brochure-content">
-          <p className="brochure-description">
+          <p className="intro-text">
             Please download our 2026 brochure to view our current pricing and available packages
           </p>
           <a 
@@ -68,12 +81,134 @@ const Bridal = () => {
           </a>
         </div>
 
-        {/* Review Images */}
-        <div className="reviews-stack">
-          <img src={review1} alt="Wedding Wire Review 1" className="review-image" />
-          <img src={review2} alt="Wedding Wire Review 2" className="review-image" />
-          <img src={review3} alt="Wedding Wire Review 3" className="review-image" />
+        {/* Testimonials Banner */}
+        <div className="testimonials-banner">
+          <div className="testimonial-card">
+            <div className="testimonial-header">
+              <div className="testimonial-avatar">
+                <span className="testimonial-initial">J</span>
+              </div>
+              <div className="testimonial-info">
+                <div className="testimonial-name">Jenna</div>
+                <div className="testimonial-date">Sent on 07/28/2025</div>
+              </div>
+            </div>
+            
+            <div className="testimonial-rating">
+              <div className="testimonial-stars">
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+              </div>
+              <span className="testimonial-rating-number">5.0</span>
+            </div>
+            
+            <h3 className="testimonial-title">Couldn't recommend Christalee enough</h3>
+            
+            <div className="testimonial-text">
+              {isExpanded ? (
+                <p>
+                  Christalee was an absolute life saver. A month before my wedding my original hair and makeup company fell through. I was thankfully introduced to Christalee and she saved the day. The experience with her and her team couldn't have been better. Her communication was above and beyond and she genuinely made an extremely stressful situation such a breeze. She ensured I had a trial and was happy to change things up when I decided my original vision wasn't what I wanted. She was incredible to work with and made me feel beautiful on my wedding day. She and her team were so professional and made sure to take care of me and my wedding party. We were all so happy with their work and would absolutely recommend. The service was truly above expectations and I wish I would have found her sooner!
+                </p>
+              ) : (
+                <p>
+                  Christalee was an absolute life saver. A month before my wedding my original hair and makeup company fell through...
+                </p>
+              )}
+              <button className="testimonial-more-btn" onClick={toggleExpanded}>
+                {isExpanded ? 'Show less' : 'more'}
+              </button>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-header">
+              <div className="testimonial-avatar">
+                <span className="testimonial-initial">B</span>
+              </div>
+              <div className="testimonial-info">
+                <div className="testimonial-name">Brittney</div>
+                <div className="testimonial-date">Sent on 06/16/2025</div>
+              </div>
+            </div>
+            
+            <div className="testimonial-rating">
+              <div className="testimonial-stars">
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+              </div>
+              <span className="testimonial-rating-number">5.0</span>
+            </div>
+            
+            <h3 className="testimonial-title">Hair & Makeup Goals Achieved! 😍</h3>
+            
+            <div className="testimonial-text">
+              {isExpanded2 ? (
+                <p>
+                  I had such a great experience working with Christalee! She was amazing in every aspect professional, kind, and incredibly talented. She really listened to what I wanted and made me feel so comfortable throughout the whole process. On my wedding day, the hair and makeup turned out even better than I imagined. It lasted all day and looked flawless in photos. I felt so beautiful and confident thanks to her. Highly recommend!
+                </p>
+              ) : (
+                <p>
+                  I had such a great experience working with Christalee! She was amazing in every aspect professional, kind, and incredibly talented...
+                </p>
+              )}
+              <button className="testimonial-more-btn" onClick={toggleExpanded2}>
+                {isExpanded2 ? 'Show less' : 'more'}
+              </button>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-header">
+              <div className="testimonial-avatar">
+                <span className="testimonial-initial">C</span>
+              </div>
+              <div className="testimonial-info">
+                <div className="testimonial-name">Christiana</div>
+                <div className="testimonial-date">Sent on 06/15/2025</div>
+              </div>
+            </div>
+            
+            <div className="testimonial-rating">
+              <div className="testimonial-stars">
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+                <span className="star">★</span>
+              </div>
+              <span className="testimonial-rating-number">5.0</span>
+            </div>
+            
+            <h3 className="testimonial-title">Perfect Wedding Partner</h3>
+            
+            <div className="testimonial-text">
+              {isExpanded3 ? (
+                <p>
+                  From our first calls thru the end of our reception, I could not be happier with how awesome Wildchild was for my wedding party and I. She was affordable and extremely knowledgeable of the best way to achieve the classic look I was going for. Not only did she deliver with both hair and makeup, but she still gave my other wedding party members a great look that followed my desired aesthetic with their own personal style. All of us looked amazing till the very end of our wonderful day. I cannot recommend her more.
+                </p>
+              ) : (
+                <p>
+                  From our first calls thru the end of our reception, I could not be happier with how awesome Wildchild was for my wedding party and I...
+                </p>
+              )}
+              <button className="testimonial-more-btn" onClick={toggleExpanded3}>
+                {isExpanded3 ? 'Show less' : 'more'}
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Bridal Gallery */}
+      <div className="gallery-section">
+        <h2 className="gallery-title">Bridal Gallery</h2>
+        <BridalGallery />
       </div>
     </div>
   );

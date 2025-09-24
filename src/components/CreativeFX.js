@@ -1,14 +1,20 @@
 import React from 'react';
-import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
+import fx1 from '../assets/gallery-fx/fx-1.jpg';
+import fx2 from '../assets/gallery-fx/fx-2.jpg';
+import fx3 from '../assets/gallery-fx/fx-3.jpg';
+import fx4 from '../assets/gallery-fx/fx-4.jpg';
+import fx5 from '../assets/gallery-fx/fx-5.jpg';
 
 const CreativeFX = () => {
   return (
     <div className="page-container">
-      <div className="page-header">
-        <img src={christalee146} alt="Christalee - Creative FX" className="page-header-image" />
-      </div>
       <h1 className="page-title">Creative & FX</h1>
       <p className="intro-text">With a strong background in special effects, I bring your vision to life through innovative solutions, years of hands-on experience, and a distinctive creative flair. Below is a list of services we offer—but our capabilities are not limited to these alone. If you have a unique idea that doesn't quite fit into these categories, I'd love to hear about it and explore how we can make it happen.</p>
+
+      {/* FX Image 1 */}
+      <div className="fx-image-container">
+        <img src={fx1} alt="Creative FX Work 1" className="fx-image" />
+      </div>
 
       <section className="section-card">
         <h2 className="section-title section-title-creative">Services We Offer</h2>
@@ -20,6 +26,16 @@ const CreativeFX = () => {
           <li><strong>Nightclub Events</strong> - Enchant your customers by transforming your staff into something to match your theme for the night.</li>
         </ul>
       </section>
+
+      {/* FX Images 4 & 5 */}
+      <div className="fx-images-row">
+        <div className="fx-image-container">
+          <img src={fx4} alt="Creative FX Work 4" className="fx-image" />
+        </div>
+        <div className="fx-image-container">
+          <img src={fx5} alt="Creative FX Work 5" className="fx-image" />
+        </div>
+      </div>
 
       <section className="section-card">
         <h2 className="section-title section-title-creative">Pricing Information</h2>
@@ -36,6 +52,16 @@ const CreativeFX = () => {
         <p className="body-text">Makeup prep time will be included in your final balance.</p>
         <p className="body-text">To secure your appointment, a retainer is required.</p>
       </section>
+
+      {/* FX Images 2 & 3 */}
+      <div className="fx-images-row">
+        <div className="fx-image-container">
+          <img src={fx2} alt="Creative FX Work 2" className="fx-image" />
+        </div>
+        <div className="fx-image-container">
+          <img src={fx3} alt="Creative FX Work 3" className="fx-image" />
+        </div>
+      </div>
     </div>
   );
 };
