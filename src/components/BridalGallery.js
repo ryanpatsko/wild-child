@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import './Gallery.css';
@@ -101,7 +102,7 @@ const BridalGallery = () => {
       </div>
 
       {/* Modal Gallery */}
-      {isModalOpen && (
+      {isModalOpen && createPortal(
         <div className="gallery-modal" onClick={closeModal}>
           <div className="gallery-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="gallery-modal-close" onClick={closeModal}>
@@ -126,7 +127,8 @@ const BridalGallery = () => {
               onSlide={(index) => console.log('Slide to index:', index)}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import pricingBrochure from '../assets/2026-WCF-Hair-Makeup Packages.pdf';
+import bookingProcess from '../assets/2026-Booking-Process.pdf';
+import trialQA from '../assets/Trial-Q-A-2026.pdf';
 import BridalGallery from './BridalGallery';
 
 const Bridal = () => {
@@ -28,30 +30,56 @@ const Bridal = () => {
       </div>
       <h1 className="page-title">Bridal Services</h1>
       
-      {/* Pricing Brochure CTA */}
+      {/* PDF Downloads Section */}
       <div className="brochure-section">
         <div className="brochure-content">
           <p className="intro-text">
-            Please download our 2026 brochure to view our current pricing and available packages
+            Download our 2026 resources to view pricing, booking process, and trial information
           </p>
-          <a 
-            href={pricingBrochure} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="brochure-button"
-          >
-            <span className="brochure-text">Download 2026 Brochure</span>
-            <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-              <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
-            </svg>
-          </a>
+          <div className="pdf-buttons">
+            <a 
+              href={pricingBrochure} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="brochure-button"
+            >
+              <span className="brochure-text">2026 Brochure</span>
+              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
+              </svg>
+            </a>
+            <a 
+              href={bookingProcess} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="brochure-button"
+            >
+              <span className="brochure-text">Booking Process</span>
+              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
+              </svg>
+            </a>
+            <a 
+              href={trialQA} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="brochure-button"
+            >
+              <span className="brochure-text">Trial Q&A</span>
+              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       {/* Reviews Section */}
       <div className="reviews-section">
-        <h2 className="reviews-title">What Our Brides Say</h2>
+        <h2 className="section-title section-title-bridal">What Our Brides Say</h2>
         
         {/* Wedding Wire Rating */}
         <div className="wedding-wire-section">
@@ -207,7 +235,7 @@ const Bridal = () => {
 
       {/* Bridal Gallery */}
       <div className="gallery-section">
-        <h2 className="gallery-title">Bridal Gallery</h2>
+        <h2 className="section-title section-title-bridal">Bridal Gallery</h2>
         <BridalGallery />
       </div>
     </div>

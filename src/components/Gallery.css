@@ -87,7 +87,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.9);
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,16 +96,18 @@
 
 .gallery-modal-content {
   position: relative;
-  width: 100%;
-  max-width: 90vw;
-  max-height: 90vh;
+  width: 100vw;
+  height: 100vh;
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-modal-close {
-  position: absolute;
-  top: -50px;
-  right: 0;
+  position: fixed;
+  top: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
@@ -119,7 +121,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  z-index: 1001;
+  z-index: 10000;
 }
 
 .gallery-modal-close:hover {
@@ -150,7 +152,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 500px;
+  height: 80vh;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -199,7 +201,7 @@
   top: 50%;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  z-index: 4;
+  z-index: 10001;
   width: 50px;
   height: 50px;
   display: flex;
@@ -221,6 +223,8 @@
 
 .image-gallery-right-nav {
   right: 1rem;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Fullscreen button */
@@ -236,9 +240,9 @@
   padding: 0.5rem;
   position: absolute;
   right: 1rem;
-  top: 1rem;
+  top: 4rem;
   transition: all 0.3s ease;
-  z-index: 4;
+  z-index: 10001;
   width: 45px;
   height: 45px;
   display: flex;
@@ -261,9 +265,9 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 4;
+  right: 5rem;
+  top: 1rem;
+  z-index: 10001;
   border-radius: 20px;
 }
 
@@ -359,18 +363,19 @@
   }
   
   .gallery-modal {
-    padding: 1rem;
+    padding: 0;
   }
   
   .gallery-modal-close {
-    top: -40px;
+    top: 15px;
+    right: 15px;
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
   }
   
   .image-gallery-slide-wrapper {
-    height: 300px;
+    height: 70vh;
   }
   
   .image-gallery-left-nav,
@@ -386,6 +391,8 @@
   
   .image-gallery-right-nav {
     right: 0.5rem;
+    opacity: 1;
+    pointer-events: auto;
   }
   
   .image-gallery-fullscreen-button {
@@ -393,7 +400,7 @@
     height: 35px;
     font-size: 1rem;
     right: 0.5rem;
-    top: 0.5rem;
+    top: 3rem;
   }
   
   .image-gallery-thumbnail {
@@ -414,18 +421,19 @@
   }
   
   .gallery-modal {
-    padding: 0.5rem;
+    padding: 0;
   }
   
   .gallery-modal-close {
-    top: -35px;
+    top: 10px;
+    right: 10px;
     width: 35px;
     height: 35px;
     font-size: 1rem;
   }
   
   .image-gallery-slide-wrapper {
-    height: 250px;
+    height: 60vh;
   }
   
   .image-gallery-thumbnail {

@@ -13,36 +13,46 @@ const Classes = () => {
         Personalized, hands-on instruction—right where you are in your beauty journey.
       </p>
       <section className="section-card">
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Class</th>
-              <th>Perfect For</th>
-              <th>Details</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>The Newbie</td>
-              <td>Beginners who want a natural, everyday look</td>
-              <td>3-hour session: consultation, full application with pro kit, step-by-step guidance, customized product list emailed afterward</td>
-              <td>$250</td>
-            </tr>
-            <tr>
-              <td>The Makeup Lover</td>
-              <td>Those who own plenty of products and want to level up</td>
-              <td>3-hour session: bring your makeup bag; we combine your products with ours, demo half your face, you complete the other, product list emailed</td>
-              <td>$275</td>
-            </tr>
-            <tr>
-              <td>Age-Appropriate Makeup<br/>(Teens or Mature Skin)</td>
-              <td>Anyone learning age-specific techniques or adapting to changing skin</td>
-              <td>3-hour session: skincare review, trend coaching, customized look, product list emailed</td>
-              <td>$275</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="classes-grid">
+          <div className="class-card">
+            <div className="class-header">
+              <h3 className="class-name">The Newbie</h3>
+              <div className="class-price">$250</div>
+            </div>
+            <div className="class-perfect-for">
+              <strong>Perfect For:</strong> Beginners who want a natural, everyday look
+            </div>
+            <div className="class-details">
+              <strong>Details:</strong> 3-hour session: consultation, full application with pro kit, step-by-step guidance, customized product list emailed afterward
+            </div>
+          </div>
+
+          <div className="class-card">
+            <div className="class-header">
+              <h3 className="class-name">The Makeup Lover</h3>
+              <div className="class-price">$275</div>
+            </div>
+            <div className="class-perfect-for">
+              <strong>Perfect For:</strong> Those who own plenty of products and want to level up
+            </div>
+            <div className="class-details">
+              <strong>Details:</strong> 3-hour session: bring your makeup bag; we combine your products with ours, demo half your face, you complete the other, product list emailed
+            </div>
+          </div>
+
+          <div className="class-card">
+            <div className="class-header">
+              <h3 className="class-name">Age-Appropriate Makeup<br/>(Teens or Mature Skin)</h3>
+              <div className="class-price">$275</div>
+            </div>
+            <div className="class-perfect-for">
+              <strong>Perfect For:</strong> Anyone learning age-specific techniques or adapting to changing skin
+            </div>
+            <div className="class-details">
+              <strong>Details:</strong> 3-hour session: skincare review, trend coaching, customized look, product list emailed
+            </div>
+          </div>
+        </div>
         <p className="muted-text" style={{textAlign: 'center', fontWeight: 500, marginTop: '1.5rem'}}>Hourly add-on: $75 / hour for extended practice or extra looks.</p>
       </section>
       <section className="section-card">
