@@ -17,10 +17,10 @@ const BridalGallery = () => {
         // Get all image files from the gallery-bridal folder
         const imageFiles = [
           '4A3A1221.jpg',
-          'amy-tyler-wild-native-photo-563.jpg',
           'amy-tyler-wild-native-photo-635.jpg',
-          'Screenshot_20241207-093221.png',
           'Screenshot_20241207-093319.png',
+          'Screenshot_20241207-093429.png',
+          'Screenshot_20241207-094049.png',
           'Screenshot_20250919_153341_Instagram.jpg',
           'Screenshot_20250919_153359_Instagram.jpg',
           'Screenshot_20250919_153416_Instagram.jpg'

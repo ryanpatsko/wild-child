@@ -68,9 +68,9 @@ const FAQ = () => {
         <div className="faq-item">
           <h3 className="feature-title-with-logo">
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
-            Do I have to book you for both hair AND makeup since you offer both?
+            Do you have to book us for both hair AND makeup since you offer both?
           </h3>
-          <p className="faq-answer">We don't! You are absolutely welcome to book us for either just hair or just makeup - but we welcome booking both and typically have a team ready to add onto your day - with availability! We do require you fall under one of the packages for makeup - but, with hair, you're able to add on services a la carte. Hair services vary in price depending on length and need to be booked separately from the makeup package.</p>
+          <p className="faq-answer">You don't! You are absolutely welcome to book us for either just hair or just makeup - but we welcome booking both and typically have a team ready to add onto your day - with availability! We do require you fall under one of the packages for makeup - but, with hair, you're able to add on services a la carte. Hair services vary in price depending on length and need to be booked separately from the makeup package.</p>
         </div>
 
         <div className="faq-item">
@@ -78,7 +78,7 @@ const FAQ = () => {
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
             Bridal party pricing - hidden fees?
           </h3>
-          <p className="faq-answer">There are no hidden fees in our pricing. You will see where every dollar is being spent in your outlined contract. Our packages show base pricing which includes only the services themselves - added on to your contract will be fees specifically pertaining to travel, parking, early start time fees for your day where applicable, and an automatic included 15% gratuity.</p>
+          <p className="faq-answer">There are no hidden fees in our pricing. You will see where every dollar is being spent in your outlined contract. Our packages show base pricing which includes only the services themselves - added on to your contract will be fees specifically pertaining to travel, parking, early start time fees for your day where applicable, and an automatic included 20% gratuity.</p>
         </div>
 
         <div className="faq-item">

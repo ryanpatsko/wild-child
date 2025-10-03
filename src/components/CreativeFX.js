@@ -1,6 +1,6 @@
 import React from 'react';
 import fx1 from '../assets/gallery-fx/fx-1.jpg';
-import fx2 from '../assets/gallery-fx/fx-2.jpg';
+import fx6 from '../assets/gallery-fx/fx-6.jpg';
 import fx3 from '../assets/gallery-fx/fx-3.jpg';
 import fx4 from '../assets/gallery-fx/fx-4.jpg';
 import fx5 from '../assets/gallery-fx/fx-5.jpg';
@@ -56,7 +56,7 @@ const CreativeFX = () => {
       {/* FX Images 2 & 3 */}
       <div className="fx-images-row">
         <div className="fx-image-container">
-          <img src={fx2} alt="Creative FX Work 2" className="fx-image" />
+          <img src={fx6} alt="Creative FX Work 6" className="fx-image" />
         </div>
         <div className="fx-image-container">
           <img src={fx3} alt="Creative FX Work 3" className="fx-image" />

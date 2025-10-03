@@ -16,13 +16,12 @@ const Gallery = () => {
       try {
         // Get all image files from the gallery-home folder
         const imageFiles = [
-          '122491403_10220592792223139_3374943557985010405_n.jpg',
-          'Screenshot_20241207-093429.png',
-          'Screenshot_20241207-093455.png',
-          'Screenshot_20241207-093846.png',
-          'Screenshot_20241207-093933.png',
-          'Screenshot_20241207-094049.png',
-          'Screenshot_20241207-094111.png'
+          'home-1.jpg',
+          'home-2.jpg',
+          'home-3.jpg',
+          'home-4.jpg',
+          'home-5.jpg',
+          'home-6.jpg'
         ];
 
         const imagePromises = imageFiles.map(async (filename) => {

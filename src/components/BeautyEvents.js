@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
+import pageBanner from '../assets/page-banner.jpg';
 
 const BeautyEvents = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={christalee146} alt="Christalee - Beauty Events" className="page-header-image" />
+        <img src={pageBanner} alt="Page Banner - Beauty Events" className="page-header-image" />
       </div>
       <h1 className="page-title">Beauty & Events</h1>
       <p className="intro-text">

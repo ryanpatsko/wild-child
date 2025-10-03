@@ -1,11 +1,11 @@
 import React from 'react';
-import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
+import pageBanner from '../assets/page-banner.jpg';
 
 const Media = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={christalee146} alt="Christalee - TV Film Print" className="page-header-image" />
+        <img src={pageBanner} alt="Page Banner - Media" className="page-header-image" />
       </div>
       <h1 className="page-title">Makeup & Hair for Advertising & Media</h1>
       <p className="intro-text">

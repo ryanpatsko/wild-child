@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
+import pageBanner from '../assets/page-banner.jpg';
 
 const Classes = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={christalee146} alt="Christalee - Classes" className="page-header-image" />
+        <img src={pageBanner} alt="Page Banner - Classes" className="page-header-image" />
       </div>
       <h1 className="page-title">Makeup Classes</h1>
       <p className="intro-text">

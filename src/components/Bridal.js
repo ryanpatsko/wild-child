@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import christalee146 from '../assets/christalee/2025-05-14-Christalee-146.jpg';
+import pageBanner from '../assets/page-banner.jpg';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import pricingBrochure from '../assets/2026-WCF-Hair-Makeup Packages.pdf';
 import bookingProcess from '../assets/2026-Booking-Process.pdf';
@@ -26,7 +26,7 @@ const Bridal = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={christalee146} alt="Christalee - Bridal" className="page-header-image" />
+        <img src={pageBanner} alt="Page Banner - Bridal" className="page-header-image" />
       </div>
       <h1 className="page-title">Bridal Services</h1>
       
