@@ -30,7 +30,7 @@ const BeautyEvents = () => {
       <section className="section-card">
         <h2 className="section-title section-title-beauty">Location & Travel</h2>
         <ul className="styled-list">
-          <li>Sessions take place at our studio (ZIP 15221) unless otherwise arranged.</li>
+          <li>Sessions take place at our Pittsburgh studio (ZIP 15221) unless otherwise arranged.</li>
           <li>On-location service is available when our schedule allows.</li>
           <li>Travel is billed at $0.70 / mile round-trip plus any parking fees.</li>
           <li>Please tell us your hair length and desired style when you book so we can schedule adequate time.</li>

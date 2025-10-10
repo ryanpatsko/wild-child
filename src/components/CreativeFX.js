@@ -8,13 +8,11 @@ import fx5 from '../assets/gallery-fx/fx-5.jpg';
 const CreativeFX = () => {
   return (
     <div className="page-container">
+      <div className="page-header">
+        <img src={fx1} alt="Page Banner - Creative & FX" className="page-header-image" />
+      </div>
       <h1 className="page-title">Creative & FX</h1>
       <p className="intro-text">With a strong background in special effects, I bring your vision to life through innovative solutions, years of hands-on experience, and a distinctive creative flair. Below is a list of services we offer—but our capabilities are not limited to these alone. If you have a unique idea that doesn't quite fit into these categories, I'd love to hear about it and explore how we can make it happen.</p>
-
-      {/* FX Image 1 */}
-      <div className="fx-image-container">
-        <img src={fx1} alt="Creative FX Work 1" className="fx-image" />
-      </div>
 
       <section className="section-card">
         <h2 className="section-title section-title-creative">Services We Offer</h2>

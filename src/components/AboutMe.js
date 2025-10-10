@@ -6,13 +6,13 @@ const AboutMe = () => {
   return (
     <div className="page-container">
       <h1 className="page-title">About the Artist & Company</h1>
-      <p className="intro-text">Hi, I'm Christalee! Your tiny, spunky, spooky, and silly face behind Wild Child Fabrications. A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:</p>
+      <p className="intro-text">Hi, I'm ChristaLee! Your tiny, spunky, spooky, and silly face behind Wild Child Fabrications. A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:</p>
       
       <div className="about-layout">
         <div className="about-image-container">
           <img 
             src={pinkHairspray} 
-            alt="Christalee Lema - Professional Hair and Makeup Artist" 
+            alt="ChristaLee Lema - Professional Hair and Makeup Artist" 
             className="about-image"
           />
         </div>

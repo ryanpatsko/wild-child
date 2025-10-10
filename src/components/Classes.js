@@ -62,7 +62,11 @@ const Classes = () => {
           <li><strong>Retainer:</strong> $150 non-refundable, applied to your balance. Retainers do not roll over to new dates.</li>
         </ul>
       </section>
-      <CTASection />
+      <CTASection 
+        title="Ready to learn something new?"
+        subtitle="Let's schedule your time with us"
+        buttonText="Contact us to schedule your class"
+      />
     </div>
   );
 };

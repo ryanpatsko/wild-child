@@ -56,8 +56,10 @@ function Navigation() {
       <div className="header-content">
         <div className="logo-section">
           <Link to="/" className="site-title-link" onClick={closeMobileMenu}>
-            <h1 className="site-title">Wild Child Fabrications</h1>
-            <img src={siteLogo} alt="Wild Child Fabrications - Lips Logo" className="site-logo" />
+            <h1 className="site-title">
+              Wild Child Fabrications
+              <img src={siteLogo} alt="Wild Child Fabrications - Lips Logo" className="site-logo" />
+            </h1>
           </Link>
         </div>
       </div>

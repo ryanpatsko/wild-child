@@ -46,7 +46,7 @@ const FAQ = () => {
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
             Where is my appointment located?
           </h3>
-          <p className="faq-answer">Unless otherwise discussed at booking, your appointment will take place at artist's in home studio space - zipcode 15221. Full location details will be released within 48 hours of your appointment in a detail confirmation email.</p>
+          <p className="faq-answer">Unless otherwise discussed at booking, your appointment will take place at artist's in home studio space - Pittsburgh zipcode 15221. Full location details will be released within 48 hours of your appointment in a detail confirmation email.</p>
         </div>
 
         <div className="faq-item">

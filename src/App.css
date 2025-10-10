@@ -119,10 +119,6 @@ body, .App {
 }
 
 .site-title-link {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
   text-decoration: none;
   color: inherit;
 }
@@ -146,11 +142,10 @@ body, .App {
 .site-logo {
   max-width: 52px;
   height: auto;
-  position: relative;
-  z-index: 2;
+  display: inline;
+  vertical-align: baseline;
+  margin-left: 0.1em;
   opacity: 0.8;
-  align-self: center;
-  transform: translateY(-14px);
 }
 
 .site-title {
@@ -163,8 +158,6 @@ body, .App {
   line-height: 1.1;
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
 }
 
 
@@ -291,7 +284,7 @@ body, .App {
 .mobile-nav-item.block-nav-item-6 { background: linear-gradient(135deg, var(--theme-color-6) 0%, var(--theme-color-7) 100%); }
 .mobile-nav-item.block-nav-item-7 { background: linear-gradient(135deg, var(--theme-color-7) 0%, var(--theme-color-8) 100%); }
 .mobile-nav-item.block-nav-item-8 { background: linear-gradient(135deg, var(--theme-color-8) 0%, var(--theme-color-9) 100%); }
-.mobile-nav-item.block-nav-item-9 { background: linear-gradient(135deg, var(--theme-color-9) 0%, var(--theme-color-1) 100%); }
+.mobile-nav-item.block-nav-item-9 { background: linear-gradient(135deg, var(--theme-color-9) 0%, var(--theme-color-8) 100%); }
 
 /* =================================
    BLOCK NAVIGATION STYLE
@@ -695,14 +688,16 @@ body, .App {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* FX images in rows get 300px max-width */
+/* FX images in rows get responsive max-width */
 .fx-images-row .fx-image {
-  max-width: 300px;
+  max-width: 100%;
+  width: 100%;
 }
 
-/* Single FX image (fx-1) gets 600px max-width */
-.fx-image-container:not(.fx-images-row .fx-image-container) .fx-image {
-  max-width: 600px;
+/* Single FX image (fx-1) gets responsive max-width */
+.fx-image-container:not(.fx-images-row) .fx-image {
+  max-width: 100%;
+  width: 100%;
 }
 
 .fx-images-row {
@@ -734,6 +729,12 @@ body, .App {
   
   .fx-image-container {
     margin: 1.5rem 0;
+  }
+  
+  .fx-image {
+    max-width: 100% !important;
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -1884,7 +1885,7 @@ body, .App {
   /* Background image removed - no responsive adjustments needed */
   
   .site-logo {
-    max-width: 32px;
+    max-width: 40px;
   }
   
   .logo-section {
