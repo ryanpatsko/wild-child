@@ -1,5 +1,5 @@
 import React from 'react';
-import pageBanner from '../assets/page-banner.jpg';
+import pageBanner from '../assets/page-headers/curling-iron.png';
 
 const Media = () => {
   return (

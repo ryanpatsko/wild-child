@@ -23,7 +23,8 @@ const BridalGallery = () => {
           'Screenshot_20241207-094049.png',
           'Screenshot_20250919_153341_Instagram.jpg',
           'Screenshot_20250919_153359_Instagram.jpg',
-          'Screenshot_20250919_153416_Instagram.jpg'
+          'Screenshot_20250919_153416_Instagram.jpg',
+          'Screenshot_20250919_153657_Instagram.jpg'
         ];
 
         const imagePromises = imageFiles.map(async (filename) => {

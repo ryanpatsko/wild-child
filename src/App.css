@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Oswald:wght@300;400;500&family=Allura:wght@400&family=Great+Vibes&family=Alex+Brush&family=Parisienne&family=Petit+Formal+Script&family=Amatic+SC:wght@400;700&family=Caveat:wght@400;500;600;700&family=Radley:ital,wght@0,400;1,400&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=The+Nautigal:wght@400;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Oswald:wght@300;400;500&family=Allura:wght@400&family=Great+Vibes&family=Alex+Brush&family=Parisienne&family=Petit+Formal+Script&family=Amatic+SC:wght@400;700&family=Caveat:wght@400;500;600;700&family=Radley:ital,wght@0,400;1,400&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=The+Nautigal:wght@400;700&family=Amarante&family=Viaoda+Libre&family=Castoro+Titling&family=Meddon&family=Windsong&display=swap');
 
 /* =================================
    GLOBAL VARIABLES & RESET
@@ -60,31 +60,18 @@ body, .App {
 .main-content {
   position: relative;
   background: 
-    linear-gradient(45deg, #FFF0EE 0%, #FFE8E5 25%, #FFF0EE 25%, #FFF0EE 50%, #FFE8E5 50%, #FFE8E5 75%, #FFF0EE 75%, #FFF0EE 100%),
-    linear-gradient(-45deg, #FFE8E5 0%, #FFE8E5 25%, #FFF0EE 25%, #FFF0EE 50%, #FFE8E5 50%, #FFE8E5 75%, #FFF0EE 75%, #FFF0EE 100%),
-    linear-gradient(30deg, #FFE8E5 0%, #FFE8E5 33%, #FFF0EE 33%, #FFF0EE 66%, #FFE8E5 66%, #FFE8E5 100%),
-    linear-gradient(-30deg, #FFF0EE 0%, #FFF0EE 33%, #FFE8E5 33%, #FFE8E5 66%, #FFF0EE 66%, #FFF0EE 100%) !important;
-  background-size: 100px 100px, 120px 120px, 80px 80px, 90px 90px !important;
-  animation: waveTexture 15s ease-in-out infinite !important;
+    radial-gradient(ellipse 200px 80px at 20% 30%, rgba(139, 115, 85, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 150px 100px at 80% 70%, rgba(139, 115, 85, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 180px 60px at 50% 20%, rgba(139, 115, 85, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 120px 90px at 30% 80%, rgba(139, 115, 85, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 160px 70px at 70% 40%, rgba(139, 115, 85, 0.06) 0%, transparent 70%),
+    #F5E6D3;
+  background-size: 300px 300px;
   min-height: 100vh;
   padding: 0.5rem 0 0 0;
   overflow: hidden;
 }
 
-@keyframes waveTexture {
-  0%, 100% {
-    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-  }
-  25% {
-    background-position: 25px 25px, -25px 25px, 20px 20px, -20px 20px;
-  }
-  50% {
-    background-position: 50px 0px, -50px 0px, 40px 0px, -40px 0px;
-  }
-  75% {
-    background-position: 25px -25px, -25px -25px, 20px -20px, -20px -20px;
-  }
-}
 
 .content-container {
   position: relative;
@@ -95,7 +82,6 @@ body, .App {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.85);
   border-radius: 0;
-  border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 /* =================================
@@ -139,7 +125,6 @@ body, .App {
   gap: 0.5rem;
   text-decoration: none;
   color: inherit;
-  margin-top: -0.5rem;
 }
 
 
@@ -159,24 +144,27 @@ body, .App {
 } */
 
 .site-logo {
-  max-width: 65px;
+  max-width: 52px;
   height: auto;
   position: relative;
   z-index: 2;
   opacity: 0.8;
   align-self: center;
+  transform: translateY(-14px);
 }
 
 .site-title {
-  font-family: 'The Nautigal', cursive;
-  font-size: 5.5rem;
+  font-family: 'Castoro Titling', serif;
+  font-size: 3.8rem;
   font-weight: 400;
   color: #000000;
   margin: 0;
   letter-spacing: 0.1em;
-  line-height: 1.0;
+  line-height: 1.1;
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -582,7 +570,7 @@ body, .App {
 
 .reviews-title {
   font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -921,7 +909,7 @@ body, .App {
 
 .gallery-title {
   font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -966,9 +954,9 @@ body, .App {
    ================================= */
 .page-title {
   font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  margin: 2rem 0 0.5rem 0;
   font-weight: 400;
   letter-spacing: 0.05em;
   text-align: center;
@@ -1045,9 +1033,8 @@ body, .App {
   text-align: center;
   background: var(--card-background);
   border-radius: 0;
-  padding: 2rem 2rem 3rem 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 0 2rem 3rem 2rem;
+  border: 1px solid #B8A082;
 }
 
 .section-card {
@@ -1146,12 +1133,7 @@ body, .App {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.class-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  text-align: left;
 }
 
 .class-header {
@@ -1250,9 +1232,13 @@ body, .App {
 
 .footer-right {
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.footer-instagram-link {
+.footer-instagram-link,
+.footer-venmo-link {
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -1262,12 +1248,14 @@ body, .App {
   gap: 0.5rem;
 }
 
-.footer-instagram-link:hover {
+.footer-instagram-link:hover,
+.footer-venmo-link:hover {
   opacity: 0.8;
   text-decoration: underline;
 }
 
-.footer-instagram-icon {
+.footer-instagram-icon,
+.footer-venmo-icon {
   width: 16px;
   height: 16px;
   fill: currentColor;
@@ -1315,12 +1303,11 @@ body, .App {
    PAGE HEADERS
    ================================= */
 .page-header {
-  width: 100%;
-  margin: -3rem 0 2rem 0;
-  padding-top: 2rem;
+  width: calc(100% + 4rem);
+  margin: 0 -2rem 2rem -2rem;
+  padding: 0;
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .page-header-image {
@@ -1692,7 +1679,7 @@ body, .App {
   /* Background image removed - no responsive adjustments needed */
   
   .site-logo {
-    max-width: 55px;
+    max-width: 50px;
   }
   
   .logo-section {
@@ -1701,8 +1688,8 @@ body, .App {
   }
   
   .site-title { 
-    font-size: 4.2rem; 
-    font-family: 'The Nautigal', cursive;
+    font-size: 3.2rem; 
+    font-family: 'Castoro Titling', serif;
     color: #000000;
   }
   
@@ -1776,6 +1763,7 @@ body, .App {
     font-family: 'Red Hat Display', Arial, Helvetica, sans-serif;
     font-weight: 400;
     text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem 0;
   }
   
   .section-title {
@@ -1786,7 +1774,7 @@ body, .App {
   }
   
   .tagline {
-    font-size: 1.8rem;
+    font-size: 2.0rem;
   }
   
   .intro-text {
@@ -1805,13 +1793,13 @@ body, .App {
   }
   
   .page-container {
-    padding: 2rem 1rem;
+    padding: 0 1rem 2rem 1rem;
   }
   
   .page-header {
-    width: 100%;
-    margin: -2rem 0 1.5rem 0;
-    padding-top: 1.5rem;
+    width: calc(100% + 2rem);
+    margin: 0 -1rem 1.5rem -1rem;
+    padding: 0;
   }
   
   .page-header-image {
@@ -1896,7 +1884,7 @@ body, .App {
   /* Background image removed - no responsive adjustments needed */
   
   .site-logo {
-    max-width: 35px;
+    max-width: 32px;
   }
   
   .logo-section {
@@ -1906,8 +1894,8 @@ body, .App {
   }
   
   .site-title { 
-    font-size: 3.5rem; 
-    font-family: 'The Nautigal', cursive;
+    font-size: 2.6rem; 
+    font-family: 'Castoro Titling', serif;
     color: #000000;
   }
   
@@ -1938,22 +1926,201 @@ body, .App {
   }
   
   .site-title { 
-    font-size: 2.8rem; 
-    font-family: 'The Nautigal', cursive;
+    font-size: 2.0rem; 
+    font-family: 'Castoro Titling', serif;
     color: #000000;
   }
   
   .page-container {
-    padding: 1.5rem 1rem;
+    padding: 0 1rem 1.5rem 1rem;
   }
   
   .page-header {
-    width: 100%;
-    margin: -1.5rem 0 1rem 0;
-    padding-top: 1rem;
+    width: calc(100% + 2rem);
+    margin: 0 -1rem 1rem -1rem;
+    padding: 0;
   }
   
   .page-header-image {
     height: 120px;
+  }
+}
+
+/* =================================
+   CTA SECTION STYLES
+   ================================= */
+.cta-section {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #FF1C89 100%);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(208, 74, 124, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: ctaShimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ctaShimmer {
+  0%, 100% {
+    transform: translateX(-100%) translateY(-100%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(0%) translateY(0%) rotate(180deg);
+  }
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-title {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cta-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  margin: 0 0 1.5rem 0;
+  font-weight: 400;
+}
+
+.cta-button {
+  display: inline-block;
+  background: white;
+  color: var(--accent-color);
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: 2px solid white;
+}
+
+.cta-button:hover {
+  background: transparent;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 1.5rem 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .cta-title {
+    font-size: 1.5rem;
+  }
+  
+  .cta-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .cta-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* =================================
+   FONT TEST PAGE STYLES
+   ================================= */
+.font-test-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.font-test-item {
+  margin-bottom: 4rem;
+}
+
+.font-test-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.font-test-example {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.font-test-logo {
+  max-width: 65px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.font-test-text {
+  font-size: 3.8rem;
+  font-weight: 400;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+}
+
+/* Font-specific styles */
+.current-font .font-test-text {
+  font-family: 'Castoro Titling', serif;
+}
+
+.viaoda-libre-font .font-test-text {
+  font-family: 'Viaoda Libre', cursive;
+}
+
+.castoro-titling-font .font-test-text {
+  font-family: 'Castoro Titling', serif;
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .font-test-text {
+    font-size: 3.2rem;
+  }
+  
+  .font-test-logo {
+    max-width: 55px;
+  }
+}
+
+@media (max-width: 600px) {
+  .font-test-text {
+    font-size: 2.6rem;
+  }
+  
+  .font-test-logo {
+    max-width: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .font-test-text {
+    font-size: 2.0rem;
   }
 }

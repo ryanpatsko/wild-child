@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import pageBanner from '../assets/page-banner.jpg';
+import pageBanner from '../assets/page-headers/tan-swabs-pink-bg.png';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
-import pricingBrochure from '../assets/2026-WCF-Hair-Makeup Packages.pdf';
-import bookingProcess from '../assets/2026-Booking-Process.pdf';
-import trialQA from '../assets/Trial-Q-A-2026.pdf';
 import BridalGallery from './BridalGallery';
+import CTASection from './CTASection';
 
 const Bridal = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,7 +36,7 @@ const Bridal = () => {
           </p>
           <div className="pdf-buttons">
             <a 
-              href={pricingBrochure} 
+              href="/2026-WCF-Hair-Makeup Packages.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
@@ -50,7 +48,7 @@ const Bridal = () => {
               </svg>
             </a>
             <a 
-              href={bookingProcess} 
+              href="/2026-Booking-Process.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
@@ -62,7 +60,7 @@ const Bridal = () => {
               </svg>
             </a>
             <a 
-              href={trialQA} 
+              href="/Trial-Q-A-2026.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
@@ -238,6 +236,9 @@ const Bridal = () => {
         <h2 className="section-title section-title-bridal">Bridal Gallery</h2>
         <BridalGallery />
       </div>
+
+      {/* Contact CTA Section */}
+      <CTASection />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pageBanner from '../assets/page-banner.jpg';
+import pageBanner from '../assets/page-headers/makeup-brush.png';
+import CTASection from './CTASection';
 
 const BeautyEvents = () => {
   return (
@@ -62,9 +63,7 @@ const BeautyEvents = () => {
         </ul>
       </section>
 
-      <div className="cta-section">
-        <p className="body-text">Ready to look—and feel—your best? <strong><Link to="/contact" style={{color: 'inherit', textDecoration: 'none'}}>Contact us to reserve your date.</Link></strong></p>
-      </div>
+      <CTASection />
     </div>
   );
 };

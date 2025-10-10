@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import siteLogo from './assets/wcf-lips-logo.png';
@@ -13,6 +13,18 @@ import BeautyEvents from './components/BeautyEvents';
 import Classes from './components/Classes';
 import CreativeFX from './components/CreativeFX';
 import FAQ from './components/FAQ';
+import FontTest from './components/FontTest';
+
+// Scroll to top component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 // Navigation component
 function Navigation() {
@@ -108,6 +120,7 @@ function AppContent() {
             <Route path="/classes" element={<Classes />} />
             <Route path="/creative-fx" element={<CreativeFX />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/font-test" element={<FontTest />} />
           </Routes>
         </div>
       </main>
@@ -129,6 +142,17 @@ function AppContent() {
               </svg>
               Instagram
             </a>
+            <a 
+              href="https://account.venmo.com/u/ChristaleeHMUA" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-venmo-link"
+            >
+              <svg className="footer-venmo-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+              </svg>
+              Venmo
+            </a>
           </div>
         </div>
       </footer>
@@ -140,6 +164,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <AppContent />
     </Router>
   );
