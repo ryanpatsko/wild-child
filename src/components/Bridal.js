@@ -36,7 +36,7 @@ const Bridal = () => {
           </p>
           <div className="pdf-buttons">
             <a 
-              href="./2026-WCF-Hair-Makeup-Packages.pdf" 
+              href="/2026-WCF-Hair-Makeup-Packages.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
@@ -48,7 +48,7 @@ const Bridal = () => {
               </svg>
             </a>
             <a 
-              href="./2026-Booking-Process.pdf" 
+              href="/2026-Booking-Process.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
@@ -60,7 +60,7 @@ const Bridal = () => {
               </svg>
             </a>
             <a 
-              href="./Trial-Q-A-2026.pdf" 
+              href="/Trial-Q-A-2026.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="brochure-button"
