@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pageBanner from '../assets/page-headers/darker-swabs.png';
+import pageBanner from '../assets/page-headers/misc-makeup.png';
 import CTASection from './CTASection';
 
 const Classes = () => {
