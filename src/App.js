@@ -13,7 +13,7 @@ import BeautyEvents from './components/BeautyEvents';
 import Classes from './components/Classes';
 import CreativeFX from './components/CreativeFX';
 import FAQ from './components/FAQ';
-import FontTest from './components/FontTest';
+// import FontTest from './components/FontTest';
 
 // Scroll to top component
 function ScrollToTop() {
@@ -122,7 +122,7 @@ function AppContent() {
             <Route path="/classes" element={<Classes />} />
             <Route path="/creative-fx" element={<CreativeFX />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/font-test" element={<FontTest />} />
+            {/* <Route path="/font-test" element={<FontTest />} /> */}
           </Routes>
         </div>
       </main>
