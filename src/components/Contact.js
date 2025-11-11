@@ -71,9 +71,9 @@ const Contact = () => {
 
     try {
       // EmailJS configuration
-      const serviceId = 'service_kigtm6a';
-      const templateId = 'template_8jri10m';
-      const publicKey = 'xifNOmqZT57bf9Y0I';
+      const serviceId = 'service_f6qb15f';
+      const templateId = 'template_6q48dyb';
+      const publicKey = '-tASGUanoru3Lf-FF';
 
       // Prepare template parameters
       const templateParams = {
