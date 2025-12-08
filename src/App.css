@@ -95,6 +95,12 @@ body, .App {
   overflow: visible;
 }
 
+/* Ensure sticky positioning works for nav bar */
+.main-header .block-nav {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -294,10 +300,33 @@ body, .App {
   flex-wrap: nowrap;
   width: 100%;
   position: relative;
+  z-index: 999;
   margin-bottom: 0;
   background: linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-9) 100%);
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.block-nav.sticky-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  animation: fadeInSlideDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeInSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .block-nav-item {

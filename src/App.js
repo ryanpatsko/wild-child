@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import siteLogo from './assets/wcf-lips-logo.png';
@@ -30,6 +30,9 @@ function ScrollToTop() {
 function Navigation() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNavSticky, setIsNavSticky] = useState(false);
+  const headerRef = useRef(null);
+  const navRef = useRef(null);
   
   const navItems = [
     { name: 'HOME', path: '/' },
@@ -43,6 +46,20 @@ function Navigation() {
     { name: 'FAQ', path: '/faq' }
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current && navRef.current) {
+        const headerBottom = headerRef.current.getBoundingClientRect().bottom;
+        setIsNavSticky(headerBottom <= 0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -52,7 +69,7 @@ function Navigation() {
   };
 
   return (
-    <header className="main-header">
+    <header className="main-header" ref={headerRef}>
       <div className="header-content">
         <div className="logo-section">
           <Link to="/" className="site-title-link" onClick={closeMobileMenu}>
@@ -76,7 +93,7 @@ function Navigation() {
       </button>
       
       {/* Desktop navigation */}
-      <nav className="block-nav desktop-nav">
+      <nav className={`block-nav desktop-nav ${isNavSticky ? 'sticky-active' : ''}`} ref={navRef}>
         {navItems.map((item, index) => (
           <Link
             key={item.name}
