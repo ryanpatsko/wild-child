@@ -71,6 +71,10 @@ const Media = () => {
             <h3 className="accent-text">High-Profile Politicians</h3>
             <p className="body-text">Details available upon request</p>
           </div>
+          <div className="content-card">
+            <h3 className="accent-text">Actors / Musicians</h3>
+            <p className="body-text">Eugene Hutz (Gogol Bordello), Liev Schreiber, Jeff Kraus & Broken Down Gramophone</p>
+          </div>
         </div>
       </section>
 
