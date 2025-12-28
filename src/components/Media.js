@@ -65,7 +65,7 @@ const Media = () => {
           </div>
           <div className="content-card">
             <h3 className="accent-text">TV Personalities</h3>
-            <p className="body-text">Chef Palak Patel (Food Network Chopped), Jenn Brown (Broadcaster)</p>
+            <p className="body-text">Chef Palak Patel (Food Network Chopped)</p>
           </div>
           <div className="content-card">
             <h3 className="accent-text">High-Profile Politicians</h3>
@@ -81,7 +81,7 @@ const Media = () => {
       <section className="section-card">
         <h2 className="section-title section-title-media">Selected TV • Film • Print Work</h2>
         <div className="content-card">
-          <p className="body-text">Disney Channel • FOX News & Sports • TLC Return to Amish • Paramount Mayor of Kingstown (S2) • WGN Outsiders • Lifetime Dance Moms • Nike • Facebook • Spotify • U.S. Steel • Westinghouse Nuclear • Burberry • Sheetz • Pittsburgh Penguins Foundation • University of Pittsburgh • Carnegie Mellon University & FBI collaboration • UPMC Health Plan • Aetna • Yelp! • PNC • Edgar Snyder & Associates — and many more.</p>
+          <p className="body-text">Disney Channel • FOX News & Sports • TLC Return to Amish • Paramount Mayor of Kingstown (S2) • WGN Outsiders • Lifetime Dance Moms • How to Rob a Bank (2026) • Nike • Facebook • Spotify • U.S. Steel • Westinghouse Nuclear • Burberry • Sheetz • Pittsburgh Penguins Foundation • University of Pittsburgh • Carnegie Mellon University & FBI collaboration • UPMC Health Plan • Aetna • Yelp! • PNC • Edgar Snyder & Associates — and many more.</p>
         </div>
         <p className="muted-text">Full client list available upon request.</p>
       </section>
