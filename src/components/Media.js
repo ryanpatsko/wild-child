@@ -65,7 +65,7 @@ const Media = () => {
           </div>
           <div className="content-card">
             <h3 className="accent-text">TV Personalities</h3>
-            <p className="body-text">Chef Palak Patel (Food Network Chopped)</p>
+            <p className="body-text">Chef Palak Patel (Food Network Chopped), Jenn Brown (Broadcaster)</p>
           </div>
           <div className="content-card">
             <h3 className="accent-text">High-Profile Politicians</h3>
@@ -73,7 +73,7 @@ const Media = () => {
           </div>
           <div className="content-card">
             <h3 className="accent-text">Actors / Musicians</h3>
-            <p className="body-text">Eugene Hutz (Gogol Bordello), Liev Schreiber, Jeff Kraus & Broken Down Gramophone</p>
+            <p className="body-text">Eugene Hutz (Gogo Bordello), Liev Schreiber, Jeff Kraus & Broken Down Gramophone, Miraj Grbic, Gabrielle Stone</p>
           </div>
         </div>
       </section>
