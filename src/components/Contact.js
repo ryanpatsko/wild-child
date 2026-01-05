@@ -224,7 +224,6 @@ const Contact = () => {
                 required
               >
                 <option value="">Select Year</option>
-                <option value="2025">2025</option>
                 <option value="2026">2026</option>
               </select>
             </div>
@@ -295,6 +294,7 @@ const Contact = () => {
                 <option value="dc-virginia">D.C / Virginia</option>
                 <option value="ohio">Ohio</option>
                 <option value="west-virginia">West Virginia</option>
+                <option value="atlanta">Atlanta</option>
                 <option value="other">Other</option>
               </select>
             </div>
