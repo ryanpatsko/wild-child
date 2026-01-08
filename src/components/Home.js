@@ -10,6 +10,7 @@ const Home = () => {
           Luxury beauty services with a wild, creative twist. 
           From bridal elegance to avant-garde artistry.
         </p>
+        <p style={{ fontStyle: 'italic', textAlign: 'center', fontSize: '1.2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>Operating in Pittsburgh + Atlanta</p>
       </div>
       <Gallery />
     </div>

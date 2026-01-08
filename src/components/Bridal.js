@@ -31,9 +31,32 @@ const Bridal = () => {
       {/* PDF Downloads Section */}
       <div className="brochure-section">
         <div className="brochure-content">
-          <p className="intro-text">
+          <p className="intro-text" style={{ marginBottom: '1rem' }}>
             Download our 2026 resources to view pricing, booking process, and trial information
           </p>
+          <div style={{
+            backgroundColor: '#fff3cd',
+            border: '2px solid #ffc107',
+            borderRadius: '8px',
+            padding: '1.5rem',
+            margin: '0 0 1.5rem 0',
+            textAlign: 'center',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80px'
+          }}>
+            <div style={{
+              fontSize: '1.1rem',
+              fontWeight: '600',
+              color: '#856404',
+              lineHeight: '1.6'
+            }}>
+              <div style={{ marginBottom: '0.5rem' }}>Pittsburgh - now accepting bookings through 7/20/2026</div>
+              <div>Atlanta - now accepting bookings for August 2026 and beyond</div>
+            </div>
+          </div>
           <div className="pdf-buttons">
             <a 
               href="/2026-WCF-Hair-Makeup-Packages.pdf" 
