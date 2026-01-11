@@ -4,11 +4,77 @@ import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import BridalGallery from './BridalGallery';
 import CTASection from './CTASection';
 
-const Bridal = () => {
+const BridalAtlanta = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpanded2, setIsExpanded2] = useState(false);
   const [isExpanded3, setIsExpanded3] = useState(false);
   const badgeRef = useRef(null);
+
+  // Set location-specific meta tags
+  useEffect(() => {
+    // Update title
+    document.title = "Bridal Hair & Makeup in Atlanta, GA | Wild Child Fabrications";
+    
+    // Update or create meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', 'Professional bridal hair and makeup services in Atlanta, GA. Wild Child Fabrications offers luxury beauty services for your wedding day. Book your bridal trial today!');
+    
+    // Update geo tags
+    let geoRegion = document.querySelector('meta[name="geo.region"]');
+    if (!geoRegion) {
+      geoRegion = document.createElement('meta');
+      geoRegion.setAttribute('name', 'geo.region');
+      document.head.appendChild(geoRegion);
+    }
+    geoRegion.setAttribute('content', 'US-GA');
+    
+    let geoPlacename = document.querySelector('meta[name="geo.placename"]');
+    if (!geoPlacename) {
+      geoPlacename = document.createElement('meta');
+      geoPlacename.setAttribute('name', 'geo.placename');
+      document.head.appendChild(geoPlacename);
+    }
+    geoPlacename.setAttribute('content', 'Atlanta');
+    
+    let geoPosition = document.querySelector('meta[name="geo.position"]');
+    if (!geoPosition) {
+      geoPosition = document.createElement('meta');
+      geoPosition.setAttribute('name', 'geo.position');
+      document.head.appendChild(geoPosition);
+    }
+    geoPosition.setAttribute('content', '33.7490;-84.3880');
+    
+    // Update Open Graph tags
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+      ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      document.head.appendChild(ogTitle);
+    }
+    ogTitle.setAttribute('content', 'Bridal Hair & Makeup in Atlanta, GA | Wild Child Fabrications');
+    
+    let ogDescription = document.querySelector('meta[property="og:description"]');
+    if (!ogDescription) {
+      ogDescription = document.createElement('meta');
+      ogDescription.setAttribute('property', 'og:description');
+      document.head.appendChild(ogDescription);
+    }
+    ogDescription.setAttribute('content', 'Professional bridal hair and makeup services in Atlanta, GA. Book your wedding beauty services today!');
+    
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://wildchildfabrications.com/bridal-atlanta');
+  }, []);
 
   useEffect(() => {
     // Check if script already exists
@@ -513,4 +579,5 @@ const Bridal = () => {
   );
 };
 
-export default Bridal;
+export default BridalAtlanta;
+
