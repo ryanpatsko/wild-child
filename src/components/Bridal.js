@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import pageBanner from '../assets/page-headers/tan-swabs-pink-bg.png';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import BridalGallery from './BridalGallery';
@@ -8,6 +8,53 @@ const Bridal = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpanded2, setIsExpanded2] = useState(false);
   const [isExpanded3, setIsExpanded3] = useState(false);
+  const badgeRef = useRef(null);
+
+  useEffect(() => {
+    // Check if script already exists
+    let script = document.querySelector('script[src*="wp-rated.js"]');
+    
+    if (!script) {
+      // Load WeddingWire rated script
+      script = document.createElement('script');
+      script.src = 'https://cdn1.weddingwire.com/_js/wp-rated.js?v=4';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    
+    // Function to initialize the badge
+    const initBadge = () => {
+      if (badgeRef.current && window.wpShowRatedWW) {
+        window.wpShowRatedWW('986013');
+      }
+      // Initialize award badges
+      if (window.wpShowRatedWAv3) {
+        window.wpShowRatedWAv3('986013', '2018');
+        window.wpShowRatedWAv3('986013', '2019');
+        window.wpShowRatedWAv3('986013', '2020');
+        window.wpShowRatedWAv3('986013', '2021');
+        window.wpShowRatedWAv3('986013', '2022');
+        window.wpShowRatedWAv3('986013', '2023');
+        window.wpShowRatedWAv3('986013', '2024');
+      }
+    };
+
+    // Call the function after script loads or if already loaded
+    if (window.wpShowRatedWW && window.wpShowRatedWAv3) {
+      initBadge();
+    } else {
+      script.onload = () => {
+        setTimeout(initBadge, 200);
+      };
+    }
+
+    // Also try after a delay to ensure DOM is ready
+    const timeoutId = setTimeout(initBadge, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -102,6 +149,161 @@ const Bridal = () => {
       <div className="reviews-section">
         <h2 className="section-title section-title-bridal">What Our Brides Say</h2>
         
+        {/* WeddingWire Awards Banner */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '2rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          width: '100%'
+        }}>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="Wild Child Fabrications, WeddingWire Couples' Choice Award Winner 2018"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications, WeddingWire Couples' Choice Award Winner 2018" 
+                id="wp-ratedWA-img-2018" 
+                src="https://cdn1.weddingwire.com/img/badges/2018/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2019"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2019" 
+                src="https://cdn1.weddingwire.com/img/badges/2019/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2020"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2020" 
+                src="https://cdn1.weddingwire.com/img/badges/2020/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2021"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2021" 
+                src="https://cdn1.weddingwire.com/img/badges/2021/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2022"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2022" 
+                src="https://cdn1.weddingwire.com/img/badges/2022/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2023"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2023" 
+                src="https://cdn1.weddingwire.com/img/badges/2023/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow" 
+              title="WeddingWire Couples' Choice Award Winner 2024"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2024" 
+                src="https://cdn1.weddingwire.com/img/badges/2024/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+        </div>
+        
+        {/* WeddingWire 100 Reviews Badge */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '2rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          minHeight: '100px'
+        }}>
+          <a 
+            ref={badgeRef}
+            target="_blank" 
+            id="wp-rated-img" 
+            rel="nofollow" 
+            href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+            title="Reviewed on WeddingWire"
+            style={{ display: 'inline-block' }}
+          >
+            <span id="wp-rated-reviews"></span>
+          </a>
+        </div>
+
         {/* Wedding Wire Rating */}
         <div className="wedding-wire-section">
           <a 
