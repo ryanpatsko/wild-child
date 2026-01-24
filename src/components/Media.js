@@ -37,7 +37,7 @@ const Media = () => {
 
       <section className="section-card">
         <h2 className="section-title section-title-media">Rates</h2>
-        <p className="muted-text">All rates include kit rental. Travel outside the Pittsburgh area may incur additional fees.</p>
+        <p className="muted-text">All rates include kit rental. Travel fees may apply.</p>
         <div className="grid-rates">
           <div className="content-card">
             <h3>Full day</h3>

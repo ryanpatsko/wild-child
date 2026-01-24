@@ -100,8 +100,7 @@ const Bridal = () => {
               color: '#856404',
               lineHeight: '1.6'
             }}>
-              <div style={{ marginBottom: '0.5rem' }}>Pittsburgh - now accepting bookings through 7/20/2026</div>
-              <div>Atlanta - now accepting bookings for August 2026 and beyond</div>
+              Proudly serving the following regions: Pittsburgh, D.C., West Virginia, and Atlanta
             </div>
           </div>
           <div className="pdf-buttons">
@@ -164,7 +163,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="Wild Child Fabrications, WeddingWire Couples' Choice Award Winner 2018"
             >
               <img 
@@ -181,7 +180,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2019"
             >
               <img 
@@ -198,7 +197,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2020"
             >
               <img 
@@ -215,7 +214,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2021"
             >
               <img 
@@ -232,7 +231,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2022"
             >
               <img 
@@ -249,7 +248,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2023"
             >
               <img 
@@ -266,7 +265,7 @@ const Bridal = () => {
             <a 
               target="_blank" 
               href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
-              rel="nofollow" 
+              rel="nofollow noopener noreferrer" 
               title="WeddingWire Couples' Choice Award Winner 2024"
             >
               <img 
@@ -295,7 +294,7 @@ const Bridal = () => {
             ref={badgeRef}
             target="_blank" 
             id="wp-rated-img" 
-            rel="nofollow" 
+            rel="nofollow noopener noreferrer" 
             href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
             title="Reviewed on WeddingWire"
             style={{ display: 'inline-block' }}
@@ -344,6 +343,7 @@ const Bridal = () => {
         }}>
           <a 
             target="_blank" 
+            rel="noopener noreferrer"
             href="https://www.theknot.com/marketplace/redirect-1015003?utm_source=vendor_website&utm_medium=banner&utm_term=1807ee0f-02b7-488f-bcdd-a6ce00dbff78&utm_campaign=vendor_badge_assets"
             style={{
               display: 'inline-flex',

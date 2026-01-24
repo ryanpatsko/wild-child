@@ -6,7 +6,8 @@ const AboutMe = () => {
   return (
     <div className="page-container">
       <h1 className="page-title">About the Artist & Company</h1>
-      <p className="intro-text">Hi, I'm ChristaLee! Your tiny, spunky, spooky, and silly face behind Wild Child Fabrications. A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:</p>
+      <p className="intro-text">Hi, I'm ChristaLee! Your spunky and silly owner and lead artist of Wild Child Fabrications. Known for refined artistry with an edge, we offer elevated hair & makeup experiences.</p>
+      <p className="intro-text" style={{ marginTop: '1rem' }}>A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:</p>
       
       <div className="about-layout">
         <div className="about-image-container">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import pageBanner from '../assets/page-headers/misc-makeup.png';
 import CTASection from './CTASection';
 
@@ -88,7 +87,8 @@ const Classes = () => {
       <section className="section-card">
         <h2 className="section-title section-title-classes">Class Logistics</h2>
         <ul className="styled-list">
-          <li>Classes are held at our studio (ZIP 15221).</li>
+          <li>Classes are held at the artist's studio</li>
+          <li>Color palette parties are held at client's location</li>
           <li>Travel may be arranged; standard travel fees apply.</li>
           <li><strong>Retainer:</strong> A 50% retainer is required to book all sessions. Retainers do not roll over to new dates.</li>
         </ul>

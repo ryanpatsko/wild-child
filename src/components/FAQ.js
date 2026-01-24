@@ -30,7 +30,7 @@ const FAQ = () => {
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
             How is my contract sent?
           </h3>
-          <p className="faq-answer">We send all of our contracts via email! The easiest way to get them back to us is to copy and paste it into a new email or word document, fill in as needed, and then send it back when you're ready! We're happy to clarify anything on the contract before it gets returned.</p>
+          <p className="faq-answer">We send all of our contracts via email in a shared Word document. We're happy to clarify anything on the contract before it gets completed.</p>
         </div>
 
         <div className="faq-item">
@@ -46,7 +46,7 @@ const FAQ = () => {
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
             Where is my appointment located?
           </h3>
-          <p className="faq-answer">Unless otherwise discussed at booking, your appointment will take place at artist's in home studio space - Pittsburgh zipcode 15221. Full location details will be released within 48 hours of your appointment in a detail confirmation email.</p>
+          <p className="faq-answer">Unless otherwise discussed at booking, your appointment will take place at artist's location. Full location details will be released within 48 hours of your appointment in a detail confirmation email.</p>
         </div>
 
         <div className="faq-item">
@@ -70,7 +70,7 @@ const FAQ = () => {
             <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
             Do you have to book us for both hair AND makeup since you offer both?
           </h3>
-          <p className="faq-answer">You don't! You are absolutely welcome to book us for either just hair or just makeup - but we welcome booking both and typically have a team ready to add onto your day - with availability! We do require you fall under one of the packages for makeup - but, with hair, you're able to add on services a la carte. Hair services vary in price depending on length and need to be booked separately from the makeup package.</p>
+          <p className="faq-answer">You don't! You are absolutely welcome to book us for either just hair or just makeup - but we welcome booking both and typically have a team ready to add onto your day - with availability!</p>
         </div>
 
         <div className="faq-item">
@@ -79,6 +79,14 @@ const FAQ = () => {
             Bridal party pricing - hidden fees?
           </h3>
           <p className="faq-answer">There are no hidden fees in our pricing. You will see where every dollar is being spent in your outlined contract. Our packages show base pricing which includes only the services themselves - added on to your contract will be fees specifically pertaining to travel, parking, early start time fees for your day where applicable, and an automatic included 20% gratuity.</p>
+        </div>
+
+        <div className="faq-item">
+          <h3 className="feature-title-with-logo">
+            <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
+            Do you carry insurance?
+          </h3>
+          <p className="faq-answer">Yes, we're happy to share more information upon request.</p>
         </div>
 
         <div className="faq-item">

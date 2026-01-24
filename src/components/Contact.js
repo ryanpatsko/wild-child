@@ -14,6 +14,7 @@ const Contact = () => {
     attendees: '',
     location: '',
     eventVenue: '',
+    bestApplies: '',
     message: ''
   });
 
@@ -55,7 +56,8 @@ const Contact = () => {
     if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || 
         !formData.phone.trim() || !formData.eventDate.trim() || !formData.eventYear.trim() ||
         !formData.eventType.trim() || !formData.serviceType.trim() || !formData.attendees.trim() ||
-        !formData.location.trim() || !formData.eventVenue.trim() || !formData.message.trim()) {
+        !formData.location.trim() || !formData.eventVenue.trim() || !formData.bestApplies.trim() ||
+        !formData.message.trim()) {
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
@@ -87,6 +89,7 @@ const Contact = () => {
         attendees: formData.attendees,
         location: formData.location,
         event_venue: formData.eventVenue,
+        best_applies: formData.bestApplies,
         message: formData.message,
         to_name: 'Wild Child Fabrications'
       };
@@ -110,6 +113,7 @@ const Contact = () => {
         attendees: '',
         location: '',
         eventVenue: '',
+        bestApplies: '',
         message: ''
       });
 
@@ -225,6 +229,7 @@ const Contact = () => {
               >
                 <option value="">Select Year</option>
                 <option value="2026">2026</option>
+                <option value="2027">2027</option>
               </select>
             </div>
           </div>
@@ -245,6 +250,7 @@ const Contact = () => {
                 <option value="media-shoot">Media Shoot</option>
                 <option value="specialty-makeup">Specialty Makeup</option>
                 <option value="makeup-class">Makeup Class</option>
+                <option value="color-palette-session">Color Palette Session</option>
               </select>
             </div>
             <div className="form-group">
@@ -294,7 +300,7 @@ const Contact = () => {
                 <option value="dc-virginia">D.C / Virginia</option>
                 <option value="ohio">Ohio</option>
                 <option value="west-virginia">West Virginia</option>
-                <option value="atlanta">Atlanta</option>
+                <option value="atlanta">Atlanta / Georgia</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -311,6 +317,22 @@ const Contact = () => {
               onChange={handleInputChange}
               required
             />
+          </div>
+
+          <div className="form-group" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+            <label htmlFor="bestApplies">Which of these best applies?</label>
+            <select
+              id="bestApplies"
+              name="bestApplies"
+              value={formData.bestApplies}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select an option</option>
+              <option value="ready-to-book">I'm ready to book you, let's work on a contract!</option>
+              <option value="very-interested">I'm very interested, but have a few questions</option>
+              <option value="shopping-around">Shopping around for an estimate</option>
+            </select>
           </div>
 
           <div className="form-group">

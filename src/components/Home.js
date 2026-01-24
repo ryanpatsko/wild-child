@@ -7,10 +7,31 @@ const Home = () => {
       <div className="hero-section">
         <h1 className="page-title">HAIR + MAKEUP ARTISTRY</h1>
         <p className="intro-text">
-          Luxury beauty services with a wild, creative twist. 
+          Luxury beauty experiences with a wild, creative twist. 
           From bridal elegance to avant-garde artistry.
         </p>
-        <p style={{ fontStyle: 'italic', textAlign: 'center', fontSize: '1.2rem', marginTop: '0.5rem', marginBottom: '0.5rem' }}>Operating in Pittsburgh + Atlanta</p>
+        <div style={{
+          backgroundColor: '#fff3cd',
+          border: '2px solid #ffc107',
+          borderRadius: '8px',
+          padding: '1.5rem',
+          margin: '1.5rem 0',
+          textAlign: 'center',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '80px'
+        }}>
+          <div style={{
+            fontSize: '1.1rem',
+            fontWeight: '600',
+            color: '#856404',
+            lineHeight: '1.6'
+          }}>
+            Proudly serving the following regions: Pittsburgh, D.C., West Virginia, and Atlanta
+          </div>
+        </div>
       </div>
       <Gallery />
     </div>
