@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Oswald:wght@300;400;500&family=Allura:wght@400&family=Great+Vibes&family=Alex+Brush&family=Parisienne&family=Petit+Formal+Script&family=Amatic+SC:wght@400;700&family=Caveat:wght@400;500;600;700&family=Radley:ital,wght@0,400;1,400&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=The+Nautigal:wght@400;700&family=Amarante&family=Viaoda+Libre&family=Castoro+Titling&family=Meddon&family=Windsong&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Oswald:wght@300;400;500&family=Allura:wght@400&family=Great+Vibes&family=Alex+Brush&family=Parisienne&family=Petit+Formal+Script&family=Amatic+SC:wght@400;700&family=Caveat:wght@400;500;600;700&family=Radley:ital,wght@0,400;1,400&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=The+Nautigal:wght@400;700&family=Amarante&family=Viaoda+Libre&family=Castoro+Titling&family=Meddon&family=Windsong&display=swap');
 
 /* =================================
    GLOBAL VARIABLES & RESET
@@ -1204,6 +1204,44 @@ body, .App {
 .class-details strong {
   color: var(--primary-color);
   font-weight: 600;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #FF1C89 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition-speed);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.learn-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(208, 74, 124, 0.3);
+}
+
+.color-palette-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.color-palette-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .color-palette-gallery {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =================================

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import siteLogo from './assets/wcf-lips-logo.png';
@@ -15,6 +15,7 @@ import BeautyEvents from './components/BeautyEvents';
 import Classes from './components/Classes';
 import CreativeFX from './components/CreativeFX';
 import FAQ from './components/FAQ';
+import ColorPaletteParty from './components/ColorPaletteParty';
 // import FontTest from './components/FontTest';
 
 // Scroll to top component
@@ -143,6 +144,7 @@ function AppContent() {
             <Route path="/classes" element={<Classes />} />
             <Route path="/creative-fx" element={<CreativeFX />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/color-palette-party" element={<ColorPaletteParty />} />
             {/* <Route path="/font-test" element={<FontTest />} /> */}
           </Routes>
         </div>

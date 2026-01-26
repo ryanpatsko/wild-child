@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import pageBanner from '../assets/page-headers/misc-makeup.png';
 import CTASection from './CTASection';
 
@@ -79,6 +80,11 @@ const Classes = () => {
             </div>
             <div style={{marginTop: '1rem', fontSize: '0.9rem', fontStyle: 'italic'}}>
               <strong>Additional Info:</strong> Travel costs may apply when relevant. A 50% retainer is required to book all sessions.
+            </div>
+            <div style={{marginTop: '1.5rem', textAlign: 'center'}}>
+              <Link to="/color-palette-party" className="learn-more-btn">
+                Learn More
+              </Link>
             </div>
           </div>
         </div>
