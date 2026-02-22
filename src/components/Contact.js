@@ -15,7 +15,9 @@ const Contact = () => {
     location: '',
     eventVenue: '',
     bestApplies: '',
-    message: ''
+    brochureFollowUp: '',
+    message: '',
+    howDidYouHear: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +59,14 @@ const Contact = () => {
         !formData.phone.trim() || !formData.eventDate.trim() || !formData.eventYear.trim() ||
         !formData.eventType.trim() || !formData.serviceType.trim() || !formData.attendees.trim() ||
         !formData.location.trim() || !formData.eventVenue.trim() || !formData.bestApplies.trim() ||
-        !formData.message.trim()) {
+        !formData.message.trim() || !formData.howDidYouHear.trim()) {
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // When event type is wedding, brochure follow-up is required
+    if (formData.eventType === 'wedding' && !formData.brochureFollowUp.trim()) {
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
@@ -90,7 +99,9 @@ const Contact = () => {
         location: formData.location,
         event_venue: formData.eventVenue,
         best_applies: formData.bestApplies,
+        brochure_follow_up: formData.eventType === 'wedding' ? formData.brochureFollowUp : 'N/A',
         message: formData.message,
+        how_did_you_hear: formData.howDidYouHear,
         to_name: 'Wild Child Fabrications'
       };
 
@@ -114,7 +125,9 @@ const Contact = () => {
         location: '',
         eventVenue: '',
         bestApplies: '',
-        message: ''
+        brochureFollowUp: '',
+        message: '',
+        howDidYouHear: ''
       });
 
     } catch (error) {
@@ -270,6 +283,25 @@ const Contact = () => {
             </div>
           </div>
 
+          {formData.eventType === 'wedding' && (
+            <div className="form-group" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+              <label htmlFor="brochureFollowUp">
+                I've read the <a href="/bridal-services-brochure" target="_blank" rel="noopener noreferrer" className="contact-info-link">bridal services brochure</a> and would like to:
+              </label>
+              <select
+                id="brochureFollowUp"
+                name="brochureFollowUp"
+                value={formData.brochureFollowUp}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select an option</option>
+                <option value="set-up-call">Set up a call to answer any further questions</option>
+                <option value="questions-via-email">Communicate questions via email</option>
+              </select>
+            </div>
+          )}
+
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="attendees">Number of Attendees</label>
@@ -319,20 +351,39 @@ const Contact = () => {
             />
           </div>
 
-          <div className="form-group" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-            <label htmlFor="bestApplies">Which of these best applies?</label>
-            <select
-              id="bestApplies"
-              name="bestApplies"
-              value={formData.bestApplies}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select an option</option>
-              <option value="ready-to-book">I'm ready to book you, let's work on a contract!</option>
-              <option value="very-interested">I'm very interested, but have a few questions</option>
-              <option value="shopping-around">Shopping around for an estimate</option>
-            </select>
+          <div className="form-row" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+            <div className="form-group">
+              <label htmlFor="bestApplies">Which of these best applies?</label>
+              <select
+                id="bestApplies"
+                name="bestApplies"
+                value={formData.bestApplies}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select an option</option>
+                <option value="ready-to-book">I'm ready to book you, let's work on a contract!</option>
+                <option value="very-interested">I'm very interested, but have a few questions</option>
+                <option value="shopping-around">Shopping around for an estimate</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="howDidYouHear">How did you hear about us?</label>
+              <select
+                id="howDidYouHear"
+                name="howDidYouHear"
+                value={formData.howDidYouHear}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select an option</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="referral">Referral</option>
+                <option value="google-search">Google search</option>
+                <option value="wedding-or-film-directory">Wedding or Film directory</option>
+              </select>
+            </div>
           </div>
 
           <div className="form-group">

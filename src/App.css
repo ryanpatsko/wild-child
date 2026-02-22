@@ -632,6 +632,36 @@ body, .App {
   }
 }
 
+/* Brochure page (bridal-services-brochure) */
+.brochure-page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.brochure-article {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.brochure-section-card {
+  margin-bottom: 1.5rem;
+}
+
+/* Brochure page: distinct card style (soft pink bg, darker pink border) */
+.brochure-article .section-card {
+  background: #fdf2f6;
+  border: 2px solid #d04a7c;
+  box-shadow: 0 2px 12px rgba(208, 74, 124, 0.08);
+}
+
+.brochure-cta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
 /* Brochure Section */
 .brochure-section {
   margin: 1rem 0;
