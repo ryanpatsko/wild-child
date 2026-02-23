@@ -382,6 +382,7 @@ const Contact = () => {
                 <option value="referral">Referral</option>
                 <option value="google-search">Google search</option>
                 <option value="wedding-or-film-directory">Wedding or Film directory</option>
+                <option value="other">Other</option>
               </select>
             </div>
           </div>

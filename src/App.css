@@ -652,6 +652,7 @@ body, .App {
   background: #fdf2f6;
   border: 2px solid #d04a7c;
   box-shadow: 0 2px 12px rgba(208, 74, 124, 0.08);
+  padding-bottom: 1rem;
 }
 
 .brochure-cta {

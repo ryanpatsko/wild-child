@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import pageBanner from '../assets/page-headers/tan-swabs-pink-bg.png';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import BridalGallery from './BridalGallery';
@@ -171,18 +172,16 @@ const BridalAtlanta = () => {
             </div>
           </div>
           <div className="pdf-buttons">
-            <a 
-              href="/2026-WCF-Hair-Makeup-Packages.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <Link 
+              to="/bridal-services-brochure" 
               className="brochure-button"
             >
-              <span className="brochure-text">2026 Brochure</span>
+              <span className="brochure-text">2026 Brochure (View Online)</span>
               <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                 <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
               </svg>
-            </a>
+            </Link>
             <a 
               href="/2026-Booking-Process.pdf" 
               target="_blank" 
