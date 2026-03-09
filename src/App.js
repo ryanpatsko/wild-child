@@ -12,6 +12,8 @@ import Bridal from './components/Bridal';
 import BridalPittsburgh from './components/BridalPittsburgh';
 import BridalAtlanta from './components/BridalAtlanta';
 import BridalServicesBrochure from './components/BridalServicesBrochure';
+import BridalServices from './components/BridalServices';
+import BridalGalleryPage from './components/BridalGalleryPage';
 import BeautyEvents from './components/BeautyEvents';
 import Classes from './components/Classes';
 import CreativeFX from './components/CreativeFX';
@@ -139,8 +141,10 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/media" element={<Media />} />
             <Route path="/bridal" element={<Bridal />} />
+            <Route path="/bridal-services" element={<BridalServices />} />
             <Route path="/bridal-pittsburgh" element={<BridalPittsburgh />} />
             <Route path="/bridal-atlanta" element={<BridalAtlanta />} />
+            <Route path="/bridal-gallery" element={<BridalGalleryPage />} />
             <Route path="/bridal-services-brochure" element={<BridalServicesBrochure />} />
             <Route path="/beauty-events" element={<BeautyEvents />} />
             <Route path="/classes" element={<Classes />} />

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import pageBanner from '../assets/page-headers/tan-swabs-pink-bg.png';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
-import BridalGallery from './BridalGallery';
+import BridalLayout from './BridalLayout';
 import CTASection from './CTASection';
 
 const Bridal = () => {
@@ -37,6 +35,7 @@ const Bridal = () => {
         window.wpShowRatedWAv3('986013', '2022');
         window.wpShowRatedWAv3('986013', '2023');
         window.wpShowRatedWAv3('986013', '2024');
+        window.wpShowRatedWAv3('986013', '2026');
       }
     };
 
@@ -70,79 +69,48 @@ const Bridal = () => {
   };
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <img src={pageBanner} alt="Page Banner - Bridal" className="page-header-image" />
-      </div>
-      <h1 className="page-title">Bridal Services</h1>
-      
-      {/* PDF Downloads Section */}
-      <div className="brochure-section">
-        <div className="brochure-content">
-          <p className="intro-text" style={{ marginBottom: '1rem' }}>
-            Download our 2026 resources to view pricing, booking process, and trial information
-          </p>
+    <BridalLayout>
+      <div className="page-container">
+        <h1 className="page-title">Bridal Services</h1>
+
+        <div style={{
+          backgroundColor: '#fff3cd',
+          border: '2px solid #ffc107',
+          borderRadius: '8px',
+          padding: '1rem',
+          margin: '0 auto 2rem',
+          textAlign: 'center',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '60px'
+        }}>
           <div style={{
-            backgroundColor: '#fff3cd',
-            border: '2px solid #ffc107',
-            borderRadius: '8px',
-            padding: '1.5rem',
-            margin: '0 0 1.5rem 0',
-            textAlign: 'center',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '80px'
+            fontSize: '1.1rem',
+            fontWeight: '600',
+            color: '#856404',
+            lineHeight: '1.6'
           }}>
-            <div style={{
-              fontSize: '1.1rem',
-              fontWeight: '600',
-              color: '#856404',
-              lineHeight: '1.6'
-            }}>
-              Proudly serving the following regions: Pittsburgh, D.C., West Virginia, and Atlanta
-            </div>
-          </div>
-          <div className="pdf-buttons">
-            <Link 
-              to="/bridal-services-brochure" 
-              className="brochure-button"
-            >
-              <span className="brochure-text">2026 Brochure (View Online)</span>
-              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
-              </svg>
-            </Link>
-            <a 
-              href="/2026-Booking-Process.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="brochure-button"
-            >
-              <span className="brochure-text">Booking Process</span>
-              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
-              </svg>
-            </a>
-            <a 
-              href="/Trial-Q-A-2026.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="brochure-button"
-            >
-              <span className="brochure-text">Trial Q&A</span>
-              <svg className="brochure-pdf-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                <path d="M8,12H10V14H8V12M8,16H10V18H8V16M12,12H16V14H12V12M12,16H16V18H12V16Z" />
-              </svg>
-            </a>
+            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
           </div>
         </div>
-      </div>
 
+        <div className="bridal-lead-content">
+          <p className="body-text">
+            For the bride who values exceptional service and doesn't have time for uncertainty, we provide more than refined artistry — as a bridal specialist, we provide reassurance. From the moment you inquire with us, you'll experience prompt, thorough, and friendly communication. We're a company that anticipates your needs before you have to voice them. No chasing vendors or "what now?" — We'll make sure you're seamlessly guided through the entire experience while making it enjoyable along the way.
+          </p>
+          <p className="body-text">
+            Your experience includes curated beauty services, a wedding preview to refine and perfect your look in advance, downloadable beauty guides to help you prep for your day, thoughtfully prepared touch-up kits for the day of your wedding, and more.
+          </p>
+          <p className="body-text">
+            Our part is simple: to make this part of your wedding feel effortless, elevated, fun, and entirely handled — so you can focus on being present and enjoying your time.
+          </p>
+          <p className="body-text">
+            When you book our company, you're not just reserving a date — you're securing a full-service experience that we're happy to be a part of.
+          </p>
+        </div>
+      
       {/* Reviews Section */}
       <div className="reviews-section">
         <h2 className="section-title section-title-bridal">What Our Brides Say</h2>
@@ -273,6 +241,23 @@ const Bridal = () => {
                 alt="Wild Child Fabrications" 
                 id="wp-ratedWA-img-2024" 
                 src="https://cdn1.weddingwire.com/img/badges/2024/badge-weddingawards_en_US.png"
+                style={{ display: 'block' }}
+              />
+            </a>
+          </div>
+          <div id="wp-ratedWA">
+            <a 
+              target="_blank" 
+              href="https://www.weddingwire.com/biz/wild-child-fabrications-hair-makeup-pittsburgh/330fd549f6ce63ad.html" 
+              rel="nofollow noopener noreferrer" 
+              title="WeddingWire Couples' Choice Award Winner 2026"
+            >
+              <img 
+                width="125" 
+                height="125" 
+                alt="Wild Child Fabrications" 
+                id="wp-ratedWA-img-2026" 
+                src="https://cdn1.weddingwire.com/img/badges/2026/badge-weddingawards_en_US.png"
                 style={{ display: 'block' }}
               />
             </a>
@@ -500,15 +485,14 @@ const Bridal = () => {
         </div>
       </div>
 
-      {/* Bridal Gallery */}
-      <div className="gallery-section">
-        <h2 className="section-title section-title-bridal">Bridal Gallery</h2>
-        <BridalGallery />
-      </div>
-
       {/* Contact CTA Section */}
-      <CTASection />
-    </div>
+      <CTASection
+        title="Ready to book your bridal hair and makeup?"
+        subtitle="Get in touch to reserve your date"
+        buttonText="Contact us"
+      />
+      </div>
+    </BridalLayout>
   );
 };
 

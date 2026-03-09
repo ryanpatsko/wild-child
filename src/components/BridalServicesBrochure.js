@@ -124,7 +124,7 @@ const BridalServicesBrochure = () => {
       <CTASection
         title="Ready to book your bridal hair and makeup?"
         subtitle="Get in touch to reserve your date"
-        buttonText="Contact Us to Book"
+        buttonText="Contact us"
       />
     </div>
   );
