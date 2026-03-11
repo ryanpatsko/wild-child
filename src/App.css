@@ -1630,7 +1630,8 @@ body, .App {
 }
 
 .footer-instagram-link,
-.footer-venmo-link {
+.footer-venmo-link,
+.footer-join-link {
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -1641,16 +1642,19 @@ body, .App {
 }
 
 .footer-instagram-link:hover,
-.footer-venmo-link:hover {
+.footer-venmo-link:hover,
+.footer-join-link:hover {
   opacity: 0.8;
   text-decoration: underline;
 }
 
 .footer-instagram-icon,
-.footer-venmo-icon {
+.footer-venmo-icon,
+.footer-join-icon {
   width: 16px;
   height: 16px;
   fill: currentColor;
+  flex-shrink: 0;
 }
 
 /* =================================

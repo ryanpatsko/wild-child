@@ -14,14 +14,14 @@ const Home = () => {
           backgroundColor: '#fff3cd',
           border: '2px solid #ffc107',
           borderRadius: '8px',
-          padding: '1.5rem',
+          padding: '1rem',
           margin: '1.5rem 0',
           textAlign: 'center',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '80px'
+          minHeight: '60px'
         }}>
           <div style={{
             fontSize: '1.1rem',
@@ -29,7 +29,7 @@ const Home = () => {
             color: '#856404',
             lineHeight: '1.6'
           }}>
-            Proudly serving the following regions: Pittsburgh, D.C., West Virginia, and Atlanta
+            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
           </div>
         </div>
       </div>
