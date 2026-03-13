@@ -13,7 +13,7 @@ const BridalPittsburgh = () => {
       metaDescription.setAttribute('name', 'description');
       document.head.appendChild(metaDescription);
     }
-    metaDescription.setAttribute('content', 'Professional bridal hair and makeup packages in Pittsburgh, PA. Wild Child Fabrications offers luxury beauty services for your wedding day. Book your bridal trial today!');
+    metaDescription.setAttribute('content', 'Bridal hair and makeup Pittsburgh, PA. Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Wedding makeup & hair packages. Book your bridal trial.');
   }, []);
 
   return (

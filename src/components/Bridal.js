@@ -10,6 +10,19 @@ const Bridal = () => {
   const badgeRef = useRef(null);
 
   useEffect(() => {
+    document.title = "Bridal Hair & Makeup | Pittsburgh, Atlanta, D.C. | Wild Child Fabrications";
+    const desc =
+      "Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Bridal hair and makeup, wedding beauty, luxury bridal trials. Book your date.";
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', 'description');
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', desc);
+  }, []);
+
+  useEffect(() => {
     // Check if script already exists
     let script = document.querySelector('script[src*="wp-rated.js"]');
     
