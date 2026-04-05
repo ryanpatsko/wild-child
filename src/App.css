@@ -315,6 +315,16 @@ body, .App {
     padding: 0 1rem 1.5rem;
   }
 
+  /* Sidebar before .bridal-main in DOM shares z-index:1 globally; main wins paint order.
+     Raise sidebar so the mobile nav dropdown stacks above page content below. */
+  .bridal-layout > .bridal-sidebar {
+    z-index: 5;
+  }
+
+  .bridal-layout > .bridal-main {
+    z-index: 1;
+  }
+
   .bridal-layout::before {
     background-attachment: scroll;
     opacity: 0.24;
@@ -399,7 +409,7 @@ body, .App {
     visibility: hidden;
     transform: translateY(-4px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    z-index: 50;
+    z-index: 100;
   }
 
   .bridal-mobile-nav-panel.is-open {
