@@ -59,14 +59,8 @@ body, .App {
    ================================= */
 .main-content {
   position: relative;
-  background: 
-    radial-gradient(ellipse 200px 80px at 20% 30%, rgba(139, 115, 85, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 150px 100px at 80% 70%, rgba(139, 115, 85, 0.1) 0%, transparent 70%),
-    radial-gradient(ellipse 180px 60px at 50% 20%, rgba(139, 115, 85, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 120px 90px at 30% 80%, rgba(139, 115, 85, 0.1) 0%, transparent 70%),
-    radial-gradient(ellipse 160px 70px at 70% 40%, rgba(139, 115, 85, 0.06) 0%, transparent 70%),
-    #F5E6D3;
-  background-size: 300px 300px;
+  z-index: 1;
+  background: #f5e6d3;
   min-height: 100vh;
   padding: 0.5rem 0 0 0;
   overflow: hidden;
@@ -84,6 +78,11 @@ body, .App {
   border-radius: 0;
 }
 
+.content-container:has(.bridal-layout) {
+  background: transparent;
+  box-shadow: none;
+}
+
 /* =================================
    BRIDAL LAYOUT (sidebar + main)
    ================================= */
@@ -94,31 +93,66 @@ body, .App {
   margin: 0 auto;
   padding: 0 0 0 1rem;
   text-align: left;
+  position: relative;
+  isolation: isolate;
+}
+
+.bridal-layout::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--bridal-fixed-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.28;
+}
+
+.bridal-layout > .bridal-sidebar,
+.bridal-layout > .bridal-main {
+  position: relative;
+  z-index: 1;
 }
 
 .bridal-sidebar {
   flex-shrink: 0;
-  width: 200px;
-  padding-top: 0;
+  width: 212px;
   margin-top: 0;
+  align-self: flex-start;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 252, 248, 0.68) 55%,
+    rgba(255, 250, 246, 0.62) 100%
+  );
+  border-radius: 14px;
+  padding: 1rem 0.65rem 1.1rem;
+  border: 1px solid rgba(184, 160, 130, 0.38);
+  box-shadow: 0 12px 36px rgba(139, 115, 85, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-.bridal-sidebar-banner {
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  background: rgba(0, 0, 0, 0.04);
+.bridal-sidebar-sticky {
+  position: sticky;
+  top: 1.5rem;
 }
 
-.bridal-sidebar-banner-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-  vertical-align: middle;
+.bridal-sidebar-heading {
+  font-family: 'Castoro Titling', serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0 0 1rem;
+  padding: 0 0.2rem 0.85rem;
+  border-bottom: 1px solid rgba(208, 74, 124, 0.28);
 }
 
 .bridal-mobile-nav {
@@ -129,8 +163,6 @@ body, .App {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  position: sticky;
-  top: 1.5rem;
   margin-top: 0;
   padding-top: 0;
 }
@@ -161,14 +193,10 @@ body, .App {
   margin-top: 0.5rem;
 }
 
-.bridal-sidebar-group-label {
+.bridal-sidebar-group .bridal-sidebar-heading {
   display: block;
-  padding: 0.4rem 1rem 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
+  margin: 0.35rem 0 0.75rem;
+  padding: 0.55rem 0.2rem 0.75rem;
 }
 
 .bridal-sidebar-sublink {
@@ -195,14 +223,110 @@ body, .App {
   margin-bottom: 0;
 }
 
+.bridal-regions-notice {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  text-align: center;
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.bridal-regions-notice-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #856404;
+  line-height: 1.6;
+}
+
+.bridal-pricing-cta {
+  max-width: 700px;
+  margin: 0 auto 1.75rem;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  background: var(--subtle-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.bridal-pricing-cta-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bridal-pricing-cta-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.bridal-pricing-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.bridal-pricing-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10.5rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, var(--accent-color) 0%, #ff1c89 100%);
+  color: white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: none;
+}
+
+.bridal-pricing-cta-btn:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.55);
+  filter: brightness(1.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.bridal-pricing-cta-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
 @media (max-width: 768px) {
   .bridal-layout {
     flex-direction: column;
     padding: 0 1rem 1.5rem;
   }
 
+  .bridal-layout::before {
+    background-attachment: scroll;
+    opacity: 0.24;
+  }
+
   .bridal-sidebar {
     width: 100%;
+    position: static;
+    box-shadow: 0 8px 28px rgba(139, 115, 85, 0.11);
+  }
+
+  .bridal-sidebar-sticky {
     position: static;
   }
 
@@ -309,8 +433,9 @@ body, .App {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  .bridal-mobile-nav-links .bridal-sidebar-group-label {
-    padding: 0.4rem 1rem 0.35rem;
+  .bridal-mobile-nav-links .bridal-sidebar-group .bridal-sidebar-heading {
+    margin: 0.5rem 0 0.65rem;
+    padding: 0.5rem 1rem 0.65rem;
   }
 
   .bridal-mobile-nav-links .bridal-sidebar-sublink {
@@ -330,13 +455,27 @@ body, .App {
     margin-top: 0.25rem;
   }
 
-  .bridal-sidebar-group-label {
-    padding: 0.35rem 0.75rem 0.4rem;
-    font-size: 0.75rem;
+  .bridal-sidebar-group .bridal-sidebar-heading {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .bridal-sidebar-sublink {
     padding-left: 1.25rem;
+  }
+
+  .bridal-pricing-cta {
+    padding: 1rem 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bridal-pricing-cta-actions {
+    flex-direction: column;
+  }
+
+  .bridal-pricing-cta-btn {
+    min-width: unset;
+    width: 100%;
   }
 }
 
@@ -345,9 +484,10 @@ body, .App {
    ================================= */
 .main-header {
   position: relative;
+  z-index: 20;
   padding: 3rem 0 0 0;
   border-bottom: none;
-  background: none;
+  background-color: #ffffff;
   overflow: visible;
 }
 
@@ -366,6 +506,7 @@ body, .App {
   align-items: center;
   gap: 1.5rem;
   position: relative;
+  background-color: #ffffff;
 }
 
 
@@ -1367,6 +1508,73 @@ body, .App {
 .bridal-main .page-container {
   padding-right: 2rem;
   padding-bottom: 1.5rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.66) 0%,
+    rgba(255, 252, 248, 0.52) 45%,
+    rgba(255, 255, 255, 0.48) 100%
+  );
+  border-color: rgba(184, 160, 130, 0.4);
+  backdrop-filter: blur(10px) saturate(1.02);
+  -webkit-backdrop-filter: blur(10px) saturate(1.02);
+}
+
+.bridal-main .section-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.76) 0%,
+    rgba(255, 253, 250, 0.66) 100%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.bridal-main .brochure-article .section-card {
+  background: linear-gradient(
+    180deg,
+    rgba(253, 242, 246, 0.8) 0%,
+    rgba(255, 250, 252, 0.68) 100%
+  );
+  border: 2px solid rgba(208, 74, 124, 0.34);
+  box-shadow: 0 2px 16px rgba(208, 74, 124, 0.07);
+}
+
+.bridal-main .class-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 253, 250, 0.66) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.bridal-main .bridal-pricing-cta {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    rgba(250, 247, 245, 0.42) 100%
+  );
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.bridal-main .bridal-regions-notice {
+  background-color: rgba(255, 243, 205, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.bridal-main .testimonial-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.68) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .section-card {

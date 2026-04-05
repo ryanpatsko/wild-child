@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import BridalLayout from './BridalLayout';
 import CTASection from './CTASection';
@@ -86,26 +87,18 @@ const Bridal = () => {
       <div className="page-container">
         <h1 className="page-title">Bridal Services</h1>
 
-        <div style={{
-          backgroundColor: '#fff3cd',
-          border: '2px solid #ffc107',
-          borderRadius: '8px',
-          padding: '1rem',
-          margin: '0 auto 2rem',
-          textAlign: 'center',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '60px'
-        }}>
-          <div style={{
-            fontSize: '1.1rem',
-            fontWeight: '600',
-            color: '#856404',
-            lineHeight: '1.6'
-          }}>
-            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
+        <div className="bridal-pricing-cta">
+          <p className="bridal-pricing-cta-title">Packages & pricing</p>
+          <p className="bridal-pricing-cta-sub">
+            See current rates and what each package includes for your area.
+          </p>
+          <div className="bridal-pricing-cta-actions">
+            <Link to="/bridal-pittsburgh" className="bridal-pricing-cta-btn">
+              Pittsburgh
+            </Link>
+            <Link to="/bridal-atlanta" className="bridal-pricing-cta-btn">
+              Atlanta
+            </Link>
           </div>
         </div>
 
@@ -123,9 +116,15 @@ const Bridal = () => {
             When you book our company, you're not just reserving a date — you're securing a full-service experience that we're happy to be a part of.
           </p>
         </div>
-      
-      {/* Reviews Section */}
-      <div className="reviews-section">
+
+        <div className="bridal-regions-notice">
+          <div className="bridal-regions-notice-text">
+            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="reviews-section">
         <h2 className="section-title section-title-bridal">What Our Brides Say</h2>
         
         {/* WeddingWire Awards Banner */}

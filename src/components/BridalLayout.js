@@ -50,62 +50,64 @@ const BridalLayout = ({ children }) => {
   }, [mobileNavOpen]);
 
   return (
-    <div className="bridal-layout">
+    <div
+      className="bridal-layout"
+      style={{ '--bridal-fixed-bg-image': `url(${sidebarBanner})` }}
+    >
       <aside className="bridal-sidebar" aria-label="Bridal section navigation">
-        <div className="bridal-sidebar-banner">
-          <img src={sidebarBanner} alt="" className="bridal-sidebar-banner-img" />
-        </div>
-        <div className="bridal-mobile-nav" ref={mobileNavRef}>
-          <button
-            type="button"
-            className={`bridal-mobile-nav-trigger ${mobileNavOpen ? 'is-open' : ''}`}
-            onClick={() => setMobileNavOpen((o) => !o)}
-            aria-expanded={mobileNavOpen}
-            aria-haspopup="true"
-            aria-label="Bridal section menu"
-          >
-            <span className="bridal-mobile-nav-trigger-label">{currentLabel}</span>
-            <span className={`bridal-mobile-nav-chevron ${mobileNavOpen ? 'is-open' : ''}`} aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <path d="M6 8L1 3h10z" />
-              </svg>
-            </span>
-          </button>
-          <div className={`bridal-mobile-nav-panel ${mobileNavOpen ? 'is-open' : ''}`}>
-            <nav className="bridal-mobile-nav-links">
-              {bridalNavItems.map((item, index) => {
-                if (item.path) {
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`bridal-sidebar-link ${currentPath === item.path ? 'active' : ''}`}
-                      onClick={() => setMobileNavOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                }
-                return (
-                  <div key={index} className="bridal-sidebar-group">
-                    <span className="bridal-sidebar-group-label">{item.label}</span>
-                    {item.children.map(({ path, label }) => (
+        <div className="bridal-sidebar-sticky">
+          <h2 className="bridal-sidebar-heading">Wild Child Bridal</h2>
+          <div className="bridal-mobile-nav" ref={mobileNavRef}>
+            <button
+              type="button"
+              className={`bridal-mobile-nav-trigger ${mobileNavOpen ? 'is-open' : ''}`}
+              onClick={() => setMobileNavOpen((o) => !o)}
+              aria-expanded={mobileNavOpen}
+              aria-haspopup="true"
+              aria-label="Bridal section menu"
+            >
+              <span className="bridal-mobile-nav-trigger-label">{currentLabel}</span>
+              <span className={`bridal-mobile-nav-chevron ${mobileNavOpen ? 'is-open' : ''}`} aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M6 8L1 3h10z" />
+                </svg>
+              </span>
+            </button>
+            <div className={`bridal-mobile-nav-panel ${mobileNavOpen ? 'is-open' : ''}`}>
+              <nav className="bridal-mobile-nav-links">
+                {bridalNavItems.map((item, index) => {
+                  if (item.path) {
+                    return (
                       <Link
-                        key={path}
-                        to={path}
-                        className={`bridal-sidebar-link bridal-sidebar-sublink ${currentPath === path ? 'active' : ''}`}
+                        key={item.path}
+                        to={item.path}
+                        className={`bridal-sidebar-link ${currentPath === item.path ? 'active' : ''}`}
                         onClick={() => setMobileNavOpen(false)}
                       >
-                        {label}
+                        {item.label}
                       </Link>
-                    ))}
-                  </div>
-                );
-              })}
-            </nav>
+                    );
+                  }
+                  return (
+                    <div key={index} className="bridal-sidebar-group">
+                      <span className="bridal-sidebar-heading">{item.label}</span>
+                      {item.children.map(({ path, label }) => (
+                        <Link
+                          key={path}
+                          to={path}
+                          className={`bridal-sidebar-link bridal-sidebar-sublink ${currentPath === path ? 'active' : ''}`}
+                          onClick={() => setMobileNavOpen(false)}
+                        >
+                          {label}
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                })}
+              </nav>
+            </div>
           </div>
-        </div>
-        <nav className="bridal-sidebar-nav" aria-hidden="true">
+          <nav className="bridal-sidebar-nav" aria-hidden="true">
           {bridalNavItems.map((item, index) => {
             if (item.path) {
               return (
@@ -120,7 +122,7 @@ const BridalLayout = ({ children }) => {
             }
             return (
               <div key={index} className="bridal-sidebar-group">
-                <span className="bridal-sidebar-group-label">{item.label}</span>
+                <span className="bridal-sidebar-heading">{item.label}</span>
                 {item.children.map(({ path, label }) => (
                   <Link
                     key={path}
@@ -133,7 +135,8 @@ const BridalLayout = ({ children }) => {
               </div>
             );
           })}
-        </nav>
+          </nav>
+        </div>
       </aside>
       <div className="bridal-main">
         {children}

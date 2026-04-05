@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import BridalLayout from './BridalLayout';
 import CTASection from './CTASection';
 
@@ -7,6 +8,22 @@ const BridalServices = () => {
     <BridalLayout>
       <div className="page-container">
         <h1 className="page-title">Services Breakdown</h1>
+
+        <div className="bridal-pricing-cta">
+          <p className="bridal-pricing-cta-title">Packages & pricing</p>
+          <p className="bridal-pricing-cta-sub">
+            See current rates and what each package includes for your area.
+          </p>
+          <div className="bridal-pricing-cta-actions">
+            <Link to="/bridal-pittsburgh" className="bridal-pricing-cta-btn">
+              Pittsburgh
+            </Link>
+            <Link to="/bridal-atlanta" className="bridal-pricing-cta-btn">
+              Atlanta
+            </Link>
+          </div>
+        </div>
+
         <p className="intro-text" style={{ textAlign: 'left', maxWidth: '700px', margin: '0 auto 2rem' }}>
           What’s included in your bridal package and what may apply. View pricing by region in the sidebar (Pittsburgh or Atlanta).
         </p>
