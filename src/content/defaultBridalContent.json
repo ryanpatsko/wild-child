@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "overview": {
+    "documentTitle": "Bridal Hair & Makeup | Pittsburgh, Atlanta, D.C. | Wild Child Fabrications",
+    "metaDescription": "Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Bridal hair and makeup, wedding beauty, luxury bridal trials. Book your date.",
+    "pageHeader": "Bridal Services",
+    "pricingCtaTitle": "Packages & pricing",
+    "pricingCtaSub": "See current rates and what each package includes for your area.",
+    "pittsburghButtonLabel": "Pittsburgh",
+    "atlantaButtonLabel": "Atlanta",
+    "leadParagraphs": [
+      "For the bride who values exceptional service and doesn't have time for uncertainty, we provide more than refined artistry — as a bridal specialist, we provide reassurance. From the moment you inquire with us, you'll experience prompt, thorough, and friendly communication. We're a company that anticipates your needs before you have to voice them. No chasing vendors or \"what now?\" — We'll make sure you're seamlessly guided through the entire experience while making it enjoyable along the way.",
+      "Your experience includes curated beauty services, a wedding preview to refine and perfect your look in advance, downloadable beauty guides to help you prep for your day, thoughtfully prepared touch-up kits for the day of your wedding, and more.",
+      "Our part is simple: to make this part of your wedding feel effortless, elevated, fun, and entirely handled — so you can focus on being present and enjoying your time.",
+      "When you book our company, you're not just reserving a date — you're securing a full-service experience that we're happy to be a part of."
+    ]
+  },
+  "services": {
+    "pageHeader": "Services Breakdown",
+    "pricingCtaTitle": "Packages & pricing",
+    "pricingCtaSub": "See current rates and what each package includes for your area.",
+    "pittsburghButtonLabel": "Pittsburgh",
+    "atlantaButtonLabel": "Atlanta",
+    "introText": "What's included in your bridal package and what may apply. View pricing by region in the sidebar (Pittsburgh or Atlanta).",
+    "sections": [
+      {
+        "title": "Package Investment Details",
+        "paragraphs": [
+          "<strong>Hair and/or Makeup Services</strong> — Customized, climate-adaptive hair and makeup designed for 12+ hour, tear-proof, and humidity-resistant wear.",
+          "<strong>Body Glow</strong> — Shoulders and collarbone for the bride.",
+          "<strong>Custom-fit event eyelashes</strong> — To enhance your eye shape and desired look for all guests receiving a makeup service.",
+          "<strong>Personalized Beauty Timeline</strong> — For the wedding day based on your services.",
+          "<strong>Lip touch-up kit</strong> — For all guests receiving a makeup service on the wedding day.",
+          "<strong>Final Polish</strong> — Services conclude with a final detail check and touch-up before our artists depart.",
+          "<strong>Travel to your location</strong> — We travel on location for every wedding; some cities already include mileage within the package. See travel notes for your location.",
+          "<strong>Gratuity included</strong> — Built into our total so you have one less checklist item.",
+          "<strong>Bridal Preview</strong> — At our artist's location, including up to two looks.",
+          "<strong>Booking fee</strong> — Covers all admin and keeps our communication organized and timely.",
+          "<strong>Exclusive Beauty Guide</strong> — A prep guide for booked clients to get the most out of your bridal beauty investment.",
+          "<strong>Smooth, guided process</strong> — From our booking coordinator, from first inquiry to your final looks."
+        ]
+      },
+      {
+        "title": "Adding Additional Hair or Makeup Services",
+        "paragraphs": [
+          "Additional services can be added to your package total as needed up until 30 days before the wedding date, subject to artist availability. Please inquire for your city's rates. Services cannot be added on the day of the event.",
+          "Additional stylists can be added as needed — please inquire for your city's rates."
+        ]
+      },
+      {
+        "title": "Travel Notes",
+        "paragraphs": [
+          "<strong>Georgia &amp; Tennessee:</strong> A set amount of travel is built into your packages; we're happy to travel beyond that at $1/mile after 80 miles included.",
+          "<strong>Pittsburgh, West Virginia &amp; D.C.:</strong> Travel is billed separately to your needs at $1/mile, roundtrip, per artist.",
+          "<strong>New Orleans or destination:</strong> Travel is billed based on your specific needs.",
+          "Travel over two hours from any location we operate in may require day-before or day-of accommodations, billed to the client."
+        ]
+      },
+      {
+        "title": "Investments That May Apply",
+        "paragraphs": [
+          "<strong>Early start time fee of $100</strong> — Added to the final total for all services starting before 7:00 a.m.",
+          "<strong>Hourly fee</strong> — Applies for multiple events per day when an artist waits between service times.",
+          "<strong>Hourly fee</strong> — Applies for artists to stay on location for touch-ups beyond the final polish."
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Ready to book your bridal hair and makeup?",
+      "subtitle": "Get in touch to reserve your date",
+      "buttonText": "Contact us"
+    }
+  },
+  "pittsburgh": {
+    "documentTitle": "Bridal Hair & Makeup in Pittsburgh, PA | Wild Child Fabrications",
+    "metaDescription": "Bridal hair and makeup Pittsburgh, PA. Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Wedding makeup & hair packages. Book your bridal trial.",
+    "pageHeader": "Pittsburgh",
+    "introBeforeLink": "Bridal hair and makeup packages for Pittsburgh and surrounding areas. View our ",
+    "servicesLinkText": "services breakdown",
+    "introAfterLink": " for full details on what each package includes.",
+    "packages": [
+      {
+        "title": "Bride Only",
+        "price": "$1,100",
+        "items": [
+          "Bridal Hair + Makeup — customized, climate-adaptive, 12+ hour tear-proof and humidity-resistant wear",
+          "Body Glow on shoulders and collarbone",
+          "Custom fit event eyelashes to enhance your eye shape and desired look",
+          "Lip touch-up kit on the wedding day",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Gratuity included",
+          "Bridal Preview at artist's location — up to 2 looks",
+          "Booking fee — admin and organized, timely communication",
+          "PDF Beauty Guide — prep guide for booked clients",
+          "Smooth, guided process from inquiry to final looks"
+        ]
+      },
+      {
+        "title": "Bride + 3 Guests: Hair + Makeup",
+        "price": "$2,000",
+        "items": [
+          "Bridal Hair + Makeup — customized, climate-adaptive, longwear",
+          "Up to 3 additional guests hair + makeup — customized, longwear & durable",
+          "Custom fit event eyelashes for each guest",
+          "Lip touch-up kit on the wedding day for each guest",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Gratuity included",
+          "Bridal Preview at artist's location — up to 2 looks",
+          "Booking fee",
+          "Smooth, guided process from inquiry to final looks",
+          "PDF Beauty Guide for booked clients"
+        ]
+      },
+      {
+        "title": "Bride + 7 — Hair Only",
+        "price": "$2,000",
+        "items": [
+          "Bride hair styling — customized, climate-adaptive, 12+ hour durable wear",
+          "Up to 7 guests hair styling — customized for extended wear",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Gratuity included",
+          "Bridal Preview at artist's location — up to 2 looks",
+          "Booking fee",
+          "Smooth, guided process from inquiry to final looks",
+          "PDF Beauty Guide for booked clients"
+        ]
+      },
+      {
+        "title": "Bride + 7 — Makeup Only",
+        "price": "$2,000",
+        "items": [
+          "Bridal makeup — curated, long-wear application for heat, humidity & tears",
+          "Up to 7 guests makeup — customized, longwear & durable application",
+          "Custom fit event eyelashes for each guest",
+          "Lip touch-up kit on the wedding day for each guest",
+          "Gratuity included",
+          "Bridal Preview at artist's location — up to 2 looks",
+          "Booking fee",
+          "Smooth, guided process from inquiry to final looks",
+          "PDF Beauty Guide for booked clients"
+        ]
+      },
+      {
+        "title": "Groom / Male Presenting Touchups",
+        "price": "Add-on",
+        "items": [
+          "Skin / blemish touchup — customize skin prep + light long-wear application, brow/facial hair pomade & styling (style only — no cut/shave) — $50",
+          "Hair styling (short) — polished & ready for photos — $50",
+          "Hair styling (below chin) — polished & ready for photos — $65"
+        ]
+      },
+      {
+        "title": "Flower Girl Experience — Add-on",
+        "price": "$60",
+        "items": [],
+        "detailText": "Age 3–9 only. Hair styling + blush, lip gloss & glitter eyeshadow."
+      }
+    ],
+    "additionalSectionTitle": "Additional Investments That May Apply",
+    "additionalBullets": [
+      "Travel & parking fees will be applied based on your specific needs.",
+      "Early start time fee may apply before 7:30 a.m. — $100.",
+      "Additional stylists — $75 per stylist.",
+      "Additional services — $175/service. Can be added into the package total up until 30 days before the wedding date, subject to availability."
+    ],
+    "cta": {
+      "title": "Ready to book your bridal hair and makeup?",
+      "subtitle": "Get in touch to reserve your date",
+      "buttonText": "Contact us"
+    }
+  },
+  "atlanta": {
+    "documentTitle": "Bridal Hair & Makeup in Atlanta, GA | Wild Child Fabrications",
+    "metaDescription": "Bridal hair and makeup Atlanta, GA. Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Wedding makeup & hair packages. Book your bridal trial.",
+    "pageHeader": "Atlanta",
+    "introBeforeLink": "Bridal hair and makeup packages for Atlanta. View our ",
+    "servicesLinkText": "services breakdown",
+    "introAfterLink": " for full details on what each package includes.",
+    "packages": [
+      {
+        "title": "Bride Only",
+        "price": "$1,300",
+        "items": [
+          "Bridal Hair + Makeup — customized, climate-adaptive, 12+ hour tear-proof and humidity-resistant wear",
+          "Up to four hours spent with the bride on wedding day (2 hours per service allotted)",
+          "Wedding day travel — up to 40 miles from the artist's location",
+          "Custom fitted event eyelashes to enhance your eye shape and desired bridal look",
+          "Lip touch-up kit on the wedding day",
+          "Veil or accessory placement on wedding day",
+          "Bridal Body Glow on collarbone & shoulders",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Included gratuity",
+          "Bridal Preview at artist's location — up to 2 looks per service included",
+          "Booking fee — admin and organized, timely communication",
+          "Smooth, guided process from first inquiry to last look",
+          "Beauty Guide — prep guide for secured clients"
+        ]
+      },
+      {
+        "title": "Bride + 3 — Hair + Makeup",
+        "price": "$2,200",
+        "items": [
+          "Bridal Hair + Makeup — customized, climate-adaptive, longwear",
+          "Up to 6 additional individual hair or makeup services — customized, longwear & durable",
+          "Custom fitted event eyelashes for each guest receiving makeup",
+          "Lip touch-up kit for bride + all guests receiving makeup",
+          "Bridal Body Glow on chest & shoulders for bride",
+          "Veil or accessory placement for bride",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Included gratuity",
+          "Wedding day travel up to 40 miles from artist's location (80 miles RT)",
+          "Bride Hair + Makeup Preview at artist's location — up to 2 looks per service",
+          "Booking fee",
+          "Smooth, guided process designed to keep you stress-free",
+          "Beauty Guide for secured clients"
+        ]
+      },
+      {
+        "title": "Bride + 7 — Hair Only",
+        "price": "$2,100",
+        "items": [
+          "Bride hair styling — customized, climate-adaptive, 12+ hour durable wear",
+          "Up to 7 guests hair styling — customized for extended wear",
+          "Wedding day travel up to 40 mi (80 RT) from artist's location",
+          "Veil or accessory placement on wedding day",
+          "Bridal Hair Preview at artist's location — up to 2 looks per service",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Included gratuity",
+          "Smooth, guided process designed to keep you stress-free",
+          "Booking fee",
+          "Beauty Guide for secured clients"
+        ]
+      },
+      {
+        "title": "Bride + 7 — Makeup Only",
+        "price": "$2,100",
+        "items": [
+          "Bridal makeup — curated, long-wear application for heat, humidity & tears",
+          "Up to 7 additional attendants makeup — customized, longwear & durable",
+          "Bridal Body Glow on shoulders & chest",
+          "Custom fitted event eyelashes for each guest receiving makeup",
+          "Lip touch-up kit for bride + all guests receiving makeup",
+          "Wedding day travel up to 40 mi from artist's location (80 miles RT)",
+          "Final Polish — detail check and touch-up before the artist departs",
+          "Included gratuity",
+          "Bridal Makeup Preview at artist's location — up to 2 looks included",
+          "Smooth, guided process designed to keep you stress-free",
+          "Booking fee",
+          "Beauty Guide for secured clients"
+        ]
+      },
+      {
+        "title": "Groom / Male Presenting Touchups",
+        "price": "Add-on",
+        "items": [
+          "Skin / blemish touchup — skin prep + light long-wear application, brow/facial hair pomade & styling (style only — no cut/shave) — $50",
+          "Hair styling (short style) — polished & ready for photos — $50",
+          "Hair styling (below chin) — polished & ready for photos — $65"
+        ]
+      },
+      {
+        "title": "Flower Girl Experience — Add-on",
+        "price": "$60",
+        "items": [],
+        "detailText": "Ages 3–9 only. Hair styling + blush, lip gloss & glitter eyeshadow."
+      }
+    ],
+    "additionalSectionTitle": "Additional Investments That May Apply",
+    "additionalBullets": [
+      "Early start time fee may apply before 7:00 a.m. — $100.",
+      "Additional services can be added at artist availability — $175/service.",
+      "Mileage over 40 miles (80 RT) — $1/mile.",
+      "Hair longer than mid back or clip-in extensions placed — additional $25 + 20 minutes added to style time.",
+      "Additional stylists — $150 per stylist (includes their travel up to 30 miles)."
+    ],
+    "cta": {
+      "title": "Ready to book your bridal hair and makeup?",
+      "subtitle": "Get in touch to reserve your date",
+      "buttonText": "Contact us"
+    }
+  }
+}

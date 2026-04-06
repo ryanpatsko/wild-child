@@ -1,54 +1,37 @@
 import React from 'react';
 import pinkHairspray from '../assets/pink-brand-hairspray.png';
 import lipsLogo from '../assets/wcf-lips-logo.png';
+import { useAboutContent } from '../hooks/useAboutContent';
 
 const AboutMe = () => {
+  const { pageHeader, mainText, listIntro, items } = useAboutContent();
+
   return (
     <div className="page-container">
-      <h1 className="page-title">About the Artist & Company</h1>
-      <p className="intro-text">Hi, I'm ChristaLee! Your spunky and silly owner and lead artist of Wild Child Fabrications. Known for refined artistry with an edge, we offer elevated hair & makeup experiences.</p>
-      <p className="intro-text" style={{ marginTop: '1rem' }}>A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:</p>
-      
+      <h1 className="page-title">{pageHeader}</h1>
+      <p className="intro-text">{mainText}</p>
+      <p className="intro-text" style={{ marginTop: '1rem' }}>
+        {listIntro}
+      </p>
+
       <div className="about-layout">
         <div className="about-image-container">
-          <img 
-            src={pinkHairspray} 
-            alt="ChristaLee Lema - Professional Hair and Makeup Artist" 
+          <img
+            src={pinkHairspray}
+            alt="ChristaLee Lema - Professional Hair and Makeup Artist"
             className="about-image"
           />
         </div>
         <section className="section-card">
-          <div className="faq-item">
-            <h3 className="feature-title-with-logo">
-              <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
-              Personalized Support
-            </h3>
-            <p className="body-text">Providing seamless support for your projects, weddings, or events to ensure your beauty journey is stress free. You can expect prompt, professional, and friendly communication during our business hours.</p>
-          </div>
-          
-          <div className="faq-item">
-            <h3 className="feature-title-with-logo">
-              <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
-              Expert Artists & Continuous Improvement
-            </h3>
-            <p className="body-text">Whether it's just myself on your project or our team of artists, you can expect skilled and professional stylists. We regularly educate ourselves in all areas - including, but not limited to our artistry skills, communication, and beauty products/trends.</p>
-          </div>
-          
-          <div className="faq-item">
-            <h3 className="feature-title-with-logo">
-              <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
-              Transparent Pricing
-            </h3>
-            <p className="body-text">Whether it's for your wedding, an event, or an advertising project - we'll make sure you've seen and approved the pricing before it goes on your event contract. There are no hidden fees - allowing you to focus on your event day.</p>
-          </div>
-          
-          <div className="faq-item">
-            <h3 className="feature-title-with-logo">
-              <img src={lipsLogo} alt="Lips logo" className="lips-logo-bullet" />
-              Inclusive & Affirming Services
-            </h3>
-            <p className="body-text">Our company is committed to providing services that feel true to our clients without question. We will listen to what you want and offer tailored beauty solutions for all ages, couples, genders, and hair/skin types, tones, colors, etc.</p>
-          </div>
+          {items.map((item, index) => (
+            <div key={index} className="faq-item">
+              <h3 className="feature-title-with-logo">
+                <img src={lipsLogo} alt="" className="lips-logo-bullet" />
+                {item.title}
+              </h3>
+              <p className="body-text">{item.body}</p>
+            </div>
+          ))}
         </section>
       </div>
     </div>

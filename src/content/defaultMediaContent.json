@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "pageHeader": "Makeup & Hair for Advertising & Media",
+  "introText": "Looking to make a lasting impression on screen? We create camera-ready hair and makeup that elevate talent for film, television, advertising, music videos, and other entertainment projects.",
+  "collaborativeTitle": "Our Collaborative Process",
+  "collaborativeBody": "Every project starts with a personalized consultation. We'll explore your vision, learn your goals, and note any must-haves or no-gos. From there, we design a hair and makeup aesthetic that stays true to your brand and resonates on camera.",
+  "whyDifferentTitle": "Why We're Different",
+  "whyDifferentPillars": [
+    {
+      "title": "Camera-Ready Results",
+      "body": "From polished natural beauty to bold transformations, we craft looks that translate flawlessly on screen."
+    },
+    {
+      "title": "Long-Wear Expertise",
+      "body": "Our products and techniques are chosen specifically for on-set durability, keeping talent fresh through long shooting days."
+    },
+    {
+      "title": "On-Set Support",
+      "body": "Need touch-ups during filming? We offer continuous, on-set service so every frame looks perfect."
+    }
+  ],
+  "ratesTitle": "Rates",
+  "ratesNote": "All rates include kit rental. Travel fees may apply.",
+  "rates": [
+    {
+      "label": "Full day",
+      "sublabel": "up to 10 hrs",
+      "price": "Starting at $750"
+    },
+    {
+      "label": "Half day",
+      "sublabel": "up to 5 hrs",
+      "price": "Starting at $475"
+    }
+  ],
+  "clientsTitle": "Notable Talent & Clients",
+  "clientGroups": [
+    {
+      "title": "Athletes",
+      "body": "Pittsburgh Steelers: Cam Hayward, Chase Claypool, Bud Dupree, Terrell Edmunds"
+    },
+    {
+      "title": "National Sports Announcers",
+      "body": "Jenn Brown, Joe Buck, Holly Sonders, Paul Azinger"
+    },
+    {
+      "title": "TV Personalities",
+      "body": "Chef Palak Patel (Food Network Chopped)"
+    },
+    {
+      "title": "High-Profile Politicians",
+      "body": "Details available upon request"
+    },
+    {
+      "title": "Actors / Musicians",
+      "body": "Eugene Hutz (Gogo Bordello), Liev Schreiber, Jeff Kraus & Broken Down Gramophone, Miraj Grbic, Gabrielle Stone"
+    }
+  ],
+  "selectedWorkTitle": "Selected TV • Film • Print Work",
+  "selectedWorkBody": "Disney Channel • FOX News & Sports • TLC Return to Amish • Paramount Mayor of Kingstown (S2) • WGN Outsiders • Lifetime Dance Moms • How to Rob a Bank (2026) • Nike • Facebook • Spotify • U.S. Steel • Westinghouse Nuclear • Burberry • Sheetz • Pittsburgh Penguins Foundation • University of Pittsburgh • Carnegie Mellon University & FBI collaboration • UPMC Health Plan • Aetna • Yelp! • PNC • Edgar Snyder & Associates — and many more.",
+  "selectedWorkFootnote": "Full client list available upon request."
+}

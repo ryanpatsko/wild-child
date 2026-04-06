@@ -3,25 +3,29 @@ import { Link } from 'react-router-dom';
 import weddingWireProfile from '../assets/wedding-wire-profile.jpg';
 import BridalLayout from './BridalLayout';
 import CTASection from './CTASection';
+import RegionsNotice from './RegionsNotice';
+import { useLocationsContent } from '../hooks/useLocationsContent';
+import { useBridalContent } from '../hooks/useBridalContent';
 
 const Bridal = () => {
+  const { regionsNotice } = useLocationsContent();
+  const bridal = useBridalContent();
+  const { overview } = bridal;
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpanded2, setIsExpanded2] = useState(false);
   const [isExpanded3, setIsExpanded3] = useState(false);
   const badgeRef = useRef(null);
 
   useEffect(() => {
-    document.title = "Bridal Hair & Makeup | Pittsburgh, Atlanta, D.C. | Wild Child Fabrications";
-    const desc =
-      "Proudly serving Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans. Bridal hair and makeup, wedding beauty, luxury bridal trials. Book your date.";
+    document.title = overview.documentTitle;
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
       meta.setAttribute('name', 'description');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', desc);
-  }, []);
+    meta.setAttribute('content', overview.metaDescription);
+  }, [overview.documentTitle, overview.metaDescription]);
 
   useEffect(() => {
     // Check if script already exists
@@ -85,43 +89,30 @@ const Bridal = () => {
   return (
     <BridalLayout>
       <div className="page-container">
-        <h1 className="page-title">Bridal Services</h1>
+        <h1 className="page-title">{overview.pageHeader}</h1>
 
         <div className="bridal-pricing-cta">
-          <p className="bridal-pricing-cta-title">Packages & pricing</p>
-          <p className="bridal-pricing-cta-sub">
-            See current rates and what each package includes for your area.
-          </p>
+          <p className="bridal-pricing-cta-title">{overview.pricingCtaTitle}</p>
+          <p className="bridal-pricing-cta-sub">{overview.pricingCtaSub}</p>
           <div className="bridal-pricing-cta-actions">
             <Link to="/bridal-pittsburgh" className="bridal-pricing-cta-btn">
-              Pittsburgh
+              {overview.pittsburghButtonLabel}
             </Link>
             <Link to="/bridal-atlanta" className="bridal-pricing-cta-btn">
-              Atlanta
+              {overview.atlantaButtonLabel}
             </Link>
           </div>
         </div>
 
         <div className="bridal-lead-content">
-          <p className="body-text">
-            For the bride who values exceptional service and doesn't have time for uncertainty, we provide more than refined artistry — as a bridal specialist, we provide reassurance. From the moment you inquire with us, you'll experience prompt, thorough, and friendly communication. We're a company that anticipates your needs before you have to voice them. No chasing vendors or "what now?" — We'll make sure you're seamlessly guided through the entire experience while making it enjoyable along the way.
-          </p>
-          <p className="body-text">
-            Your experience includes curated beauty services, a wedding preview to refine and perfect your look in advance, downloadable beauty guides to help you prep for your day, thoughtfully prepared touch-up kits for the day of your wedding, and more.
-          </p>
-          <p className="body-text">
-            Our part is simple: to make this part of your wedding feel effortless, elevated, fun, and entirely handled — so you can focus on being present and enjoying your time.
-          </p>
-          <p className="body-text">
-            When you book our company, you're not just reserving a date — you're securing a full-service experience that we're happy to be a part of.
-          </p>
+          {overview.leadParagraphs.map((text, index) => (
+            <p key={index} className="body-text">
+              {text}
+            </p>
+          ))}
         </div>
 
-        <div className="bridal-regions-notice">
-          <div className="bridal-regions-notice-text">
-            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
-          </div>
-        </div>
+        <RegionsNotice text={regionsNotice} variant="bridal" />
 
         {/* Reviews Section */}
         <div className="reviews-section">

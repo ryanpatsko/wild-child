@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import siteLogo from './assets/wcf-lips-logo.png';
+import Admin from './components/Admin';
 
 // Import components
 import Home from './components/Home';
@@ -19,6 +20,7 @@ import Classes from './components/Classes';
 import CreativeFX from './components/CreativeFX';
 import FAQ from './components/FAQ';
 import ColorPaletteParty from './components/ColorPaletteParty';
+import { PagesContentProvider } from './context/PagesContentContext';
 // import FontTest from './components/FontTest';
 
 // Scroll to top component
@@ -206,8 +208,18 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <AppContent />
+      <Routes>
+        <Route path="/admin" element={<Admin />} />
+        <Route
+          path="*"
+          element={
+            <PagesContentProvider>
+              <ScrollToTop />
+              <AppContent />
+            </PagesContentProvider>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

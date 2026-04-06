@@ -1,0 +1,14 @@
+---
+description: Rebuild CMS Lambda zip after lambda/admin-auth or packaging script changes
+alwaysApply: true
+---
+
+# CMS Lambda deployment zip (wild-child)
+
+Whenever you change any of the following, run **`npm run package:lambda`** from the **repository root** before finishing the task, and confirm it succeeds:
+
+- `lambda/admin-auth/index.mjs`
+- `lambda/admin-auth/package.json` or `lambda/admin-auth/package-lock.json` (including dependency updates)
+- `scripts/package-lambda.mjs` when the change affects how the zip is built
+
+The command produces **`dist/lambda-admin-auth.zip`**, which is what you upload to AWS Lambda (or your deploy pipeline uses). Do not skip this step after editing CMS Lambda code or its dependencies.

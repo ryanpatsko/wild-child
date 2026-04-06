@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "pageHeader": "About the Artist & Company",
+  "mainText": "Hi, I'm ChristaLee! Your spunky and silly owner and lead artist of Wild Child Fabrications. Known for refined artistry with an edge, we offer elevated hair & makeup experiences.",
+  "listIntro": "A few things you can expect when choosing Wild Child Fabrications Hair & Makeup:",
+  "items": [
+    {
+      "title": "Personalized Support",
+      "body": "Providing seamless support for your projects, weddings, or events to ensure your beauty journey is stress free. You can expect prompt, professional, and friendly communication during our business hours."
+    },
+    {
+      "title": "Expert Artists & Continuous Improvement",
+      "body": "Whether it's just myself on your project or our team of artists, you can expect skilled and professional stylists. We regularly educate ourselves in all areas - including, but not limited to our artistry skills, communication, and beauty products/trends."
+    },
+    {
+      "title": "Transparent Pricing",
+      "body": "Whether it's for your wedding, an event, or an advertising project - we'll make sure you've seen and approved the pricing before it goes on your event contract. There are no hidden fees - allowing you to focus on your event day."
+    },
+    {
+      "title": "Inclusive & Affirming Services",
+      "body": "Our company is committed to providing services that feel true to our clients without question. We will listen to what you want and offer tailored beauty solutions for all ages, couples, genders, and hair/skin types, tones, colors, etc."
+    }
+  ]
+}

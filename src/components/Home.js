@@ -1,7 +1,11 @@
 import React from 'react';
 import Gallery from './Gallery';
+import RegionsNotice from './RegionsNotice';
+import { useLocationsContent } from '../hooks/useLocationsContent';
 
 const Home = () => {
+  const { regionsNotice } = useLocationsContent();
+
   return (
     <div className="page-container">
       <div className="hero-section">
@@ -10,28 +14,7 @@ const Home = () => {
           Luxury beauty experiences with a wild, creative twist. 
           From bridal elegance to avant-garde artistry.
         </p>
-        <div style={{
-          backgroundColor: '#fff3cd',
-          border: '2px solid #ffc107',
-          borderRadius: '8px',
-          padding: '1rem',
-          margin: '1.5rem 0',
-          textAlign: 'center',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '60px'
-        }}>
-          <div style={{
-            fontSize: '1.1rem',
-            fontWeight: '600',
-            color: '#856404',
-            lineHeight: '1.6'
-          }}>
-            Proudly serving the following regions: Pittsburgh, Washington D.C., West Virginia, Atlanta, Tennessee, and New Orleans
-          </div>
-        </div>
+        <RegionsNotice text={regionsNotice} variant="home" />
       </div>
       <Gallery />
     </div>
