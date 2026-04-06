@@ -701,10 +701,7 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
             rows={6}
             value={(pkg.items || []).join('\n')}
             onChange={(e) => {
-              const items = e.target.value
-                .split('\n')
-                .map((l) => l.trimEnd())
-                .filter((l) => l.length > 0);
+              const items = e.target.value.split('\n');
               patchRegion({
                 ...data,
                 packages: data.packages.map((p, j) => (j === pi ? { ...p, items } : p)),
@@ -759,10 +756,7 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
         rows={6}
         value={data.additionalBullets.join('\n')}
         onChange={(e) => {
-          const additionalBullets = e.target.value
-            .split('\n')
-            .map((l) => l.trimEnd())
-            .filter((l) => l.length > 0);
+          const additionalBullets = e.target.value.split('\n');
           patchRegion({ ...data, additionalBullets });
         }}
         maxLength={20000}

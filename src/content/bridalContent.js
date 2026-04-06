@@ -41,7 +41,10 @@ function normPackages(raw, fallback) {
       const title = typeof p.title === 'string' ? p.title : '';
       const price = typeof p.price === 'string' ? p.price : '';
       const items = Array.isArray(p.items)
-        ? p.items.filter((x) => typeof x === 'string').map((x) => clampStr(x, MAX_BULLET))
+        ? p.items
+            .filter((x) => typeof x === 'string')
+            .map((x) => clampStr(x, MAX_BULLET))
+            .filter((x) => x.length > 0)
         : [];
       const detailText =
         typeof p.detailText === 'string' ? clampStr(p.detailText, MAX_DETAIL) : '';
@@ -97,6 +100,7 @@ function normRegional(raw, fallback) {
       ? raw.additionalBullets
           .filter((x) => typeof x === 'string')
           .map((x) => clampStr(x, MAX_BULLET))
+          .filter((x) => x.length > 0)
           .slice(0, MAX_ADDL_BULLETS)
       : fallback.additionalBullets,
     cta: normCta(raw.cta, fallback.cta),
@@ -326,6 +330,7 @@ export function sanitizeBridalContentForSave(input) {
         items: (Array.isArray(pkg.items) ? pkg.items : [])
           .filter((x) => typeof x === 'string')
           .map((x) => clampStr(x.trim(), MAX_BULLET))
+          .filter((x) => x.length > 0)
           .slice(0, MAX_ITEMS_PER_PKG),
         detailText: clampStr(String(pkg.detailText ?? '').trim(), MAX_DETAIL),
       }))
@@ -345,6 +350,7 @@ export function sanitizeBridalContentForSave(input) {
       additionalBullets: (Array.isArray(reg.additionalBullets) ? reg.additionalBullets : [])
         .filter((x) => typeof x === 'string')
         .map((x) => clampStr(x.trim(), MAX_BULLET))
+        .filter((x) => x.length > 0)
         .slice(0, MAX_ADDL_BULLETS),
       cta: {
         title: clampStr(String(reg.cta?.title ?? '').trim(), CTA_TITLE_MAX),

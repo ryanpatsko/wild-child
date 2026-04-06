@@ -284,198 +284,223 @@ function validateMediaDoc(body) {
   return true
 }
 
-function validateBridalPackage(p) {
-  if (!p || typeof p !== 'object') return false
-  if (typeof p.title !== 'string' || p.title.trim().length < 1 || p.title.length > BR_PKG_TITLE) return false
-  if (typeof p.price !== 'string' || p.price.trim().length < 1 || p.price.length > BR_PRICE) return false
+/** @returns {string | null} null if OK, else human-readable path + reason */
+function validateBridalPackageReason(p, pkgIndex, pathPrefix) {
+  const pfx = `${pathPrefix}/packages[${pkgIndex}]`
+  if (!p || typeof p !== 'object') return `${pfx}: must be an object`
+  if (typeof p.title !== 'string' || p.title.trim().length < 1)
+    return `${pfx}/title: required non-empty string`
+  if (p.title.length > BR_PKG_TITLE)
+    return `${pfx}/title: max ${BR_PKG_TITLE} characters (got ${p.title.length})`
+  if (typeof p.price !== 'string' || p.price.trim().length < 1)
+    return `${pfx}/price: required non-empty string`
+  if (p.price.length > BR_PRICE) return `${pfx}/price: max ${BR_PRICE} characters (got ${p.price.length})`
   const detailRaw = typeof p.detailText === 'string' ? p.detailText.trim() : ''
-  if (detailRaw.length > BR_DETAIL) return false
-  if (!Array.isArray(p.items)) return false
+  if (detailRaw.length > BR_DETAIL)
+    return `${pfx}/detailText: max ${BR_DETAIL} characters (got ${detailRaw.length})`
+  if (!Array.isArray(p.items)) return `${pfx}/items: must be an array`
   const items = p.items.filter((x) => typeof x === 'string' && x.trim().length > 0)
-  if (items.length > BR_MAX_ITEMS_PKG) return false
-  if (!items.every((x) => x.length <= BR_BULLET)) return false
-  if (items.length < 1 && detailRaw.length < 1) return false
-  return true
+  if (items.length > BR_MAX_ITEMS_PKG)
+    return `${pfx}/items: at most ${BR_MAX_ITEMS_PKG} non-empty lines (got ${items.length})`
+  const badBullet = items.findIndex((x) => x.length > BR_BULLET)
+  if (badBullet !== -1)
+    return `${pfx}/items[${badBullet}]: max ${BR_BULLET} characters per line`
+  if (items.length < 1 && detailRaw.length < 1)
+    return `${pfx}: add at least one bullet in items or non-empty detailText`
+  return null
 }
 
-function validateBridalCta(cta) {
-  if (!cta || typeof cta !== 'object') return false
-  if (typeof cta.title !== 'string' || cta.title.trim().length < 1 || cta.title.length > BR_CTA_TITLE)
-    return false
-  if (typeof cta.subtitle !== 'string' || cta.subtitle.trim().length < 1 || cta.subtitle.length > BR_CTA_SUB)
-    return false
-  if (
-    typeof cta.buttonText !== 'string' ||
-    cta.buttonText.trim().length < 1 ||
-    cta.buttonText.length > BR_CTA_BTN
-  )
-    return false
-  return true
+/** @returns {string | null} */
+function validateBridalCtaReason(cta, pathPrefix) {
+  if (!cta || typeof cta !== 'object') return `${pathPrefix}: cta must be an object`
+  if (typeof cta.title !== 'string' || cta.title.trim().length < 1)
+    return `${pathPrefix}/cta/title: required non-empty string`
+  if (cta.title.length > BR_CTA_TITLE)
+    return `${pathPrefix}/cta/title: max ${BR_CTA_TITLE} characters (got ${cta.title.length})`
+  if (typeof cta.subtitle !== 'string' || cta.subtitle.trim().length < 1)
+    return `${pathPrefix}/cta/subtitle: required non-empty string`
+  if (cta.subtitle.length > BR_CTA_SUB)
+    return `${pathPrefix}/cta/subtitle: max ${BR_CTA_SUB} characters (got ${cta.subtitle.length})`
+  if (typeof cta.buttonText !== 'string' || cta.buttonText.trim().length < 1)
+    return `${pathPrefix}/cta/buttonText: required non-empty string`
+  if (cta.buttonText.length > BR_CTA_BTN)
+    return `${pathPrefix}/cta/buttonText: max ${BR_CTA_BTN} characters (got ${cta.buttonText.length})`
+  return null
 }
 
-function validateBridalRegional(r) {
-  if (!r || typeof r !== 'object') return false
-  if (
-    typeof r.documentTitle !== 'string' ||
-    r.documentTitle.trim().length < 1 ||
-    r.documentTitle.length > BR_DOC_TITLE
-  )
-    return false
-  if (
-    typeof r.metaDescription !== 'string' ||
-    r.metaDescription.trim().length < 1 ||
-    r.metaDescription.length > BR_META
-  )
-    return false
-  if (typeof r.pageHeader !== 'string' || r.pageHeader.trim().length < 1 || r.pageHeader.length > BR_HEADER)
-    return false
-  if (
-    typeof r.introBeforeLink !== 'string' ||
-    r.introBeforeLink.length > BR_INTRO_LINK
-  )
-    return false
-  if (r.introBeforeLink.trim().length < 1) return false
-  if (
-    typeof r.servicesLinkText !== 'string' ||
-    r.servicesLinkText.trim().length < 1 ||
-    r.servicesLinkText.length > BR_HEADER
-  )
-    return false
-  if (
-    typeof r.introAfterLink !== 'string' ||
-    r.introAfterLink.length > BR_INTRO_LINK
-  )
-    return false
-  if (r.introAfterLink.trim().length < 1) return false
-  if (!Array.isArray(r.packages) || r.packages.length < 1 || r.packages.length > BR_MAX_PKGS) return false
-  if (!r.packages.every(validateBridalPackage)) return false
-  if (
-    typeof r.additionalSectionTitle !== 'string' ||
-    r.additionalSectionTitle.trim().length < 1 ||
-    r.additionalSectionTitle.length > BR_SECTION_TITLE
-  )
-    return false
-  if (!Array.isArray(r.additionalBullets)) return false
-  if (r.additionalBullets.length < 1 || r.additionalBullets.length > BR_MAX_ADD_BULLETS) return false
-  if (
-    !r.additionalBullets.every(
-      (x) =>
-        typeof x === 'string' &&
-        x.trim().length > 0 &&
-        x.length <= BR_BULLET,
-    )
-  )
-    return false
-  return validateBridalCta(r.cta)
+/** @returns {string | null} */
+function validateBridalRegionalReason(r, regionKey) {
+  const path = regionKey
+  if (!r || typeof r !== 'object') return `${path}: must be an object`
+  if (typeof r.documentTitle !== 'string' || r.documentTitle.trim().length < 1)
+    return `${path}/documentTitle: required non-empty string`
+  if (r.documentTitle.length > BR_DOC_TITLE)
+    return `${path}/documentTitle: max ${BR_DOC_TITLE} characters (got ${r.documentTitle.length})`
+  if (typeof r.metaDescription !== 'string' || r.metaDescription.trim().length < 1)
+    return `${path}/metaDescription: required non-empty string`
+  if (r.metaDescription.length > BR_META)
+    return `${path}/metaDescription: max ${BR_META} characters (got ${r.metaDescription.length})`
+  if (typeof r.pageHeader !== 'string' || r.pageHeader.trim().length < 1)
+    return `${path}/pageHeader: required non-empty string`
+  if (r.pageHeader.length > BR_HEADER)
+    return `${path}/pageHeader: max ${BR_HEADER} characters (got ${r.pageHeader.length})`
+  if (typeof r.introBeforeLink !== 'string')
+    return `${path}/introBeforeLink: must be a string`
+  if (r.introBeforeLink.length > BR_INTRO_LINK)
+    return `${path}/introBeforeLink: max ${BR_INTRO_LINK} characters (got ${r.introBeforeLink.length})`
+  if (r.introBeforeLink.trim().length < 1)
+    return `${path}/introBeforeLink: required non-empty (trimmed)`
+  if (typeof r.servicesLinkText !== 'string' || r.servicesLinkText.trim().length < 1)
+    return `${path}/servicesLinkText: required non-empty string`
+  if (r.servicesLinkText.length > BR_HEADER)
+    return `${path}/servicesLinkText: max ${BR_HEADER} characters (got ${r.servicesLinkText.length})`
+  if (typeof r.introAfterLink !== 'string')
+    return `${path}/introAfterLink: must be a string`
+  if (r.introAfterLink.length > BR_INTRO_LINK)
+    return `${path}/introAfterLink: max ${BR_INTRO_LINK} characters (got ${r.introAfterLink.length})`
+  if (r.introAfterLink.trim().length < 1)
+    return `${path}/introAfterLink: required non-empty (trimmed)`
+  if (!Array.isArray(r.packages))
+    return `${path}/packages: must be an array with 1–${BR_MAX_PKGS} packages`
+  if (r.packages.length < 1 || r.packages.length > BR_MAX_PKGS)
+    return `${path}/packages: need 1–${BR_MAX_PKGS} packages (got ${r.packages.length})`
+  for (let i = 0; i < r.packages.length; i++) {
+    const err = validateBridalPackageReason(r.packages[i], i, path)
+    if (err) return err
+  }
+  if (typeof r.additionalSectionTitle !== 'string' || r.additionalSectionTitle.trim().length < 1)
+    return `${path}/additionalSectionTitle: required non-empty string`
+  if (r.additionalSectionTitle.length > BR_SECTION_TITLE)
+    return `${path}/additionalSectionTitle: max ${BR_SECTION_TITLE} characters (got ${r.additionalSectionTitle.length})`
+  if (!Array.isArray(r.additionalBullets))
+    return `${path}/additionalBullets: must be an array`
+  if (r.additionalBullets.length < 1 || r.additionalBullets.length > BR_MAX_ADD_BULLETS)
+    return `${path}/additionalBullets: need 1–${BR_MAX_ADD_BULLETS} items (got ${r.additionalBullets.length})`
+  for (let i = 0; i < r.additionalBullets.length; i++) {
+    const x = r.additionalBullets[i]
+    if (typeof x !== 'string' || x.trim().length < 1)
+      return `${path}/additionalBullets[${i}]: required non-empty string`
+    if (x.length > BR_BULLET)
+      return `${path}/additionalBullets[${i}]: max ${BR_BULLET} characters`
+  }
+  return validateBridalCtaReason(r.cta, path)
 }
 
-function validateBridalOverview(ov) {
-  if (!ov || typeof ov !== 'object') return false
-  if (
-    typeof ov.documentTitle !== 'string' ||
-    ov.documentTitle.trim().length < 1 ||
-    ov.documentTitle.length > BR_DOC_TITLE
-  )
-    return false
-  if (
-    typeof ov.metaDescription !== 'string' ||
-    ov.metaDescription.trim().length < 1 ||
-    ov.metaDescription.length > BR_META
-  )
-    return false
-  if (typeof ov.pageHeader !== 'string' || ov.pageHeader.trim().length < 1 || ov.pageHeader.length > BR_HEADER)
-    return false
-  if (
-    typeof ov.pricingCtaTitle !== 'string' ||
-    ov.pricingCtaTitle.trim().length < 1 ||
-    ov.pricingCtaTitle.length > BR_SECTION_TITLE
-  )
-    return false
-  if (
-    typeof ov.pricingCtaSub !== 'string' ||
-    ov.pricingCtaSub.trim().length < 1 ||
-    ov.pricingCtaSub.length > BR_PARA
-  )
-    return false
-  if (
-    typeof ov.pittsburghButtonLabel !== 'string' ||
-    ov.pittsburghButtonLabel.trim().length < 1 ||
-    ov.pittsburghButtonLabel.length > BR_BUTTON
-  )
-    return false
-  if (
-    typeof ov.atlantaButtonLabel !== 'string' ||
-    ov.atlantaButtonLabel.trim().length < 1 ||
-    ov.atlantaButtonLabel.length > BR_BUTTON
-  )
-    return false
-  if (!Array.isArray(ov.leadParagraphs)) return false
-  if (ov.leadParagraphs.length < 1 || ov.leadParagraphs.length > BR_MAX_LEAD) return false
-  return ov.leadParagraphs.every(
-    (x) => typeof x === 'string' && x.trim().length > 0 && x.length <= BR_PARA,
-  )
+/** @returns {string | null} */
+function validateBridalOverviewReason(ov) {
+  const path = 'overview'
+  if (!ov || typeof ov !== 'object') return `${path}: must be an object`
+  if (typeof ov.documentTitle !== 'string' || ov.documentTitle.trim().length < 1)
+    return `${path}/documentTitle: required non-empty string`
+  if (ov.documentTitle.length > BR_DOC_TITLE)
+    return `${path}/documentTitle: max ${BR_DOC_TITLE} characters (got ${ov.documentTitle.length})`
+  if (typeof ov.metaDescription !== 'string' || ov.metaDescription.trim().length < 1)
+    return `${path}/metaDescription: required non-empty string`
+  if (ov.metaDescription.length > BR_META)
+    return `${path}/metaDescription: max ${BR_META} characters (got ${ov.metaDescription.length})`
+  if (typeof ov.pageHeader !== 'string' || ov.pageHeader.trim().length < 1)
+    return `${path}/pageHeader: required non-empty string`
+  if (ov.pageHeader.length > BR_HEADER)
+    return `${path}/pageHeader: max ${BR_HEADER} characters (got ${ov.pageHeader.length})`
+  if (typeof ov.pricingCtaTitle !== 'string' || ov.pricingCtaTitle.trim().length < 1)
+    return `${path}/pricingCtaTitle: required non-empty string`
+  if (ov.pricingCtaTitle.length > BR_SECTION_TITLE)
+    return `${path}/pricingCtaTitle: max ${BR_SECTION_TITLE} characters (got ${ov.pricingCtaTitle.length})`
+  if (typeof ov.pricingCtaSub !== 'string' || ov.pricingCtaSub.trim().length < 1)
+    return `${path}/pricingCtaSub: required non-empty string`
+  if (ov.pricingCtaSub.length > BR_PARA)
+    return `${path}/pricingCtaSub: max ${BR_PARA} characters (got ${ov.pricingCtaSub.length})`
+  if (typeof ov.pittsburghButtonLabel !== 'string' || ov.pittsburghButtonLabel.trim().length < 1)
+    return `${path}/pittsburghButtonLabel: required non-empty string`
+  if (ov.pittsburghButtonLabel.length > BR_BUTTON)
+    return `${path}/pittsburghButtonLabel: max ${BR_BUTTON} characters (got ${ov.pittsburghButtonLabel.length})`
+  if (typeof ov.atlantaButtonLabel !== 'string' || ov.atlantaButtonLabel.trim().length < 1)
+    return `${path}/atlantaButtonLabel: required non-empty string`
+  if (ov.atlantaButtonLabel.length > BR_BUTTON)
+    return `${path}/atlantaButtonLabel: max ${BR_BUTTON} characters (got ${ov.atlantaButtonLabel.length})`
+  if (!Array.isArray(ov.leadParagraphs))
+    return `${path}/leadParagraphs: must be an array`
+  if (ov.leadParagraphs.length < 1 || ov.leadParagraphs.length > BR_MAX_LEAD)
+    return `${path}/leadParagraphs: need 1–${BR_MAX_LEAD} paragraphs (got ${ov.leadParagraphs.length})`
+  for (let i = 0; i < ov.leadParagraphs.length; i++) {
+    const x = ov.leadParagraphs[i]
+    if (typeof x !== 'string' || x.trim().length < 1)
+      return `${path}/leadParagraphs[${i}]: required non-empty string`
+    if (x.length > BR_PARA)
+      return `${path}/leadParagraphs[${i}]: max ${BR_PARA} characters (got ${x.length})`
+  }
+  return null
 }
 
-function validateBridalServices(sv) {
-  if (!sv || typeof sv !== 'object') return false
-  if (typeof sv.pageHeader !== 'string' || sv.pageHeader.trim().length < 1 || sv.pageHeader.length > BR_HEADER)
-    return false
-  if (
-    typeof sv.pricingCtaTitle !== 'string' ||
-    sv.pricingCtaTitle.trim().length < 1 ||
-    sv.pricingCtaTitle.length > BR_SECTION_TITLE
-  )
-    return false
-  if (
-    typeof sv.pricingCtaSub !== 'string' ||
-    sv.pricingCtaSub.trim().length < 1 ||
-    sv.pricingCtaSub.length > BR_PARA
-  )
-    return false
-  if (
-    typeof sv.pittsburghButtonLabel !== 'string' ||
-    sv.pittsburghButtonLabel.trim().length < 1 ||
-    sv.pittsburghButtonLabel.length > BR_BUTTON
-  )
-    return false
-  if (
-    typeof sv.atlantaButtonLabel !== 'string' ||
-    sv.atlantaButtonLabel.trim().length < 1 ||
-    sv.atlantaButtonLabel.length > BR_BUTTON
-  )
-    return false
-  if (typeof sv.introText !== 'string' || sv.introText.trim().length < 1 || sv.introText.length > BR_PARA)
-    return false
-  if (!Array.isArray(sv.sections) || sv.sections.length < 1 || sv.sections.length > BR_MAX_SECTIONS)
-    return false
-  if (
-    !sv.sections.every((sec) => {
-      if (!sec || typeof sec !== 'object') return false
-      if (
-        typeof sec.title !== 'string' ||
-        sec.title.trim().length < 1 ||
-        sec.title.length > BR_SECTION_TITLE
-      )
-        return false
-      if (!Array.isArray(sec.paragraphs)) return false
-      if (sec.paragraphs.length < 1 || sec.paragraphs.length > BR_MAX_PARAS) return false
-      return sec.paragraphs.every(
-        (x) => typeof x === 'string' && x.trim().length > 0 && x.length <= BR_PARA,
-      )
-    })
-  )
-    return false
-  return validateBridalCta(sv.cta)
+/** @returns {string | null} */
+function validateBridalServicesReason(sv) {
+  const path = 'services'
+  if (!sv || typeof sv !== 'object') return `${path}: must be an object`
+  if (typeof sv.pageHeader !== 'string' || sv.pageHeader.trim().length < 1)
+    return `${path}/pageHeader: required non-empty string`
+  if (sv.pageHeader.length > BR_HEADER)
+    return `${path}/pageHeader: max ${BR_HEADER} characters (got ${sv.pageHeader.length})`
+  if (typeof sv.pricingCtaTitle !== 'string' || sv.pricingCtaTitle.trim().length < 1)
+    return `${path}/pricingCtaTitle: required non-empty string`
+  if (sv.pricingCtaTitle.length > BR_SECTION_TITLE)
+    return `${path}/pricingCtaTitle: max ${BR_SECTION_TITLE} characters (got ${sv.pricingCtaTitle.length})`
+  if (typeof sv.pricingCtaSub !== 'string' || sv.pricingCtaSub.trim().length < 1)
+    return `${path}/pricingCtaSub: required non-empty string`
+  if (sv.pricingCtaSub.length > BR_PARA)
+    return `${path}/pricingCtaSub: max ${BR_PARA} characters (got ${sv.pricingCtaSub.length})`
+  if (typeof sv.pittsburghButtonLabel !== 'string' || sv.pittsburghButtonLabel.trim().length < 1)
+    return `${path}/pittsburghButtonLabel: required non-empty string`
+  if (sv.pittsburghButtonLabel.length > BR_BUTTON)
+    return `${path}/pittsburghButtonLabel: max ${BR_BUTTON} characters (got ${sv.pittsburghButtonLabel.length})`
+  if (typeof sv.atlantaButtonLabel !== 'string' || sv.atlantaButtonLabel.trim().length < 1)
+    return `${path}/atlantaButtonLabel: required non-empty string`
+  if (sv.atlantaButtonLabel.length > BR_BUTTON)
+    return `${path}/atlantaButtonLabel: max ${BR_BUTTON} characters (got ${sv.atlantaButtonLabel.length})`
+  if (typeof sv.introText !== 'string' || sv.introText.trim().length < 1)
+    return `${path}/introText: required non-empty string`
+  if (sv.introText.length > BR_PARA)
+    return `${path}/introText: max ${BR_PARA} characters (got ${sv.introText.length})`
+  if (!Array.isArray(sv.sections))
+    return `${path}/sections: must be an array`
+  if (sv.sections.length < 1 || sv.sections.length > BR_MAX_SECTIONS)
+    return `${path}/sections: need 1–${BR_MAX_SECTIONS} sections (got ${sv.sections.length})`
+  for (let si = 0; si < sv.sections.length; si++) {
+    const sec = sv.sections[si]
+    const sp = `${path}/sections[${si}]`
+    if (!sec || typeof sec !== 'object') return `${sp}: must be an object`
+    if (typeof sec.title !== 'string' || sec.title.trim().length < 1)
+      return `${sp}/title: required non-empty string`
+    if (sec.title.length > BR_SECTION_TITLE)
+      return `${sp}/title: max ${BR_SECTION_TITLE} characters (got ${sec.title.length})`
+    if (!Array.isArray(sec.paragraphs))
+      return `${sp}/paragraphs: must be an array`
+    if (sec.paragraphs.length < 1 || sec.paragraphs.length > BR_MAX_PARAS)
+      return `${sp}/paragraphs: need 1–${BR_MAX_PARAS} paragraphs (got ${sec.paragraphs.length})`
+    for (let pi = 0; pi < sec.paragraphs.length; pi++) {
+      const x = sec.paragraphs[pi]
+      if (typeof x !== 'string' || x.trim().length < 1)
+        return `${sp}/paragraphs[${pi}]: required non-empty string`
+      if (x.length > BR_PARA)
+        return `${sp}/paragraphs[${pi}]: max ${BR_PARA} characters (got ${x.length})`
+    }
+  }
+  return validateBridalCtaReason(sv.cta, path)
 }
 
-function validateBridalDoc(body) {
-  if (!body || typeof body !== 'object') return false
-  if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
-  if (!validateBridalOverview(body.overview)) return false
-  if (!validateBridalServices(body.services)) return false
-  if (!validateBridalRegional(body.pittsburgh)) return false
-  if (!validateBridalRegional(body.atlanta)) return false
-  return true
+/** @returns {string | null} */
+function validateBridalDocReason(body) {
+  if (!body || typeof body !== 'object') return 'root: body must be a JSON object'
+  if (typeof body.version !== 'number' || !Number.isFinite(body.version))
+    return 'root/version: must be a finite number'
+  let err = validateBridalOverviewReason(body.overview)
+  if (err) return err
+  err = validateBridalServicesReason(body.services)
+  if (err) return err
+  err = validateBridalRegionalReason(body.pittsburgh, 'pittsburgh')
+  if (err) return err
+  err = validateBridalRegionalReason(body.atlanta, 'atlanta')
+  if (err) return err
+  return null
 }
 
 function normalizeBridalOverviewOut(ov) {
@@ -1200,11 +1225,9 @@ export async function handler(event) {
     } catch {
       return response(400, { error: 'Invalid JSON' })
     }
-    if (!validateBridalDoc(body)) {
-      return response(400, {
-        error:
-          'Invalid bridal content (see length limits; overview, services, Pittsburgh, and Atlanta must be complete).',
-      })
+    const bridalErr = validateBridalDocReason(body)
+    if (bridalErr) {
+      return response(400, { error: `Invalid bridal content: ${bridalErr}` })
     }
     const bucket = process.env.CMS_S3_BUCKET ?? ''
     const key = process.env.CMS_S3_BRIDAL_KEY || 'bridal-content.json'
