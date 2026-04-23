@@ -103,37 +103,11 @@
     </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <p>Wild Child Fabrications — bridal hair and makeup (Pittsburgh, Atlanta, and more). This site needs JavaScript enabled for the full experience.</p>
+      <p><a href="/sitemap.xml">Sitemap</a> · <a href="/">Home</a> · <a href="/bridal">Bridal</a> · <a href="/faq">FAQ</a> · <a href="/contact">Contact</a></p>
+    </noscript>
     <div id="root"></div>
-    
-    <!-- Suppress MetaMask extension errors -->
-    <script>
-      // Suppress MetaMask extension errors
-      window.addEventListener('error', function(e) {
-        if (e.message && e.message.includes('MetaMask')) {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // Suppress unhandled promise rejections from MetaMask
-      window.addEventListener('unhandledrejection', function(e) {
-        if (e.reason && e.reason.message && e.reason.message.includes('MetaMask')) {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // Override console.error to filter out MetaMask errors
-      const originalConsoleError = console.error;
-      console.error = function(...args) {
-        const message = args.join(' ');
-        if (message.includes('MetaMask') || message.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn')) {
-          return; // Suppress MetaMask errors
-        }
-        originalConsoleError.apply(console, args);
-      };
-    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

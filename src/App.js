@@ -23,12 +23,34 @@ import ColorPaletteParty from './components/ColorPaletteParty';
 import { PagesContentProvider } from './context/PagesContentContext';
 // import FontTest from './components/FontTest';
 
-// Scroll to top component
+const SITE_ORIGIN = 'https://wildchild-makeup.com';
+
+// Scroll to top + align canonical (and Open Graph URL) with the client route for SEO / prerender.
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    const canonicalHref = pathname === '/' ? SITE_ORIGIN : `${SITE_ORIGIN}${pathname}`;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', canonicalHref);
+
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      document.head.appendChild(ogUrl);
+    }
+    ogUrl.setAttribute('content', canonicalHref);
   }, [pathname]);
 
   return null;
