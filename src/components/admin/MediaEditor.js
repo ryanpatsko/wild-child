@@ -35,6 +35,8 @@ function SaveFeedback() {
 
 function buildDraftDoc(state) {
   const {
+    documentTitle,
+    metaDescription,
     pageHeader,
     introText,
     collaborativeTitle,
@@ -51,6 +53,8 @@ function buildDraftDoc(state) {
     selectedWorkFootnote,
   } = state;
   return {
+    documentTitle,
+    metaDescription,
     pageHeader,
     introText,
     collaborativeTitle,
@@ -73,6 +77,8 @@ export default function MediaEditor() {
   const [loadError, setLoadError] = useState(null);
   const [savedVersion, setSavedVersion] = useState(1);
 
+  const [documentTitle, setDocumentTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
   const [pageHeader, setPageHeader] = useState('');
   const [introText, setIntroText] = useState('');
   const [collaborativeTitle, setCollaborativeTitle] = useState('');
@@ -98,6 +104,8 @@ export default function MediaEditor() {
       mediaContentSignature(
         buildDraftDoc({
           pageHeader,
+          documentTitle,
+          metaDescription,
           introText,
           collaborativeTitle,
           collaborativeBody,
@@ -115,6 +123,8 @@ export default function MediaEditor() {
       ),
     [
       pageHeader,
+      documentTitle,
+      metaDescription,
       introText,
       collaborativeTitle,
       collaborativeBody,
@@ -144,6 +154,8 @@ export default function MediaEditor() {
     let cancelled = false;
     function apply(loaded) {
       setSavedVersion(loaded.version);
+      setDocumentTitle(loaded.documentTitle);
+      setMetaDescription(loaded.metaDescription);
       setPageHeader(loaded.pageHeader);
       setIntroText(loaded.introText);
       setCollaborativeTitle(loaded.collaborativeTitle);
@@ -235,6 +247,8 @@ export default function MediaEditor() {
     const nextVersion = savedVersion + 1;
     const doc = sanitizeMediaContentForSave({
       version: nextVersion,
+      documentTitle,
+      metaDescription,
       pageHeader,
       introText,
       collaborativeTitle,
@@ -255,6 +269,8 @@ export default function MediaEditor() {
       const result = await saveMediaContent(token, doc);
       if (result.ok) {
         setSavedVersion(nextVersion);
+        setDocumentTitle(doc.documentTitle);
+        setMetaDescription(doc.metaDescription);
         setPageHeader(doc.pageHeader);
         setIntroText(doc.introText);
         setCollaborativeTitle(doc.collaborativeTitle);
@@ -301,6 +317,28 @@ export default function MediaEditor() {
       ) : null}
 
       <h4 className="admin-subheading">Page intro</h4>
+      <label className="admin-label" htmlFor="wc-media-doc">
+        Browser tab title
+      </label>
+      <input
+        id="wc-media-doc"
+        className="admin-input admin-input-full"
+        type="text"
+        value={documentTitle}
+        onChange={(ev) => setDocumentTitle(ev.target.value)}
+        maxLength={500}
+      />
+      <label className="admin-label" htmlFor="wc-media-meta">
+        Meta description
+      </label>
+      <textarea
+        id="wc-media-meta"
+        className="admin-textarea"
+        rows={3}
+        value={metaDescription}
+        onChange={(ev) => setMetaDescription(ev.target.value)}
+        maxLength={2000}
+      />
       <label className="admin-label" htmlFor="wc-media-header">
         Page title (H1)
       </label>

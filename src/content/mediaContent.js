@@ -4,6 +4,8 @@ export const DEFAULT_MEDIA_CONTENT_URL =
   'https://wild-child-cms.s3.us-east-1.amazonaws.com/media-content.json';
 
 const MAX_PAGE_HEADER = 400;
+const MAX_DOC_TITLE = 500;
+const MAX_META = 2000;
 const MAX_INTRO = 6000;
 const MAX_SECTION_TITLE = 400;
 const MAX_SECTION_BODY = 8000;
@@ -79,6 +81,8 @@ export function normalizeMediaContent(input) {
 
   return {
     version,
+    documentTitle: normStr(o.documentTitle, def.documentTitle, MAX_DOC_TITLE),
+    metaDescription: normStr(o.metaDescription, def.metaDescription, MAX_META),
     pageHeader: normStr(o.pageHeader, def.pageHeader, MAX_PAGE_HEADER),
     introText: normStr(o.introText, def.introText, MAX_INTRO),
     collaborativeTitle: normStr(o.collaborativeTitle, def.collaborativeTitle, MAX_SECTION_TITLE),
@@ -114,6 +118,8 @@ export function sanitizeMediaContentForSave(input) {
   const version = Number.isFinite(input.version) ? Math.max(1, Math.floor(input.version)) : 1;
   const doc = {
     version,
+    documentTitle: clampStr(String(input.documentTitle ?? '').trim(), MAX_DOC_TITLE),
+    metaDescription: clampStr(String(input.metaDescription ?? '').trim(), MAX_META),
     pageHeader: clampStr(String(input.pageHeader ?? '').trim(), MAX_PAGE_HEADER),
     introText: clampStr(String(input.introText ?? '').trim(), MAX_INTRO),
     collaborativeTitle: clampStr(String(input.collaborativeTitle ?? '').trim(), MAX_SECTION_TITLE),
@@ -153,6 +159,8 @@ export function sanitizeMediaContentForSave(input) {
 
 export function mediaContentSignature(doc) {
   return JSON.stringify({
+    documentTitle: doc.documentTitle,
+    metaDescription: doc.metaDescription,
     pageHeader: doc.pageHeader,
     introText: doc.introText,
     collaborativeTitle: doc.collaborativeTitle,

@@ -209,6 +209,18 @@ function normBeauty(raw, fallback) {
 function normHome(raw, fallback) {
   if (!raw || typeof raw !== 'object') return fallback;
   return {
+    documentTitle: clampStr(
+      typeof raw.documentTitle === 'string' && raw.documentTitle.trim()
+        ? raw.documentTitle
+        : fallback.documentTitle,
+      MAX_DOC_TITLE,
+    ),
+    metaDescription: clampStr(
+      typeof raw.metaDescription === 'string' && raw.metaDescription.trim()
+        ? raw.metaDescription
+        : fallback.metaDescription,
+      MAX_META,
+    ),
     pageTitle: clampStr(
       typeof raw.pageTitle === 'string' && raw.pageTitle.trim() ? raw.pageTitle : fallback.pageTitle,
       MAX_PAGE_TITLE,

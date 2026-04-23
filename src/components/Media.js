@@ -1,9 +1,11 @@
 import React from 'react';
 import pageBanner from '../assets/page-headers/curling-iron.png';
 import { useMediaContent } from '../hooks/useMediaContent';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const Media = () => {
   const m = useMediaContent();
+  useDocumentMeta(m.documentTitle, m.metaDescription);
 
   return (
     <div className="page-container">

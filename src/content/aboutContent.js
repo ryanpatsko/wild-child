@@ -4,6 +4,8 @@ export const DEFAULT_ABOUT_CONTENT_URL =
   'https://wild-child-cms.s3.us-east-1.amazonaws.com/about-content.json';
 
 const MAX_PAGE_HEADER = 400;
+const MAX_DOC_TITLE = 500;
+const MAX_META = 2000;
 const MAX_MAIN_TEXT = 6000;
 const MAX_LIST_INTRO = 2000;
 const MAX_ITEM_TITLE = 400;
@@ -46,6 +48,14 @@ export function normalizeAboutContent(input) {
 
   return {
     version,
+    documentTitle: clampStr(
+      typeof o.documentTitle === 'string' && o.documentTitle.trim() ? o.documentTitle : def.documentTitle,
+      MAX_DOC_TITLE,
+    ),
+    metaDescription: clampStr(
+      typeof o.metaDescription === 'string' && o.metaDescription.trim() ? o.metaDescription : def.metaDescription,
+      MAX_META,
+    ),
     pageHeader: clampStr(pageHeader, MAX_PAGE_HEADER),
     mainText: clampStr(mainText, MAX_MAIN_TEXT),
     listIntro: clampStr(listIntro, MAX_LIST_INTRO),
@@ -58,6 +68,8 @@ export function normalizeAboutContent(input) {
 
 export function sanitizeAboutContentForSave(input) {
   const version = Number.isFinite(input.version) ? Math.max(1, Math.floor(input.version)) : 1;
+  const documentTitle = clampStr(String(input.documentTitle ?? '').trim(), MAX_DOC_TITLE);
+  const metaDescription = clampStr(String(input.metaDescription ?? '').trim(), MAX_META);
   const pageHeader = clampStr(String(input.pageHeader ?? '').trim(), MAX_PAGE_HEADER);
   const mainText = clampStr(String(input.mainText ?? '').trim(), MAX_MAIN_TEXT);
   const listIntro = clampStr(String(input.listIntro ?? '').trim(), MAX_LIST_INTRO);
@@ -70,11 +82,13 @@ export function sanitizeAboutContentForSave(input) {
     }))
     .slice(0, MAX_ITEMS);
 
-  return { version, pageHeader, mainText, listIntro, items };
+  return { version, documentTitle, metaDescription, pageHeader, mainText, listIntro, items };
 }
 
 export function aboutContentSignature(doc) {
   return JSON.stringify({
+    documentTitle: doc.documentTitle,
+    metaDescription: doc.metaDescription,
     pageHeader: doc.pageHeader,
     mainText: doc.mainText,
     listIntro: doc.listIntro,

@@ -37,6 +37,8 @@ export default function AboutEditor() {
   const [status, setStatus] = useState('loading');
   const [loadError, setLoadError] = useState(null);
   const [savedVersion, setSavedVersion] = useState(1);
+  const [documentTitle, setDocumentTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
   const [pageHeader, setPageHeader] = useState('');
   const [mainText, setMainText] = useState('');
   const [listIntro, setListIntro] = useState('');
@@ -49,12 +51,14 @@ export default function AboutEditor() {
   const currentSig = useMemo(
     () =>
       aboutContentSignature({
+        documentTitle,
+        metaDescription,
         pageHeader,
         mainText,
         listIntro,
         items,
       }),
-    [pageHeader, mainText, listIntro, items],
+    [documentTitle, metaDescription, pageHeader, mainText, listIntro, items],
   );
 
   const isDirty = useMemo(() => {
@@ -73,12 +77,16 @@ export default function AboutEditor() {
         const data = await loadAboutContent();
         if (cancelled) return;
         setSavedVersion(data.version);
+        setDocumentTitle(data.documentTitle);
+        setMetaDescription(data.metaDescription);
         setPageHeader(data.pageHeader);
         setMainText(data.mainText);
         setListIntro(data.listIntro);
         setItems(data.items.map((i) => ({ title: i.title, body: i.body })));
         setBaselineSig(
           aboutContentSignature({
+            documentTitle: data.documentTitle,
+            metaDescription: data.metaDescription,
             pageHeader: data.pageHeader,
             mainText: data.mainText,
             listIntro: data.listIntro,
@@ -90,12 +98,16 @@ export default function AboutEditor() {
         if (cancelled) return;
         const def = createDefaultAboutContent();
         setSavedVersion(def.version);
+        setDocumentTitle(def.documentTitle);
+        setMetaDescription(def.metaDescription);
         setPageHeader(def.pageHeader);
         setMainText(def.mainText);
         setListIntro(def.listIntro);
         setItems(def.items.map((i) => ({ title: i.title, body: i.body })));
         setBaselineSig(
           aboutContentSignature({
+            documentTitle: def.documentTitle,
+            metaDescription: def.metaDescription,
             pageHeader: def.pageHeader,
             mainText: def.mainText,
             listIntro: def.listIntro,
@@ -148,6 +160,8 @@ export default function AboutEditor() {
     const nextVersion = savedVersion + 1;
     const doc = sanitizeAboutContentForSave({
       version: nextVersion,
+      documentTitle,
+      metaDescription,
       pageHeader,
       mainText,
       listIntro,
@@ -158,12 +172,16 @@ export default function AboutEditor() {
       const result = await saveAboutContent(token, doc);
       if (result.ok) {
         setSavedVersion(nextVersion);
+        setDocumentTitle(doc.documentTitle);
+        setMetaDescription(doc.metaDescription);
         setPageHeader(doc.pageHeader);
         setMainText(doc.mainText);
         setListIntro(doc.listIntro);
         setItems(doc.items.map((i) => ({ title: i.title, body: i.body })));
         setBaselineSig(
           aboutContentSignature({
+            documentTitle: doc.documentTitle,
+            metaDescription: doc.metaDescription,
             pageHeader: doc.pageHeader,
             mainText: doc.mainText,
             listIntro: doc.listIntro,
@@ -198,6 +216,30 @@ export default function AboutEditor() {
           {loadError}
         </p>
       ) : null}
+
+      <label className="admin-label" htmlFor="wc-about-doc">
+        Browser tab title
+      </label>
+      <input
+        id="wc-about-doc"
+        className="admin-input admin-input-full"
+        type="text"
+        value={documentTitle}
+        onChange={(ev) => setDocumentTitle(ev.target.value)}
+        maxLength={500}
+      />
+
+      <label className="admin-label" htmlFor="wc-about-meta">
+        Meta description
+      </label>
+      <textarea
+        id="wc-about-meta"
+        className="admin-textarea"
+        rows={3}
+        value={metaDescription}
+        onChange={(ev) => setMetaDescription(ev.target.value)}
+        maxLength={2000}
+      />
 
       <label className="admin-label" htmlFor="wc-about-header">
         Page header

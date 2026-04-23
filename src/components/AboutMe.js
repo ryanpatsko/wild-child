@@ -2,9 +2,11 @@ import React from 'react';
 import pinkHairspray from '../assets/pink-brand-hairspray.png';
 import lipsLogo from '../assets/wcf-lips-logo.png';
 import { useAboutContent } from '../hooks/useAboutContent';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const AboutMe = () => {
-  const { pageHeader, mainText, listIntro, items } = useAboutContent();
+  const { documentTitle, metaDescription, pageHeader, mainText, listIntro, items } = useAboutContent();
+  useDocumentMeta(documentTitle, metaDescription);
 
   return (
     <div className="page-container">

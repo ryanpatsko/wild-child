@@ -22,12 +22,16 @@ const SESSION_HOURS = 24
 const ADMIN_SUB = 'wc-cms-admin'
 const MAX_REGIONS_NOTICE_LEN = 3000
 const ABOUT_MAX_HEADER = 400
+const ABOUT_MAX_DOC_TITLE = 500
+const ABOUT_MAX_META = 2000
 const ABOUT_MAX_MAIN = 6000
 const ABOUT_MAX_LIST_INTRO = 2000
 const ABOUT_MAX_ITEM_TITLE = 400
 const ABOUT_MAX_ITEM_BODY = 6000
 const ABOUT_MAX_ITEMS = 12
 const MEDIA_MAX_PAGE_HEADER = 400
+const MEDIA_MAX_DOC_TITLE = 500
+const MEDIA_MAX_META = 2000
 const MEDIA_MAX_INTRO = 6000
 const MEDIA_MAX_SECTION_TITLE = 400
 const MEDIA_MAX_SECTION_BODY = 8000
@@ -187,6 +191,10 @@ function validateLocationsDoc(body) {
 function validateAboutDoc(body) {
   if (!body || typeof body !== 'object') return false
   if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
+  if (typeof body.documentTitle !== 'string' || body.documentTitle.length > ABOUT_MAX_DOC_TITLE) return false
+  if (body.documentTitle.trim().length < 1) return false
+  if (typeof body.metaDescription !== 'string' || body.metaDescription.length > ABOUT_MAX_META) return false
+  if (body.metaDescription.trim().length < 1) return false
   if (typeof body.pageHeader !== 'string' || body.pageHeader.length > ABOUT_MAX_HEADER) return false
   if (body.pageHeader.trim().length < 1) return false
   if (typeof body.mainText !== 'string' || body.mainText.length > ABOUT_MAX_MAIN) return false
@@ -208,6 +216,11 @@ function validateAboutDoc(body) {
 function validateMediaDoc(body) {
   if (!body || typeof body !== 'object') return false
   if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
+
+  if (typeof body.documentTitle !== 'string' || body.documentTitle.length > MEDIA_MAX_DOC_TITLE) return false
+  if (body.documentTitle.trim().length < 1) return false
+  if (typeof body.metaDescription !== 'string' || body.metaDescription.length > MEDIA_MAX_META) return false
+  if (body.metaDescription.trim().length < 1) return false
 
   if (typeof body.pageHeader !== 'string' || body.pageHeader.length > MEDIA_MAX_PAGE_HEADER) return false
   if (body.pageHeader.trim().length < 1) return false
@@ -673,6 +686,18 @@ function validatePagesBeauty(b) {
 function validatePagesHome(h) {
   if (!h || typeof h !== 'object') return false
   if (
+    typeof h.documentTitle !== 'string' ||
+    h.documentTitle.trim().length < 1 ||
+    h.documentTitle.length > PG_DOC_TITLE
+  )
+    return false
+  if (
+    typeof h.metaDescription !== 'string' ||
+    h.metaDescription.trim().length < 1 ||
+    h.metaDescription.length > PG_META
+  )
+    return false
+  if (
     typeof h.pageTitle !== 'string' ||
     h.pageTitle.trim().length < 1 ||
     h.pageTitle.length > PG_PAGE_TITLE
@@ -1013,6 +1038,8 @@ function normalizePagesBeautyOut(b) {
 
 function normalizePagesHomeOut(h) {
   return {
+    documentTitle: String(h.documentTitle).trim(),
+    metaDescription: String(h.metaDescription).trim(),
     pageTitle: String(h.pageTitle).trim(),
     introText: String(h.introText).trim(),
   }
@@ -1233,6 +1260,8 @@ export async function handler(event) {
       return response(500, { error: 'CMS_S3_BUCKET not set' })
     }
     const version = Math.max(1, Math.floor(body.version))
+    const documentTitle = String(body.documentTitle).trim()
+    const metaDescription = String(body.metaDescription).trim()
     const pageHeader = String(body.pageHeader).trim()
     const mainText = String(body.mainText).trim()
     const listIntro = String(body.listIntro).trim()
@@ -1240,7 +1269,11 @@ export async function handler(event) {
       title: String(it.title).trim(),
       body: String(it.body).trim(),
     }))
-    const payload = JSON.stringify({ version, pageHeader, mainText, listIntro, items }, null, 2)
+    const payload = JSON.stringify(
+      { version, documentTitle, metaDescription, pageHeader, mainText, listIntro, items },
+      null,
+      2,
+    )
     try {
       await s3.send(
         new PutObjectCommand({
@@ -1307,6 +1340,8 @@ export async function handler(event) {
     const payload = JSON.stringify(
       {
         version,
+        documentTitle,
+        metaDescription,
         pageHeader,
         introText,
         collaborativeTitle,

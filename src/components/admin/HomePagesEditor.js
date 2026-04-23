@@ -28,6 +28,25 @@ export default function HomePagesEditor() {
 
       <div className="admin-bridal-panel">
         <h4 className="admin-subheading">Home hero (/)</h4>
+        <label className="admin-label" htmlFor="pg-home-doc">
+          Browser tab title
+        </label>
+        <input
+          id="pg-home-doc"
+          className="admin-input admin-input-full"
+          value={home.documentTitle}
+          onChange={(e) => setDraft((d) => ({ ...d, home: { ...d.home, documentTitle: e.target.value } }))}
+        />
+        <label className="admin-label" htmlFor="pg-home-meta">
+          Meta description
+        </label>
+        <textarea
+          id="pg-home-meta"
+          className="admin-textarea"
+          rows={3}
+          value={home.metaDescription}
+          onChange={(e) => setDraft((d) => ({ ...d, home: { ...d.home, metaDescription: e.target.value } }))}
+        />
         <label className="admin-label" htmlFor="pg-home-title">
           Page title (H1)
         </label>
