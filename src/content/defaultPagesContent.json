@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "home": {
+    "pageTitle": "HAIR + MAKEUP ARTISTRY",
+    "introText": "Luxury beauty experiences with a wild, creative twist. From bridal elegance to avant-garde artistry."
+  },
   "beauty": {
     "documentTitle": "Beauty & Events | Pittsburgh, Atlanta | Wild Child Fabrications",
     "metaDescription": "Hair styling and makeup appointments for portraits, events, and special occasions. Rates, location, and travel information.",
@@ -97,6 +101,22 @@
       "buttonText": "Contact us to schedule your class"
     }
   },
+  "contact": {
+    "documentTitle": "Contact | Wild Child Fabrications",
+    "metaDescription": "Get in touch with Wild Child Fabrications for bridal, events, on-set, classes, and creative makeup bookings.",
+    "pageTitle": "Get In Touch",
+    "introText": "Ready to create something beautiful together? Fill out the form below and we'll get back to you soon!",
+    "instagramButtonText": "Follow on Instagram",
+    "instagramUrl": "https://www.instagram.com/wildchildfabrications/",
+    "venmoButtonText": "Pay with Venmo",
+    "venmoUrl": "https://account.venmo.com/u/ChristaleeHMUA",
+    "infoPrefix": "You can also",
+    "infoLinkText": "email us",
+    "infoEmail": "clema.fx@gmail.com",
+    "infoMiddleText": ", or call us at",
+    "infoPhone": "724 766 6364",
+    "infoSuffix": "(no texts please)"
+  },
   "creativeFx": {
     "documentTitle": "Creative & FX Makeup | Wild Child Fabrications",
     "metaDescription": "Theater, cosplay, TV and film FX, body paint, and custom creative makeup. Booking and pricing information.",
@@ -135,7 +155,7 @@
       },
       {
         "question": "How should we get a hold of you?",
-        "answerHtml": "Email or our <a href=\"/contact\" class=\"faq-link\">contact form</a> is preferred so that way I can keep track of all your event details in one place and create a seamless beauty experience for you. Calls can be taken during our business hours of M-F 10am to 6pm. Please refrain from texting, Instagram direct messages and Facebook messaging us as it's harder for us to keep track and make sure you get a prompt and professional response."
+        "answerHtml": "Email or our <a href=\"/book-hair-and-makeup-artist\" class=\"faq-link\">contact form</a> is preferred so that way I can keep track of all your event details in one place and create a seamless beauty experience for you. Calls can be taken during our business hours of M-F 10am to 6pm. Please refrain from texting, Instagram direct messages and Facebook messaging us as it's harder for us to keep track and make sure you get a prompt and professional response."
       },
       {
         "question": "How is my contract sent?",

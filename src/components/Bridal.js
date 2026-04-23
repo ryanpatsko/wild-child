@@ -95,10 +95,10 @@ const Bridal = () => {
           <p className="bridal-pricing-cta-title">{overview.pricingCtaTitle}</p>
           <p className="bridal-pricing-cta-sub">{overview.pricingCtaSub}</p>
           <div className="bridal-pricing-cta-actions">
-            <Link to="/bridal-pittsburgh" className="bridal-pricing-cta-btn">
+            <Link to="/bridal-hair-makeup-pittsburgh" className="bridal-pricing-cta-btn">
               {overview.pittsburghButtonLabel}
             </Link>
-            <Link to="/bridal-atlanta" className="bridal-pricing-cta-btn">
+            <Link to="/bridal-hair-makeup-atlanta-new-orleans" className="bridal-pricing-cta-btn">
               {overview.atlantaButtonLabel}
             </Link>
           </div>

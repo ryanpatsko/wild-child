@@ -66,12 +66,12 @@ function Navigation() {
   
   const navItems = [
     { name: 'HOME', path: '/' },
-    { name: 'ABOUT', path: '/about' },
-    { name: 'CONTACT', path: '/contact' },
-    { name: 'TV. FILM. PRINT.', path: '/media' },
+    { name: 'ABOUT', path: '/about-hair-and-makeup-artist' },
+    { name: 'CONTACT', path: '/book-hair-and-makeup-artist' },
+    { name: 'On-Set & Production', path: '/film-tv-makeup-artist' },
     { name: 'BRIDAL', path: '/bridal' },
-    { name: 'BEAUTY & EVENTS', path: '/beauty-events' },
-    { name: 'CLASSES', path: '/classes' },
+    { name: 'BEAUTY & EVENTS', path: '/event-hair-and-makeup' },
+    { name: 'CLASSES', path: '/makeup-classes' },
     { name: 'CREATIVE & FX', path: '/creative-fx' },
     { name: 'FAQ', path: '/faq' }
   ];
@@ -161,17 +161,17 @@ function AppContent() {
         <div className="content-container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutMe />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/media" element={<Media />} />
+            <Route path="/about-hair-and-makeup-artist" element={<AboutMe />} />
+            <Route path="/book-hair-and-makeup-artist" element={<Contact />} />
+            <Route path="/film-tv-makeup-artist" element={<Media />} />
             <Route path="/bridal" element={<Bridal />} />
             <Route path="/bridal-services" element={<BridalServices />} />
-            <Route path="/bridal-pittsburgh" element={<BridalPittsburgh />} />
-            <Route path="/bridal-atlanta" element={<BridalAtlanta />} />
+            <Route path="/bridal-hair-makeup-pittsburgh" element={<BridalPittsburgh />} />
+            <Route path="/bridal-hair-makeup-atlanta-new-orleans" element={<BridalAtlanta />} />
             <Route path="/bridal-gallery" element={<BridalGalleryPage />} />
             <Route path="/bridal-services-brochure" element={<BridalServicesBrochure />} />
-            <Route path="/beauty-events" element={<BeautyEvents />} />
-            <Route path="/classes" element={<Classes />} />
+            <Route path="/event-hair-and-makeup" element={<BeautyEvents />} />
+            <Route path="/makeup-classes" element={<Classes />} />
             <Route path="/creative-fx" element={<CreativeFX />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/color-palette-party" element={<ColorPaletteParty />} />

@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useId, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import LocationsEditor from './admin/LocationsEditor';
+import HomePagesEditor from './admin/HomePagesEditor';
 import AboutEditor from './admin/AboutEditor';
 import MediaEditor from './admin/MediaEditor';
 import BridalEditor from './admin/BridalEditor';
 import BeautyPagesEditor from './admin/BeautyPagesEditor';
 import ClassesPagesEditor from './admin/ClassesPagesEditor';
+import ContactPagesEditor from './admin/ContactPagesEditor';
 import CreativeFxPagesEditor from './admin/CreativeFxPagesEditor';
 import FaqPagesEditor from './admin/FaqPagesEditor';
 import { PagesContentAdminProvider } from '../context/PagesContentAdminContext';
@@ -19,15 +21,17 @@ import {
 import siteLogo from '../assets/wcf-lips-logo.png';
 import './Admin.css';
 
-const TAB_IDS = ['locations', 'about', 'media', 'bridal', 'beauty', 'classes', 'creativeFx', 'faq'];
+const TAB_IDS = ['locations', 'home', 'about', 'media', 'bridal', 'beauty', 'classes', 'contact', 'creativeFx', 'faq'];
 
 const TAB_LABELS = {
   locations: 'Locations',
+  home: 'Home',
   about: 'About',
-  media: 'TV. Film. Print.',
+  media: 'On-Set & Production',
   bridal: 'Bridal',
   beauty: 'Beauty & Events',
   classes: 'Classes',
+  contact: 'Contact',
   creativeFx: 'Creative & FX',
   faq: 'FAQ',
 };
@@ -82,6 +86,16 @@ function AdminDashboard() {
           </div>
 
           <div
+            id="admin-panel-home"
+            role="tabpanel"
+            aria-labelledby="admin-tab-home"
+            hidden={activeTab !== 'home'}
+            className="admin-tab-panel"
+          >
+            {activeTab === 'home' ? <HomePagesEditor /> : null}
+          </div>
+
+          <div
             id="admin-panel-about"
             role="tabpanel"
             aria-labelledby="admin-tab-about"
@@ -129,6 +143,16 @@ function AdminDashboard() {
             className="admin-tab-panel"
           >
             {activeTab === 'classes' ? <ClassesPagesEditor /> : null}
+          </div>
+
+          <div
+            id="admin-panel-contact"
+            role="tabpanel"
+            aria-labelledby="admin-tab-contact"
+            hidden={activeTab !== 'contact'}
+            className="admin-tab-panel"
+          >
+            {activeTab === 'contact' ? <ContactPagesEditor /> : null}
           </div>
 
           <div

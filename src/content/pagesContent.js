@@ -22,6 +22,7 @@ const MAX_FAQ_Q = 500;
 const MAX_FAQ_ANSWER = 20000;
 const MAX_PATH = 200;
 const MAX_BUTTON = 120;
+const MAX_URL = 2000;
 const CTA_TITLE_MAX = 300;
 const CTA_SUB_MAX = 500;
 const CTA_BTN_MAX = 120;
@@ -205,6 +206,20 @@ function normBeauty(raw, fallback) {
   };
 }
 
+function normHome(raw, fallback) {
+  if (!raw || typeof raw !== 'object') return fallback;
+  return {
+    pageTitle: clampStr(
+      typeof raw.pageTitle === 'string' && raw.pageTitle.trim() ? raw.pageTitle : fallback.pageTitle,
+      MAX_PAGE_TITLE,
+    ),
+    introText: clampStr(
+      typeof raw.introText === 'string' && raw.introText.trim() ? raw.introText : fallback.introText,
+      MAX_PARA,
+    ),
+  };
+}
+
 function normClasses(raw, fallback) {
   if (!raw || typeof raw !== 'object') return fallback;
   return {
@@ -252,6 +267,84 @@ function normClasses(raw, fallback) {
       MAX_BULLET,
     ),
     cta: normCta(raw.cta, fallback.cta),
+  };
+}
+
+function normContact(raw, fallback) {
+  if (!raw || typeof raw !== 'object') return fallback;
+  return {
+    documentTitle: clampStr(
+      typeof raw.documentTitle === 'string' && raw.documentTitle.trim()
+        ? raw.documentTitle
+        : fallback.documentTitle,
+      MAX_DOC_TITLE,
+    ),
+    metaDescription: clampStr(
+      typeof raw.metaDescription === 'string' && raw.metaDescription.trim()
+        ? raw.metaDescription
+        : fallback.metaDescription,
+      MAX_META,
+    ),
+    pageTitle: clampStr(
+      typeof raw.pageTitle === 'string' && raw.pageTitle.trim()
+        ? raw.pageTitle
+        : fallback.pageTitle,
+      MAX_PAGE_TITLE,
+    ),
+    introText: clampStr(
+      typeof raw.introText === 'string' && raw.introText.trim()
+        ? raw.introText
+        : fallback.introText,
+      MAX_PARA,
+    ),
+    instagramButtonText: clampStr(
+      typeof raw.instagramButtonText === 'string' && raw.instagramButtonText.trim()
+        ? raw.instagramButtonText
+        : fallback.instagramButtonText,
+      MAX_BUTTON,
+    ),
+    instagramUrl: clampStr(
+      typeof raw.instagramUrl === 'string' && raw.instagramUrl.trim()
+        ? raw.instagramUrl.trim()
+        : fallback.instagramUrl,
+      MAX_URL,
+    ),
+    venmoButtonText: clampStr(
+      typeof raw.venmoButtonText === 'string' && raw.venmoButtonText.trim()
+        ? raw.venmoButtonText
+        : fallback.venmoButtonText,
+      MAX_BUTTON,
+    ),
+    venmoUrl: clampStr(
+      typeof raw.venmoUrl === 'string' && raw.venmoUrl.trim() ? raw.venmoUrl.trim() : fallback.venmoUrl,
+      MAX_URL,
+    ),
+    infoPrefix: clampStr(
+      typeof raw.infoPrefix === 'string' && raw.infoPrefix.trim() ? raw.infoPrefix : fallback.infoPrefix,
+      MAX_SECTION,
+    ),
+    infoLinkText: clampStr(
+      typeof raw.infoLinkText === 'string' && raw.infoLinkText.trim() ? raw.infoLinkText : fallback.infoLinkText,
+      MAX_BUTTON,
+    ),
+    infoEmail: clampStr(
+      typeof raw.infoEmail === 'string' && raw.infoEmail.trim() ? raw.infoEmail.trim() : fallback.infoEmail,
+      MAX_PATH,
+    ),
+    infoMiddleText: clampStr(
+      typeof raw.infoMiddleText === 'string' && raw.infoMiddleText.trim()
+        ? raw.infoMiddleText
+        : fallback.infoMiddleText,
+      MAX_SECTION,
+    ),
+    infoPhone: clampStr(
+      typeof raw.infoPhone === 'string' && raw.infoPhone.trim() ? raw.infoPhone : fallback.infoPhone,
+      MAX_PATH,
+    ),
+    infoSuffix: clampStr(
+      typeof raw.infoSuffix === 'string' && raw.infoSuffix.trim() ? raw.infoSuffix : fallback.infoSuffix,
+      MAX_SECTION,
+    ),
   };
 }
 
@@ -380,8 +473,10 @@ export function normalizePagesContent(input) {
     typeof input.version === 'number' && Number.isFinite(input.version) ? input.version : def.version;
   return {
     version,
+    home: normHome(input.home, def.home),
     beauty: normBeauty(input.beauty, def.beauty),
     classes: normClasses(input.classes, def.classes),
+    contact: normContact(input.contact, def.contact),
     creativeFx: normCreativeFx(input.creativeFx, def.creativeFx),
     faq: normFaq(input.faq, def.faq),
   };
@@ -389,8 +484,10 @@ export function normalizePagesContent(input) {
 
 export function pagesContentSignature(d) {
   return JSON.stringify({
+    home: d.home,
     beauty: d.beauty,
     classes: d.classes,
+    contact: d.contact,
     creativeFx: d.creativeFx,
     faq: d.faq,
   });

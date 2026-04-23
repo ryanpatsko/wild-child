@@ -84,7 +84,7 @@ export default function FaqPagesEditor() {
               }}
             />
             <label className="admin-label">
-              Answer (HTML allowed; use &lt;a href=&quot;/contact&quot; class=&quot;faq-link&quot;&gt;)
+              Answer (HTML allowed; use &lt;a href=&quot;/book-hair-and-makeup-artist&quot; class=&quot;faq-link&quot;&gt;)
             </label>
             <textarea
               className="admin-textarea admin-textarea-tall"

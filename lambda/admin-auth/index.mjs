@@ -84,6 +84,7 @@ const PG_FAQ_Q = 500
 const PG_FAQ_ANS = 20000
 const PG_PATH = 200
 const PG_NOTE = 2000
+const PG_URL = 2000
 const PG_CTA_TITLE = 300
 const PG_CTA_SUB = 500
 const PG_CTA_BTN = 120
@@ -669,6 +670,19 @@ function validatePagesBeauty(b) {
   return validatePagesCta(b.cta)
 }
 
+function validatePagesHome(h) {
+  if (!h || typeof h !== 'object') return false
+  if (
+    typeof h.pageTitle !== 'string' ||
+    h.pageTitle.trim().length < 1 ||
+    h.pageTitle.length > PG_PAGE_TITLE
+  )
+    return false
+  if (typeof h.introText !== 'string' || h.introText.trim().length < 1 || h.introText.length > PG_PARA)
+    return false
+  return true
+}
+
 function validatePagesClassCard(c) {
   if (!c || typeof c !== 'object') return false
   if (typeof c.name !== 'string' || c.name.trim().length < 1 || c.name.length > PG_CLASS_NAME)
@@ -756,6 +770,91 @@ function validatePagesClasses(s) {
   )
     return false
   return validatePagesCta(s.cta)
+}
+
+function validatePagesContact(c) {
+  if (!c || typeof c !== 'object') return false
+  if (
+    typeof c.documentTitle !== 'string' ||
+    c.documentTitle.trim().length < 1 ||
+    c.documentTitle.length > PG_DOC_TITLE
+  )
+    return false
+  if (
+    typeof c.metaDescription !== 'string' ||
+    c.metaDescription.trim().length < 1 ||
+    c.metaDescription.length > PG_META
+  )
+    return false
+  if (
+    typeof c.pageTitle !== 'string' ||
+    c.pageTitle.trim().length < 1 ||
+    c.pageTitle.length > PG_PAGE_TITLE
+  )
+    return false
+  if (typeof c.introText !== 'string' || c.introText.trim().length < 1 || c.introText.length > PG_PARA)
+    return false
+  if (
+    typeof c.instagramButtonText !== 'string' ||
+    c.instagramButtonText.trim().length < 1 ||
+    c.instagramButtonText.length > PG_CTA_BTN
+  )
+    return false
+  if (
+    typeof c.instagramUrl !== 'string' ||
+    c.instagramUrl.trim().length < 1 ||
+    c.instagramUrl.length > PG_URL
+  )
+    return false
+  if (
+    typeof c.venmoButtonText !== 'string' ||
+    c.venmoButtonText.trim().length < 1 ||
+    c.venmoButtonText.length > PG_CTA_BTN
+  )
+    return false
+  if (
+    typeof c.venmoUrl !== 'string' ||
+    c.venmoUrl.trim().length < 1 ||
+    c.venmoUrl.length > PG_URL
+  )
+    return false
+  if (
+    typeof c.infoPrefix !== 'string' ||
+    c.infoPrefix.trim().length < 1 ||
+    c.infoPrefix.length > PG_SECTION
+  )
+    return false
+  if (
+    typeof c.infoLinkText !== 'string' ||
+    c.infoLinkText.trim().length < 1 ||
+    c.infoLinkText.length > PG_CTA_BTN
+  )
+    return false
+  if (
+    typeof c.infoEmail !== 'string' ||
+    c.infoEmail.trim().length < 1 ||
+    c.infoEmail.length > PG_PATH
+  )
+    return false
+  if (
+    typeof c.infoMiddleText !== 'string' ||
+    c.infoMiddleText.trim().length < 1 ||
+    c.infoMiddleText.length > PG_SECTION
+  )
+    return false
+  if (
+    typeof c.infoPhone !== 'string' ||
+    c.infoPhone.trim().length < 1 ||
+    c.infoPhone.length > PG_PATH
+  )
+    return false
+  if (
+    typeof c.infoSuffix !== 'string' ||
+    c.infoSuffix.trim().length < 1 ||
+    c.infoSuffix.length > PG_SECTION
+  )
+    return false
+  return true
 }
 
 function validatePagesCreativeFx(x) {
@@ -879,8 +978,10 @@ function validatePagesFaq(f) {
 function validatePagesDoc(body) {
   if (!body || typeof body !== 'object') return false
   if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
+  if (!validatePagesHome(body.home)) return false
   if (!validatePagesBeauty(body.beauty)) return false
   if (!validatePagesClasses(body.classes)) return false
+  if (!validatePagesContact(body.contact)) return false
   if (!validatePagesCreativeFx(body.creativeFx)) return false
   if (!validatePagesFaq(body.faq)) return false
   return true
@@ -907,6 +1008,13 @@ function normalizePagesBeautyOut(b) {
       subtitle: String(b.cta.subtitle).trim(),
       buttonText: String(b.cta.buttonText).trim(),
     },
+  }
+}
+
+function normalizePagesHomeOut(h) {
+  return {
+    pageTitle: String(h.pageTitle).trim(),
+    introText: String(h.introText).trim(),
   }
 }
 
@@ -943,6 +1051,25 @@ function normalizePagesClassesOut(s) {
       subtitle: String(s.cta.subtitle).trim(),
       buttonText: String(s.cta.buttonText).trim(),
     },
+  }
+}
+
+function normalizePagesContactOut(c) {
+  return {
+    documentTitle: String(c.documentTitle).trim(),
+    metaDescription: String(c.metaDescription).trim(),
+    pageTitle: String(c.pageTitle).trim(),
+    introText: String(c.introText).trim(),
+    instagramButtonText: String(c.instagramButtonText).trim(),
+    instagramUrl: String(c.instagramUrl).trim(),
+    venmoButtonText: String(c.venmoButtonText).trim(),
+    venmoUrl: String(c.venmoUrl).trim(),
+    infoPrefix: String(c.infoPrefix).trim(),
+    infoLinkText: String(c.infoLinkText).trim(),
+    infoEmail: String(c.infoEmail).trim(),
+    infoMiddleText: String(c.infoMiddleText).trim(),
+    infoPhone: String(c.infoPhone).trim(),
+    infoSuffix: String(c.infoSuffix).trim(),
   }
 }
 
@@ -1276,7 +1403,7 @@ export async function handler(event) {
     if (!validatePagesDoc(body)) {
       return response(400, {
         error:
-          'Invalid pages content (beauty, classes, creativeFx, faq; see length limits on the server).',
+          'Invalid pages content (home, beauty, classes, contact, creativeFx, faq; see length limits on the server).',
       })
     }
     const bucket = process.env.CMS_S3_BUCKET ?? ''
@@ -1288,8 +1415,10 @@ export async function handler(event) {
     const payload = JSON.stringify(
       {
         version,
+        home: normalizePagesHomeOut(body.home),
         beauty: normalizePagesBeautyOut(body.beauty),
         classes: normalizePagesClassesOut(body.classes),
+        contact: normalizePagesContactOut(body.contact),
         creativeFx: normalizePagesCreativeFxOut(body.creativeFx),
         faq: normalizePagesFaqOut(body.faq),
       },

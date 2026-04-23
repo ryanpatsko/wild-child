@@ -11,7 +11,7 @@ const CTASection = ({
       <div className="cta-content">
         <h3 className="cta-title">{title}</h3>
         <p className="cta-subtitle">{subtitle}</p>
-        <Link to="/contact" className="cta-button">
+        <Link to="/book-hair-and-makeup-artist" className="cta-button">
           {buttonText}
         </Link>
       </div>

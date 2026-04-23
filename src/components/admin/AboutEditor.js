@@ -191,7 +191,7 @@ export default function AboutEditor() {
     <form className="admin-about-form" onSubmit={onSave}>
       <h3 className="admin-panel-title">About</h3>
       <p className="admin-muted">
-        Edits the <strong>/about</strong> page: title, intro paragraphs, and each feature block (title + description).
+        Edits the <strong>/about-hair-and-makeup-artist</strong> page: title, intro paragraphs, and each feature block (title + description).
       </p>
       {loadError ? (
         <p className="admin-warn" role="status">

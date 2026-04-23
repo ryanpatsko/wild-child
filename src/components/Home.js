@@ -2,18 +2,17 @@ import React from 'react';
 import Gallery from './Gallery';
 import RegionsNotice from './RegionsNotice';
 import { useLocationsContent } from '../hooks/useLocationsContent';
+import { usePagesContent } from '../context/PagesContentContext';
 
 const Home = () => {
   const { regionsNotice } = useLocationsContent();
+  const { home } = usePagesContent();
 
   return (
     <div className="page-container">
       <div className="hero-section">
-        <h1 className="page-title">HAIR + MAKEUP ARTISTRY</h1>
-        <p className="intro-text">
-          Luxury beauty experiences with a wild, creative twist. 
-          From bridal elegance to avant-garde artistry.
-        </p>
+        <h1 className="page-title">{home.pageTitle}</h1>
+        <p className="intro-text">{home.introText}</p>
         <RegionsNotice text={regionsNotice} variant="home" />
       </div>
       <Gallery />
