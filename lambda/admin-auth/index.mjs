@@ -1313,6 +1313,8 @@ export async function handler(event) {
       return response(500, { error: 'CMS_S3_BUCKET not set' })
     }
     const version = Math.max(1, Math.floor(body.version))
+    const documentTitle = String(body.documentTitle).trim()
+    const metaDescription = String(body.metaDescription).trim()
     const pageHeader = String(body.pageHeader).trim()
     const introText = String(body.introText).trim()
     const collaborativeTitle = String(body.collaborativeTitle).trim()

@@ -1,17 +1,11 @@
-import React from 'react';
 import pageBanner from '../assets/page-headers/makeup-brush.png';
 import CTASection from './CTASection';
-import { usePagesContent } from '../hooks/usePagesContent';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
-const BeautyEvents = () => {
-  const { beauty } = usePagesContent();
-  useDocumentMeta(beauty.documentTitle, beauty.metaDescription);
-
+const BeautyEvents = ({ beauty }) => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={pageBanner} alt="Page Banner - Beauty Events" className="page-header-image" />
+        <img src={pageBanner.src} alt="Page Banner - Beauty Events" className="page-header-image" />
       </div>
       <h1 className="page-title">{beauty.pageTitle}</h1>
       <p className="intro-text">{beauty.introText}</p>

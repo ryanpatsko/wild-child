@@ -1,20 +1,14 @@
-import React from 'react';
 import fx1 from '../assets/gallery-fx/fx-1.jpg';
 import fx6 from '../assets/gallery-fx/fx-6.jpg';
 import fx3 from '../assets/gallery-fx/fx-3.jpg';
 import fx4 from '../assets/gallery-fx/fx-4.jpg';
 import fx5 from '../assets/gallery-fx/fx-5.jpg';
-import { usePagesContent } from '../hooks/usePagesContent';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
-const CreativeFX = () => {
-  const { creativeFx } = usePagesContent();
-  useDocumentMeta(creativeFx.documentTitle, creativeFx.metaDescription);
-
+const CreativeFX = ({ creativeFx }) => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={fx1} alt="Page Banner - Creative & FX" className="page-header-image" />
+        <img src={fx1.src} alt="Page Banner - Creative & FX" className="page-header-image" />
       </div>
       <h1 className="page-title">{creativeFx.pageTitle}</h1>
       <p className="intro-text">{creativeFx.introText}</p>
@@ -30,10 +24,10 @@ const CreativeFX = () => {
 
       <div className="fx-images-row">
         <div className="fx-image-container">
-          <img src={fx4} alt="Creative FX Work 4" className="fx-image" />
+          <img src={fx4.src} alt="Creative FX Work 4" className="fx-image" />
         </div>
         <div className="fx-image-container">
-          <img src={fx5} alt="Creative FX Work 5" className="fx-image" />
+          <img src={fx5.src} alt="Creative FX Work 5" className="fx-image" />
         </div>
       </div>
 
@@ -49,18 +43,16 @@ const CreativeFX = () => {
       <section className="section-card">
         <h2 className="section-title section-title-creative">{creativeFx.bookingTitle}</h2>
         {creativeFx.bookingParagraphs.map((para, i) => (
-          <p key={i} className="body-text">
-            {para}
-          </p>
+          <p key={i} className="body-text">{para}</p>
         ))}
       </section>
 
       <div className="fx-images-row">
         <div className="fx-image-container">
-          <img src={fx6} alt="Creative FX Work 6" className="fx-image" />
+          <img src={fx6.src} alt="Creative FX Work 6" className="fx-image" />
         </div>
         <div className="fx-image-container">
-          <img src={fx3} alt="Creative FX Work 3" className="fx-image" />
+          <img src={fx3.src} alt="Creative FX Work 3" className="fx-image" />
         </div>
       </div>
     </div>

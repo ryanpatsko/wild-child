@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   bridalContentSignature,
   createDefaultBridalContent,
@@ -63,20 +63,17 @@ function SubTabs({ active, onSelect }) {
 }
 
 export default function BridalEditor() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const bridalPageRaw = searchParams.get('bridalPage');
   const bridalPage = BRIDAL_PAGES.includes(bridalPageRaw) ? bridalPageRaw : 'overview';
 
   function selectBridalPage(id) {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set('tab', 'bridal');
-        next.set('bridalPage', id);
-        return next;
-      },
-      { replace: true },
-    );
+    const next = new URLSearchParams(searchParams.toString());
+    next.set('tab', 'bridal');
+    next.set('bridalPage', id);
+    router.replace(`${pathname}?${next.toString()}`);
   }
 
   const [status, setStatus] = useState('loading');

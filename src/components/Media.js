@@ -1,16 +1,10 @@
-import React from 'react';
 import pageBanner from '../assets/page-headers/curling-iron.png';
-import { useMediaContent } from '../hooks/useMediaContent';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
-const Media = () => {
-  const m = useMediaContent();
-  useDocumentMeta(m.documentTitle, m.metaDescription);
-
+const Media = ({ m }) => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={pageBanner} alt="Page Banner - Media" className="page-header-image" />
+        <img src={pageBanner.src} alt="Page Banner - Media" className="page-header-image" />
       </div>
       <h1 className="page-title">{m.pageHeader}</h1>
       <p className="intro-text">{m.introText}</p>

@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import sidebarBanner from '../assets/gallery-bridal/Screenshot_20241207-093319.png';
 
 const bridalNavItems = [
@@ -10,9 +13,9 @@ const bridalNavItems = [
     label: 'Packages and Pricing',
     children: [
       { path: '/bridal-hair-makeup-pittsburgh', label: 'Pittsburgh' },
-      { path: '/bridal-hair-makeup-atlanta-new-orleans', label: 'Atlanta + NOLA' }
-    ]
-  }
+      { path: '/bridal-hair-makeup-atlanta-new-orleans', label: 'Atlanta + NOLA' },
+    ],
+  },
 ];
 
 function getCurrentPageLabel(pathname) {
@@ -27,16 +30,15 @@ function getCurrentPageLabel(pathname) {
 }
 
 const BridalLayout = ({ children }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const pathname = usePathname();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const mobileNavRef = useRef(null);
 
-  const currentLabel = getCurrentPageLabel(currentPath);
+  const currentLabel = getCurrentPageLabel(pathname);
 
   useEffect(() => {
     setMobileNavOpen(false);
-  }, [currentPath]);
+  }, [pathname]);
 
   useEffect(() => {
     if (!mobileNavOpen) return;
@@ -52,7 +54,7 @@ const BridalLayout = ({ children }) => {
   return (
     <div
       className="bridal-layout"
-      style={{ '--bridal-fixed-bg-image': `url(${sidebarBanner})` }}
+      style={{ '--bridal-fixed-bg-image': `url(${sidebarBanner.src})` }}
     >
       <aside className="bridal-sidebar" aria-label="Bridal section navigation">
         <div className="bridal-sidebar-sticky">
@@ -80,8 +82,8 @@ const BridalLayout = ({ children }) => {
                     return (
                       <Link
                         key={item.path}
-                        to={item.path}
-                        className={`bridal-sidebar-link ${currentPath === item.path ? 'active' : ''}`}
+                        href={item.path}
+                        className={`bridal-sidebar-link ${pathname === item.path ? 'active' : ''}`}
                         onClick={() => setMobileNavOpen(false)}
                       >
                         {item.label}
@@ -94,8 +96,8 @@ const BridalLayout = ({ children }) => {
                       {item.children.map(({ path, label }) => (
                         <Link
                           key={path}
-                          to={path}
-                          className={`bridal-sidebar-link bridal-sidebar-sublink ${currentPath === path ? 'active' : ''}`}
+                          href={path}
+                          className={`bridal-sidebar-link bridal-sidebar-sublink ${pathname === path ? 'active' : ''}`}
                           onClick={() => setMobileNavOpen(false)}
                         >
                           {label}
@@ -108,39 +110,37 @@ const BridalLayout = ({ children }) => {
             </div>
           </div>
           <nav className="bridal-sidebar-nav" aria-hidden="true">
-          {bridalNavItems.map((item, index) => {
-            if (item.path) {
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`bridal-sidebar-link ${location.pathname === item.path ? 'active' : ''}`}
-                >
-                  {item.label}
-                </Link>
-              );
-            }
-            return (
-              <div key={index} className="bridal-sidebar-group">
-                <span className="bridal-sidebar-heading">{item.label}</span>
-                {item.children.map(({ path, label }) => (
+            {bridalNavItems.map((item, index) => {
+              if (item.path) {
+                return (
                   <Link
-                    key={path}
-                    to={path}
-                    className={`bridal-sidebar-link bridal-sidebar-sublink ${location.pathname === path ? 'active' : ''}`}
+                    key={item.path}
+                    href={item.path}
+                    className={`bridal-sidebar-link ${pathname === item.path ? 'active' : ''}`}
                   >
-                    {label}
+                    {item.label}
                   </Link>
-                ))}
-              </div>
-            );
-          })}
+                );
+              }
+              return (
+                <div key={index} className="bridal-sidebar-group">
+                  <span className="bridal-sidebar-heading">{item.label}</span>
+                  {item.children.map(({ path, label }) => (
+                    <Link
+                      key={path}
+                      href={path}
+                      className={`bridal-sidebar-link bridal-sidebar-sublink ${pathname === path ? 'active' : ''}`}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              );
+            })}
           </nav>
         </div>
       </aside>
-      <div className="bridal-main">
-        {children}
-      </div>
+      <div className="bridal-main">{children}</div>
     </div>
   );
 };

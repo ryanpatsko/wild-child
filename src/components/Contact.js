@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import emailjs from '@emailjs/browser';
-import { usePagesContent } from '../context/PagesContentContext';
+'use client';
 
-const Contact = () => {
-  const { contact } = usePagesContent();
+import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
+
+const Contact = ({ contact }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,6 +18,7 @@ const Contact = () => {
     eventVenue: '',
     bestApplies: '',
     brochureFollowUp: '',
+    bridalPricingReviewed: '',
     message: '',
     howDidYouHear: ''
   });
@@ -26,18 +27,6 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
   const [honeypot, setHoneypot] = useState(''); // Hidden field for bot detection
   const [lastSubmission, setLastSubmission] = useState(null); // Rate limiting
-
-  useEffect(() => {
-    if (!contact) return;
-    document.title = contact.documentTitle;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute('content', contact.metaDescription);
-  }, [contact]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,8 +68,8 @@ const Contact = () => {
       return;
     }
 
-    // When event type is wedding, brochure follow-up is required
-    if (formData.eventType === 'wedding' && !formData.brochureFollowUp.trim()) {
+    // When event type is wedding, brochure follow-up and pricing review are required
+    if (formData.eventType === 'wedding' && (!formData.brochureFollowUp.trim() || !formData.bridalPricingReviewed.trim())) {
       setSubmitStatus('error');
       setIsSubmitting(false);
       return;
@@ -114,6 +103,7 @@ const Contact = () => {
         event_venue: formData.eventVenue,
         best_applies: formData.bestApplies,
         brochure_follow_up: formData.eventType === 'wedding' ? formData.brochureFollowUp : 'N/A',
+        bridal_pricing_reviewed: formData.eventType === 'wedding' ? formData.bridalPricingReviewed : 'N/A',
         message: formData.message,
         how_did_you_hear: formData.howDidYouHear,
         to_name: 'Wild Child Fabrications'
@@ -140,6 +130,7 @@ const Contact = () => {
         eventVenue: '',
         bestApplies: '',
         brochureFollowUp: '',
+        bridalPricingReviewed: '',
         message: '',
         howDidYouHear: ''
       });
@@ -304,7 +295,7 @@ const Contact = () => {
           {formData.eventType === 'wedding' && (
             <div className="form-group" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
               <label htmlFor="brochureFollowUp">
-                I've read the <a href="/bridal-services-brochure" target="_blank" rel="noopener noreferrer" className="contact-info-link">bridal services brochure</a> and would like to:
+                I've read the <a href="/bridal" target="_blank" rel="noopener noreferrer" className="contact-info-link">bridal services page</a> and would like to:
               </label>
               <select
                 id="brochureFollowUp"
@@ -317,6 +308,29 @@ const Contact = () => {
                 <option value="set-up-call">Set up a call to answer any further questions</option>
                 <option value="questions-via-email">Communicate questions via email</option>
               </select>
+            </div>
+          )}
+
+          {formData.eventType === 'wedding' && (
+            <div className="form-group" style={{ marginBottom: '1rem' }}>
+              <label htmlFor="bridalPricingReviewed">Have you reviewed our bridal pricing?</label>
+              <select
+                id="bridalPricingReviewed"
+                name="bridalPricingReviewed"
+                value={formData.bridalPricingReviewed}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="not-applicable">Not Applicable</option>
+              </select>
+              {formData.bridalPricingReviewed === 'no' && (
+                <div className="form-status error" style={{ marginTop: '0.75rem' }}>
+                  <p>Please review our <a href="/bridal" target="_blank" rel="noopener noreferrer" className="contact-info-link">bridal pricing</a> before submitting. Once you've had a chance to look it over, update your answer above.</p>
+                </div>
+              )}
             </div>
           )}
 
@@ -347,10 +361,8 @@ const Contact = () => {
               >
                 <option value="">Select Location</option>
                 <option value="pittsburgh">Pittsburgh & Surrounding</option>
-                <option value="dc-virginia">D.C / Virginia</option>
-                <option value="ohio">Ohio</option>
-                <option value="west-virginia">West Virginia</option>
-                <option value="atlanta">Atlanta / Georgia</option>
+                <option value="atlanta">Atlanta</option>
+                <option value="new-orleans">New Orleans</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -449,7 +461,7 @@ const Contact = () => {
             <button 
               type="submit" 
               className="submit-btn"
-              disabled={isSubmitting}
+              disabled={isSubmitting || formData.bridalPricingReviewed === 'no'}
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>

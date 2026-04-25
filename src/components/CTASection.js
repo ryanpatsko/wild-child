@@ -1,17 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
-const CTASection = ({ 
-  title = "Ready to look—and feel—your best?", 
-  subtitle = "Let's create something beautiful together", 
-  buttonText = "Contact us to reserve your date" 
+const CTASection = ({
+  title = "Ready to look—and feel—your best?",
+  subtitle = "Let's create something beautiful together",
+  buttonText = "Contact us to reserve your date",
 }) => {
   return (
     <div className="cta-section">
       <div className="cta-content">
         <h3 className="cta-title">{title}</h3>
         <p className="cta-subtitle">{subtitle}</p>
-        <Link to="/book-hair-and-makeup-artist" className="cta-button">
+        <Link href="/book-hair-and-makeup-artist" className="cta-button">
           {buttonText}
         </Link>
       </div>

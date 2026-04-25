@@ -1,9 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import pageBanner from '../assets/page-headers/misc-makeup.png';
 import CTASection from './CTASection';
-import { usePagesContent } from '../hooks/usePagesContent';
-import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 function ClassCard({ card }) {
   const extended =
@@ -43,7 +40,7 @@ function ClassCard({ card }) {
             ) : null}
             {card.learnMorePath && card.learnMoreLabel ? (
               <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                <Link to={card.learnMorePath} className="learn-more-btn">
+                <Link href={card.learnMorePath} className="learn-more-btn">
                   {card.learnMoreLabel}
                 </Link>
               </div>
@@ -59,14 +56,11 @@ function ClassCard({ card }) {
   );
 }
 
-const Classes = () => {
-  const { classes: classesContent } = usePagesContent();
-  useDocumentMeta(classesContent.documentTitle, classesContent.metaDescription);
-
+const Classes = ({ classes: classesContent }) => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <img src={pageBanner} alt="Page Banner - Classes" className="page-header-image" />
+        <img src={pageBanner.src} alt="Page Banner - Classes" className="page-header-image" />
       </div>
       <h1 className="page-title">{classesContent.pageTitle}</h1>
       <p className="intro-text">{classesContent.introText}</p>

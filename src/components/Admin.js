@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useId, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import LocationsEditor from './admin/LocationsEditor';
 import HomePagesEditor from './admin/HomePagesEditor';
 import AboutEditor from './admin/AboutEditor';
@@ -37,20 +38,17 @@ const TAB_LABELS = {
 };
 
 function AdminDashboard() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const tabParam = searchParams.get('tab');
   const activeTab = TAB_IDS.includes(tabParam) ? tabParam : 'locations';
 
   function selectTab(id) {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        next.set('tab', id);
-        next.delete('pagesTab');
-        return next;
-      },
-      { replace: true },
-    );
+    const next = new URLSearchParams(searchParams.toString());
+    next.set('tab', id);
+    next.delete('pagesTab');
+    router.replace(`${pathname}?${next.toString()}`);
   }
 
   return (
@@ -259,7 +257,7 @@ export default function Admin() {
                 Sign out
               </button>
             ) : null}
-            <Link className="admin-external-link" to="/">
+            <Link className="admin-external-link" href="/">
               Back to site
             </Link>
           </nav>
@@ -276,9 +274,9 @@ export default function Admin() {
             </h2>
             {!configured ? (
               <p className="admin-warn">
-                Set <code>REACT_APP_ADMIN_AUTH_URL</code> to your Lambda Function URL origin (no trailing slash) in your
+                Set <code>NEXT_PUBLIC_ADMIN_AUTH_URL</code> to your Lambda Function URL origin (no trailing slash) in your
                 hosting provider&apos;s build environment variables and in <code>.env.local</code> for{' '}
-                <code>npm start</code>. Optionally set <code>REACT_APP_LOCATIONS_CONTENT_URL</code> to the public HTTPS
+                <code>npm run dev</code>. Optionally set <code>NEXT_PUBLIC_LOCATIONS_CONTENT_URL</code> to the public HTTPS
                 URL of <code>locations-content.json</code> if it differs from the default.
               </p>
             ) : (

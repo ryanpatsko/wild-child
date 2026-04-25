@@ -2,7 +2,7 @@ const STORAGE_KEY = 'wc-admin-session-token';
 
 /** Lambda Function URL origin only (no trailing slash). Set REACT_APP_ADMIN_AUTH_URL in Amplify and .env.local. */
 export function getAdminAuthBaseUrl() {
-  const fromEnv = process.env.REACT_APP_ADMIN_AUTH_URL?.trim();
+  const fromEnv = process.env.NEXT_PUBLIC_ADMIN_AUTH_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, '');
   return '';
 }

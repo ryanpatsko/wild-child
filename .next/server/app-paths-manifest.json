@@ -1,0 +1,11 @@
+{
+  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js",
+  "/film-tv-makeup-artist/page": "app/film-tv-makeup-artist/page.js",
+  "/bridal/page": "app/bridal/page.js",
+  "/event-hair-and-makeup/page": "app/event-hair-and-makeup/page.js",
+  "/page": "app/page.js",
+  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js",
+  "/makeup-classes/page": "app/makeup-classes/page.js",
+  "/creative-fx/page": "app/creative-fx/page.js",
+  "/faq/page": "app/faq/page.js"
+}
