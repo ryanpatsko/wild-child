@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow images served from the S3 bucket (used in og:image etc. if ever needed)
   images: {
     remotePatterns: [
       {
