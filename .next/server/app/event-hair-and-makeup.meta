@@ -1,7 +1,1 @@
-{
-  "headers": {
-    "x-nextjs-stale-time": "300",
-    "x-nextjs-prerender": "1",
-    "x-next-cache-tags": "_N_T_/layout,_N_T_/event-hair-and-makeup/layout,_N_T_/event-hair-and-makeup/page,_N_T_/event-hair-and-makeup"
-  }
-}
+{"headers":{"x-nextjs-stale-time":"300","x-next-cache-tags":"_N_T_/layout,_N_T_/event-hair-and-makeup/layout,_N_T_/event-hair-and-makeup/page,_N_T_/event-hair-and-makeup"}}
