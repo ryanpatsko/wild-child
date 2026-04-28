@@ -1,19 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js",
   "/admin/page": "app/admin/page.js",
-  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js",
-  "/bridal-hair-makeup-atlanta-new-orleans/page": "app/bridal-hair-makeup-atlanta-new-orleans/page.js",
-  "/bridal-hair-makeup-pittsburgh/page": "app/bridal-hair-makeup-pittsburgh/page.js",
-  "/bridal-services/page": "app/bridal-services/page.js",
-  "/bridal/page": "app/bridal/page.js",
-  "/creative-fx/page": "app/creative-fx/page.js",
-  "/event-hair-and-makeup/page": "app/event-hair-and-makeup/page.js",
-  "/faq/page": "app/faq/page.js",
-  "/film-tv-makeup-artist/page": "app/film-tv-makeup-artist/page.js",
-  "/makeup-classes/page": "app/makeup-classes/page.js",
   "/page": "app/page.js",
-  "/bridal-gallery/page": "app/bridal-gallery/page.js",
-  "/bridal-services-brochure/page": "app/bridal-services-brochure/page.js",
-  "/color-palette-party/page": "app/color-palette-party/page.js"
+  "/film-tv-makeup-artist/page": "app/film-tv-makeup-artist/page.js",
+  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js",
+  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js"
 }

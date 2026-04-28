@@ -1,146 +1,37 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/_not-found/page-ab6723ccd30d0f03.js"
-    ],
     "/layout": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/css/0bc01966251722ee.css",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/layout-166330d44ed87f38.js"
-    ],
-    "/about-hair-and-makeup-artist/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/about-hair-and-makeup-artist/page-cbe89c1697165a10.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/admin/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/css/cbbfb7a821d4f0b2.css",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/admin/page-88a0f62562f33f37.js"
-    ],
-    "/book-hair-and-makeup-artist/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/book-hair-and-makeup-artist/page-84a148ad96cfec39.js"
-    ],
-    "/bridal-hair-makeup-atlanta-new-orleans/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/bridal-hair-makeup-atlanta-new-orleans/page-c8d81ec0b498399f.js"
-    ],
-    "/bridal-hair-makeup-pittsburgh/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/bridal-hair-makeup-pittsburgh/page-c8d81ec0b498399f.js"
-    ],
-    "/bridal-services/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/bridal-services/page-39faef09444360ed.js"
-    ],
-    "/bridal/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/bridal/page-c9c1e814b35280cb.js"
-    ],
-    "/creative-fx/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/creative-fx/page-edc975dbae639fa5.js"
-    ],
-    "/event-hair-and-makeup/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/event-hair-and-makeup/page-18604e6cd5f35d34.js"
-    ],
-    "/faq/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/faq/page-40e6cdc2360c6a56.js"
-    ],
-    "/film-tv-makeup-artist/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/film-tv-makeup-artist/page-4e497cf4a749325c.js"
-    ],
-    "/makeup-classes/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/makeup-classes/page-eb134e9e0f391240.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/admin/page.css",
+      "static/chunks/app/admin/page.js"
     ],
     "/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/css/b408208a272221d9.css",
-      "static/chunks/538-6a49ec059d68dff7.js",
-      "static/chunks/app/page-285d1f129124ae65.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
-    "/bridal-gallery/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/css/b408208a272221d9.css",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/538-6a49ec059d68dff7.js",
-      "static/chunks/app/bridal-gallery/page-0faa1d72a1fb9a7d.js"
+    "/film-tv-makeup-artist/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/film-tv-makeup-artist/page.js"
     ],
-    "/bridal-services-brochure/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/619-ba102abea3e3d0e4.js",
-      "static/chunks/app/bridal-services-brochure/page-40be7eabedae4ddc.js"
+    "/book-hair-and-makeup-artist/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/book-hair-and-makeup-artist/page.js"
     ],
-    "/color-palette-party/page": [
-      "static/chunks/webpack-f6a2438d40080f70.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-769a499a58f6cdbf.js",
-      "static/chunks/main-app-53ef124f0d3ab35d.js",
-      "static/chunks/app/color-palette-party/page-77f3bb7e64a36d6a.js"
+    "/about-hair-and-makeup-artist/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/about-hair-and-makeup-artist/page.js"
     ]
   }
 }

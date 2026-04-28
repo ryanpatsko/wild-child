@@ -239,7 +239,7 @@ export default function Admin() {
         <header className="admin-header">
           <div className="admin-header-brand">
             <img
-              src={siteLogo}
+              src={siteLogo.src}
               alt=""
               className="admin-header-logo"
               width={40}
