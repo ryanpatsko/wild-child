@@ -2,9 +2,11 @@
 
 import { usePathname } from 'next/navigation';
 import Navigation from './Navigation';
+import BridalPageBackground from './BridalPageBackground';
 
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
+  const isBridal = pathname.startsWith('/bridal');
 
   if (pathname.startsWith('/admin')) {
     return <>{children}</>;
@@ -13,8 +15,9 @@ export default function SiteChrome({ children }) {
   return (
     <>
       <Navigation />
-      <main className="main-content">
-        <div className="content-container">
+      <main className={`main-content${isBridal ? ' main-content--bridal' : ' main-content--pinstripe'}`}>
+        {isBridal ? <BridalPageBackground /> : null}
+        <div key={pathname} className="content-container">
           {children}
         </div>
       </main>

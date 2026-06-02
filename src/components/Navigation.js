@@ -25,6 +25,10 @@ export default function Navigation() {
   const navRef = useRef(null);
 
   useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current && navRef.current) {
         const headerBottom = headerRef.current.getBoundingClientRect().bottom;

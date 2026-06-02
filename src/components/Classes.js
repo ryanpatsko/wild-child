@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import pageBanner from '../assets/page-headers/misc-makeup.png';
 import CTASection from './CTASection';
 
 function ClassCard({ card }) {
@@ -59,9 +58,6 @@ function ClassCard({ card }) {
 const Classes = ({ classes: classesContent }) => {
   return (
     <div className="page-container">
-      <div className="page-header">
-        <img src={pageBanner.src} alt="Page Banner - Classes" className="page-header-image" />
-      </div>
       <h1 className="page-title">{classesContent.pageTitle}</h1>
       <p className="intro-text">{classesContent.introText}</p>
       <div className="classes-grid">

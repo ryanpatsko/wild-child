@@ -6,17 +6,37 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/page": [
+    "/bridal/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/admin/page.css",
-      "static/chunks/app/admin/page.js"
+      "static/chunks/app/bridal/page.js"
+    ],
+    "/bridal-hair-makeup-pittsburgh/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/bridal-hair-makeup-pittsburgh/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
+    ],
+    "/bridal-services/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/bridal-services/page.js"
+    ],
+    "/bridal-gallery/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/bridal-gallery/page.css",
+      "static/chunks/app/bridal-gallery/page.js"
+    ],
+    "/about-hair-and-makeup-artist/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/about-hair-and-makeup-artist/page.js"
     ],
     "/film-tv-makeup-artist/page": [
       "static/chunks/webpack.js",
@@ -28,10 +48,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/book-hair-and-makeup-artist/page.js"
     ],
-    "/about-hair-and-makeup-artist/page": [
+    "/bridal-hair-makeup-atlanta-new-orleans/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/about-hair-and-makeup-artist/page.js"
+      "static/chunks/app/bridal-hair-makeup-atlanta-new-orleans/page.js"
     ]
   }
 }

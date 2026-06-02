@@ -1,11 +1,6 @@
-import pageBanner from '../assets/page-headers/curling-iron.png';
-
 const Media = ({ m }) => {
   return (
     <div className="page-container">
-      <div className="page-header">
-        <img src={pageBanner.src} alt="Page Banner - Media" className="page-header-image" />
-      </div>
       <h1 className="page-title">{m.pageHeader}</h1>
       <p className="intro-text">{m.introText}</p>
 

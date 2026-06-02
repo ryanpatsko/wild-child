@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import sidebarBanner from '../assets/gallery-bridal/Screenshot_20241207-093319.png';
 
 const bridalNavItems = [
   { path: '/bridal', label: 'Overview' },
@@ -52,11 +51,8 @@ const BridalLayout = ({ children }) => {
   }, [mobileNavOpen]);
 
   return (
-    <div
-      className="bridal-layout"
-      style={{ '--bridal-fixed-bg-image': `url(${sidebarBanner.src})` }}
-    >
-      <aside className="bridal-sidebar" aria-label="Bridal section navigation">
+    <div className="bridal-layout">
+        <aside className="bridal-sidebar" aria-label="Bridal section navigation">
         <div className="bridal-sidebar-sticky">
           <h2 className="bridal-sidebar-heading">Wild Child Bridal</h2>
           <div className="bridal-mobile-nav" ref={mobileNavRef}>
@@ -139,8 +135,8 @@ const BridalLayout = ({ children }) => {
             })}
           </nav>
         </div>
-      </aside>
-      <div className="bridal-main">{children}</div>
+        </aside>
+        <div className="bridal-main">{children}</div>
     </div>
   );
 };
