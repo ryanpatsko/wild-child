@@ -4,6 +4,8 @@ import BridalPittsburgh from '../../components/BridalPittsburgh';
 
 const PATH = '/bridal-hair-makeup-pittsburgh';
 
+export const revalidate = 60;
+
 export async function generateMetadata() {
   const { pittsburgh: r } = await getBridalContent();
   return {

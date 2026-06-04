@@ -1,9 +1,4 @@
 {
   "/bridal/page": "app/bridal/page.js",
-  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js",
-  "/film-tv-makeup-artist/page": "app/film-tv-makeup-artist/page.js",
-  "/bridal-services/page": "app/bridal-services/page.js",
-  "/bridal-gallery/page": "app/bridal-gallery/page.js",
-  "/bridal-hair-makeup-pittsburgh/page": "app/bridal-hair-makeup-pittsburgh/page.js",
-  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js"
+  "/bridal-hair-makeup-pittsburgh/page": "app/bridal-hair-makeup-pittsburgh/page.js"
 }

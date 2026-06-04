@@ -48,8 +48,11 @@ export default function Navigation() {
         <div className="logo-section">
           <Link href="/" className="site-title-link" onClick={closeMobileMenu}>
             <h1 className="site-title">
-              Wild Child Fabrications
-              <img src={siteLogo.src} alt="Wild Child Fabrications - Lips Logo" className="site-logo" />
+              <span className="site-title-lead">Wild Child </span>
+              <span className="site-title-brand">
+                Fabrications
+                <img src={siteLogo.src} alt="" className="site-logo" aria-hidden="true" />
+              </span>
             </h1>
           </Link>
         </div>

@@ -17,16 +17,16 @@
   --border-color: #f3e6ee;
   --transition-speed: 0.3s;
   
-        /* Client Theme Colors - Navigation Palette */
-        --theme-color-1: #FFDBD8; /* HOME - Lightest pink */
-        --theme-color-2: #FFBBB4; /* ABOUT ME */
-        --theme-color-3: #FF9C91; /* CONTACT */
-        --theme-color-4: #FF8071; /* TV. FILM. PRINT. */
-        --theme-color-5: #FF5482; /* BRIDAL */
-        --theme-color-6: #FF3D4F; /* BEAUTY & EVENTS */
-        --theme-color-7: #FC205C; /* CLASSES */
-        --theme-color-8: #FF1C89; /* CREATIVE & FX */
-        --theme-color-9: #E91E63; /* FAQ - Darkest pink */
+        /* Client Theme Colors - Navigation Palette (aligned with site pinks) */
+        --theme-color-1: var(--pinstripe-light); /* HOME - soft blush */
+        --theme-color-2: var(--pinstripe-medium); /* ABOUT */
+        --theme-color-3: #F0A8C4; /* CONTACT */
+        --theme-color-4: #E892AE; /* TV. FILM. PRINT. */
+        --theme-color-5: #DC6890; /* BRIDAL */
+        --theme-color-6: var(--accent-color); /* BEAUTY & EVENTS */
+        --theme-color-7: #E03684; /* CLASSES */
+        --theme-color-8: var(--section-header); /* CREATIVE & FX */
+        --theme-color-9: #C91865; /* FAQ - deepest magenta */
   
         /* Semantic Theme Color Mappings */
         --theme-home: var(--theme-color-1);
@@ -611,7 +611,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   padding: 0 2rem 2.5rem 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   position: relative;
   background-color: #ffffff;
@@ -622,7 +622,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   z-index: 2;
@@ -650,11 +650,17 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   pointer-events: none;
 } */
 
+.site-title-brand {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
 .site-logo {
   max-width: 52px;
   height: auto;
-  display: inline;
-  vertical-align: baseline;
+  display: block;
+  flex-shrink: 0;
   margin-left: 0.1em;
   opacity: 0.8;
 }
@@ -2650,7 +2656,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   .logo-section {
     flex-direction: row;
     gap: 0.5rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   .site-title { 
@@ -2682,7 +2688,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   .logo-section {
     flex-direction: row;
     gap: 0.5rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   .site-title { 
