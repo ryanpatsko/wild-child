@@ -17,6 +17,13 @@ const navItems = [
   { name: 'FAQ', path: '/faq' },
 ];
 
+function isNavItemActive(path, pathname) {
+  if (path === '/bridal') {
+    return pathname.startsWith('/bridal');
+  }
+  return pathname === path;
+}
+
 export default function Navigation() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -73,7 +80,7 @@ export default function Navigation() {
           <Link
             key={item.name}
             href={item.path}
-            className={`block-nav-item block-nav-item-${index + 1} ${pathname === item.path ? 'active' : ''}`}
+            className={`block-nav-item block-nav-item-${index + 1} ${isNavItemActive(item.path, pathname) ? 'active' : ''}`}
           >
             {item.name}
           </Link>
@@ -85,7 +92,7 @@ export default function Navigation() {
           <Link
             key={item.name}
             href={item.path}
-            className={`mobile-nav-item block-nav-item-${index + 1} ${pathname === item.path ? 'active' : ''}`}
+            className={`mobile-nav-item block-nav-item-${index + 1} ${isNavItemActive(item.path, pathname) ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
             {item.name}

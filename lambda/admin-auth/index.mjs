@@ -1228,7 +1228,7 @@ export async function handler(event) {
           Key: key,
           Body: payload,
           ContentType: 'application/json; charset=utf-8',
-          CacheControl: 'max-age=30',
+          CacheControl: 'no-cache, no-store, must-revalidate',
         }),
       )
     } catch (err) {
@@ -1281,7 +1281,7 @@ export async function handler(event) {
           Key: key,
           Body: payload,
           ContentType: 'application/json; charset=utf-8',
-          CacheControl: 'max-age=30',
+          CacheControl: 'no-cache, no-store, must-revalidate',
         }),
       )
     } catch (err) {
@@ -1369,7 +1369,7 @@ export async function handler(event) {
           Key: key,
           Body: payload,
           ContentType: 'application/json; charset=utf-8',
-          CacheControl: 'max-age=30',
+          CacheControl: 'no-cache, no-store, must-revalidate',
         }),
       )
     } catch (err) {
@@ -1417,7 +1417,7 @@ export async function handler(event) {
           Key: key,
           Body: payload,
           ContentType: 'application/json; charset=utf-8',
-          CacheControl: 'max-age=30',
+          CacheControl: 'no-cache, no-store, must-revalidate',
         }),
       )
     } catch (err) {
@@ -1469,7 +1469,7 @@ export async function handler(event) {
           Key: key,
           Body: payload,
           ContentType: 'application/json; charset=utf-8',
-          CacheControl: 'max-age=30',
+          CacheControl: 'no-cache, no-store, must-revalidate',
         }),
       )
     } catch (err) {

@@ -1,8 +1,6 @@
 /**
  * Server-only content fetchers for Next.js Server Components.
- * Uses ISR (Incremental Static Regeneration) — pages are cached and
- * revalidated at most once per minute, so CMS updates appear within ~60s
- * with no client-side flash.
+ * Always fetches fresh CMS JSON (no Next.js or CDN caching).
  */
 
 import {
@@ -31,11 +29,9 @@ import {
   createDefaultLocationsContent,
 } from '../content/locationsContent';
 
-const REVALIDATE = 60;
-
 async function fetchContent(url, normalize, createDefault) {
   try {
-    const res = await fetch(url, { next: { revalidate: REVALIDATE } });
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return normalize(await res.json());
   } catch {

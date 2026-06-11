@@ -4,8 +4,6 @@ import BridalAtlanta from '../../components/BridalAtlanta';
 
 const PATH = '/bridal-hair-makeup-atlanta-new-orleans';
 
-export const revalidate = 60;
-
 export async function generateMetadata() {
   const { atlanta: r } = await getBridalContent();
   return {

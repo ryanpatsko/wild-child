@@ -6,16 +6,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/bridal-hair-makeup-pittsburgh/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/about-hair-and-makeup-artist/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/about-hair-and-makeup-artist/page.js"
+      "static/chunks/app/bridal-hair-makeup-pittsburgh/page.js"
     ]
   }
 }
