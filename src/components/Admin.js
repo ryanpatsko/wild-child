@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useId, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import LocationsEditor from './admin/LocationsEditor';
-import HomePagesEditor from './admin/HomePagesEditor';
+import HomeEditor from './admin/HomeEditor';
 import AboutEditor from './admin/AboutEditor';
 import MediaEditor from './admin/MediaEditor';
 import BridalEditor from './admin/BridalEditor';
@@ -90,7 +90,7 @@ function AdminDashboard() {
             hidden={activeTab !== 'home'}
             className="admin-tab-panel"
           >
-            {activeTab === 'home' ? <HomePagesEditor /> : null}
+            {activeTab === 'home' ? <HomeEditor /> : null}
           </div>
 
           <div

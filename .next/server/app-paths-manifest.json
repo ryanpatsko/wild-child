@@ -1,3 +1,4 @@
 {
-  "/bridal-hair-makeup-pittsburgh/page": "app/bridal-hair-makeup-pittsburgh/page.js"
+  "/page": "app/page.js",
+  "/admin/page": "app/admin/page.js"
 }

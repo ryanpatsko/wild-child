@@ -152,3 +152,95 @@ export async function saveBridalContent(token, doc) {
   }
   return { ok: true };
 }
+
+export async function saveGalleryHomeManifest(token, doc) {
+  const base = getAdminAuthBaseUrl();
+  if (!base) {
+    return { ok: false, message: 'Admin API is not configured.' };
+  }
+  let res;
+  try {
+    res = await fetch(`${base}/gallery-home/manifest`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(doc),
+    });
+  } catch {
+    return {
+      ok: false,
+      message: 'Network error saving gallery. Check CORS and the Function URL.',
+    };
+  }
+  if (!res.ok) {
+    const detail = await readErrorDetail(res);
+    return { ok: false, message: `Save failed (HTTP ${res.status}${detail}).` };
+  }
+  return { ok: true };
+}
+
+export async function requestGalleryHomeUpload(token, { filename, contentType }) {
+  const base = getAdminAuthBaseUrl();
+  if (!base) {
+    return { ok: false, message: 'Admin API is not configured.' };
+  }
+  let res;
+  try {
+    res = await fetch(`${base}/gallery-home/upload`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ filename, contentType }),
+    });
+  } catch {
+    return {
+      ok: false,
+      message: 'Network error requesting upload URL. Check CORS and the Function URL.',
+    };
+  }
+  if (!res.ok) {
+    const detail = await readErrorDetail(res);
+    return { ok: false, message: `Upload request failed (HTTP ${res.status}${detail}).` };
+  }
+  try {
+    const data = await res.json();
+    if (typeof data.uploadUrl !== 'string' || typeof data.filename !== 'string') {
+      return { ok: false, message: 'Upload request returned an invalid response.' };
+    }
+    return { ok: true, uploadUrl: data.uploadUrl, filename: data.filename };
+  } catch {
+    return { ok: false, message: 'Upload request returned an invalid response.' };
+  }
+}
+
+export async function deleteGalleryHomeImage(token, filename) {
+  const base = getAdminAuthBaseUrl();
+  if (!base) {
+    return { ok: false, message: 'Admin API is not configured.' };
+  }
+  let res;
+  try {
+    res = await fetch(`${base}/gallery-home/image`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ filename }),
+    });
+  } catch {
+    return {
+      ok: false,
+      message: 'Network error deleting image. Check CORS and the Function URL.',
+    };
+  }
+  if (!res.ok) {
+    const detail = await readErrorDetail(res);
+    return { ok: false, message: `Delete failed (HTTP ${res.status}${detail}).` };
+  }
+  return { ok: true };
+}

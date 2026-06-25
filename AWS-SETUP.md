@@ -148,6 +148,13 @@ Shape (abbreviated):
       "Principal": "*",
       "Action": "s3:GetObject",
       "Resource": "arn:aws:s3:::wild-child-cms/pages-content.json"
+    },
+    {
+      "Sid": "PublicReadGalleryHome",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::wild-child-cms/gallery-home/*"
     }
   ]
 }
@@ -198,6 +205,47 @@ Default public URL pattern:
 
 Override with **`REACT_APP_PAGES_CONTENT_URL`** at build time if needed, or edit the default in `src/content/pagesContent.js`.
 
+### Home page gallery (`gallery-home/`)
+
+- **Prefix:** `gallery-home/` (unless you set **`CMS_S3_GALLERY_HOME_PREFIX`** on Lambda, e.g. `gallery-home/`).
+- **Manifest key:** `gallery-home/manifest.json` — ordered list of image filenames.
+- **Images:** `gallery-home/<filename>` (JPEG, PNG, or WebP).
+- **Starting manifest:** Copy from `src/content/defaultGalleryHomeContent.json`, then upload the existing `src/assets/gallery-home/*.jpg` files to matching keys (or use **Admin → Home → Gallery** to upload).
+
+Default public manifest URL:
+
+`https://wild-child-cms.s3.us-east-1.amazonaws.com/gallery-home/manifest.json`
+
+Override with **`REACT_APP_GALLERY_HOME_MANIFEST_URL`** at build time if needed.
+
+**Bucket policy:** Add public **`GetObject`** on `gallery-home/*` (manifest + images). Example statement:
+
+```json
+{
+  "Sid": "PublicReadGalleryHome",
+  "Effect": "Allow",
+  "Principal": "*",
+  "Action": "s3:GetObject",
+  "Resource": "arn:aws:s3:::wild-child-cms/gallery-home/*"
+}
+```
+
+**S3 CORS (for admin uploads):** Extend the bucket CORS rule so the browser can **PUT** directly to S3 via presigned URLs from `/admin`:
+
+```json
+{
+  "AllowedHeaders": ["*"],
+  "AllowedMethods": ["GET", "HEAD", "PUT"],
+  "AllowedOrigins": [
+    "https://main.YOURAPPID.amplifyapp.com",
+    "https://www.yourdomain.com",
+    "http://localhost:3000"
+  ],
+  "ExposeHeaders": ["ETag"],
+  "MaxAgeSeconds": 3000
+}
+```
+
 ---
 
 ## 2. Lambda (`lambda/admin-auth`)
@@ -230,10 +278,11 @@ This writes **`dist/lambda-admin-auth.zip`** (`index.mjs` + `node_modules`). Upl
 | `CMS_S3_MEDIA_KEY`     | No       | Defaults to `media-content.json`. |
 | `CMS_S3_BRIDAL_KEY`    | No       | Defaults to `bridal-content.json`. |
 | `CMS_S3_PAGES_KEY`     | No       | Defaults to `pages-content.json`. |
+| `CMS_S3_GALLERY_HOME_PREFIX` | No | Defaults to `gallery-home/` (include trailing slash). |
 
 ### IAM (execution role)
 
-Grant **`s3:PutObject`** on each CMS JSON object the admin can save (and **`s3:GetObject`** only if you later add reads in Lambda):
+Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:PutObject`** and **`s3:DeleteObject`** on gallery images:
 
 ```json
 {
@@ -247,8 +296,14 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save (and **`s3:G
         "arn:aws:s3:::wild-child-cms/about-content.json",
         "arn:aws:s3:::wild-child-cms/media-content.json",
         "arn:aws:s3:::wild-child-cms/bridal-content.json",
-        "arn:aws:s3:::wild-child-cms/pages-content.json"
+        "arn:aws:s3:::wild-child-cms/pages-content.json",
+        "arn:aws:s3:::wild-child-cms/gallery-home/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::wild-child-cms/gallery-home/*"
     }
   ]
 }
@@ -261,7 +316,7 @@ Adjust bucket or keys if you use non-default names.
 1. **Create function URL** → **Auth type: NONE** (the SPA sends `Authorization: Bearer …`; do **not** use AWS_IAM auth for browser calls).
 2. **CORS** (configure **only** on the Function URL — this handler does not set `Access-Control-*` headers in code; duplicate CORS breaks browsers):
 
-   - **Allow methods:** `GET`, `POST`, `PUT`, `OPTIONS`
+   - **Allow methods:** `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`
    - **Allow headers:** `content-type`, `authorization`
    - **Allow origins:** your production site origin(s) and `http://localhost:3000` for local Create React App admin testing
 
@@ -274,6 +329,9 @@ Adjust bucket or keys if you use non-default names.
 - `PUT {origin}/media-content` — header `Authorization: Bearer <token>`, body full **media** document (see `src/content/defaultMediaContent.json`)
 - `PUT {origin}/bridal-content` — header `Authorization: Bearer <token>`, body full **bridal** document (see `src/content/defaultBridalContent.json`)
 - `PUT {origin}/pages-content` — header `Authorization: Bearer <token>`, body full **pages** document (see `src/content/defaultPagesContent.json`)
+- `PUT {origin}/gallery-home/manifest` — header `Authorization: Bearer <token>`, body `{ version, images: string[] }`
+- `POST {origin}/gallery-home/upload` — header `Authorization: Bearer <token>`, body `{ filename, contentType }` → `{ uploadUrl, filename, key }` (presigned S3 PUT)
+- `DELETE {origin}/gallery-home/image` — header `Authorization: Bearer <token>`, body `{ filename }`
 
 Copy the Function URL **origin only** (no path), e.g.  
 `https://xxxxxxxx.lambda-url.us-east-1.on.aws`

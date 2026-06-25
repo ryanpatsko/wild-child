@@ -9,14 +9,16 @@
  *   CMS_S3_MEDIA_KEY — optional, default media-content.json
  *   CMS_S3_BRIDAL_KEY — optional, default bridal-content.json
  *   CMS_S3_PAGES_KEY — optional, default pages-content.json
+ *   CMS_S3_GALLERY_HOME_PREFIX — optional, default gallery-home/
  *
- * IAM: s3:PutObject on each CMS JSON key the admin can save.
- * Public reads: bucket policy grants s3:GetObject on CMS JSON keys.
+ * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/*.
+ * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*.
  * CORS: configure only on the Lambda Function URL in AWS (not in this handler).
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 const SESSION_HOURS = 24
 const ADMIN_SUB = 'wc-cms-admin'
@@ -92,8 +94,72 @@ const PG_URL = 2000
 const PG_CTA_TITLE = 300
 const PG_CTA_SUB = 500
 const PG_CTA_BTN = 120
+const GALLERY_HOME_MAX_IMAGES = 30
+const GALLERY_HOME_MAX_FILENAME = 120
+const GALLERY_HOME_ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp'])
+const GALLERY_HOME_EXT_BY_TYPE = {
+  'image/jpeg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+}
 
 const s3 = new S3Client({})
+
+function galleryHomePrefix() {
+  const raw = process.env.CMS_S3_GALLERY_HOME_PREFIX || 'gallery-home/'
+  return raw.endsWith('/') ? raw : `${raw}/`
+}
+
+function galleryHomeManifestKey() {
+  return `${galleryHomePrefix()}manifest.json`
+}
+
+function galleryHomeImageKey(filename) {
+  return `${galleryHomePrefix()}${filename}`
+}
+
+function validateGalleryFilename(filename) {
+  if (typeof filename !== 'string') return false
+  const trimmed = filename.trim()
+  if (trimmed.length < 1 || trimmed.length > GALLERY_HOME_MAX_FILENAME) return false
+  if (trimmed.includes('/') || trimmed.includes('\\') || trimmed.includes('..')) return false
+  return /^[a-zA-Z0-9._-]+\.(jpg|jpeg|png|webp)$/i.test(trimmed)
+}
+
+function validateGalleryHomeManifest(body) {
+  if (!body || typeof body !== 'object') return false
+  if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
+  if (!Array.isArray(body.images)) return false
+  if (body.images.length > GALLERY_HOME_MAX_IMAGES) return false
+  return body.images.every(validateGalleryFilename)
+}
+
+function normalizeGalleryHomeManifestOut(body) {
+  return {
+    version: Math.max(1, Math.floor(body.version)),
+    images: body.images.map((x) => String(x).trim()),
+  }
+}
+
+function makeGalleryUploadFilename(originalName, contentType) {
+  const extFromType = GALLERY_HOME_EXT_BY_TYPE[contentType] ?? '.jpg'
+  const base = String(originalName ?? 'image').replace(/\.[^.]+$/, '')
+  const slug = base
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80)
+  const unique = `${slug || 'image'}-${Date.now().toString(36)}${extFromType}`
+  return unique.slice(0, GALLERY_HOME_MAX_FILENAME)
+}
+
+function requireAuth(event, sessionSecret) {
+  const token = bearerToken(event)
+  if (!token || !verifyJwt(token, sessionSecret)) {
+    return { ok: false, response: response(401, { error: 'Unauthorized' }) }
+  }
+  return { ok: true }
+}
 
 function base64urlJson(obj) {
   return Buffer.from(JSON.stringify(obj), 'utf8').toString('base64url')
@@ -1171,6 +1237,13 @@ export async function handler(event) {
     method === 'PUT' && (path === '/bridal-content' || path.endsWith('/bridal-content'))
   const isSavePages =
     method === 'PUT' && (path === '/pages-content' || path.endsWith('/pages-content'))
+  const isSaveGalleryHomeManifest =
+    method === 'PUT' && (path === '/gallery-home/manifest' || path.endsWith('/gallery-home/manifest'))
+  const isGalleryHomeUpload =
+    method === 'POST' && (path === '/gallery-home/upload' || path.endsWith('/gallery-home/upload'))
+  const isGalleryHomeDelete =
+    method === 'DELETE' &&
+    (path === '/gallery-home/image' || path.endsWith('/gallery-home/image'))
 
   if (isLogin) {
     let password = ''
@@ -1474,6 +1547,109 @@ export async function handler(event) {
       )
     } catch (err) {
       return s3PutErrorResponse(err)
+    }
+    return response(200, { ok: true })
+  }
+
+  if (isSaveGalleryHomeManifest) {
+    const auth = requireAuth(event, sessionSecret)
+    if (!auth.ok) return auth.response
+    let body
+    try {
+      body = JSON.parse(parseBody(event))
+    } catch {
+      return response(400, { error: 'Invalid JSON' })
+    }
+    if (!validateGalleryHomeManifest(body)) {
+      return response(400, {
+        error: `Invalid gallery manifest (version number and up to ${GALLERY_HOME_MAX_IMAGES} image filenames).`,
+      })
+    }
+    const bucket = process.env.CMS_S3_BUCKET ?? ''
+    if (!bucket) {
+      return response(500, { error: 'CMS_S3_BUCKET not set' })
+    }
+    const payload = JSON.stringify(normalizeGalleryHomeManifestOut(body), null, 2)
+    try {
+      await s3.send(
+        new PutObjectCommand({
+          Bucket: bucket,
+          Key: galleryHomeManifestKey(),
+          Body: payload,
+          ContentType: 'application/json; charset=utf-8',
+          CacheControl: 'no-cache, no-store, must-revalidate',
+        }),
+      )
+    } catch (err) {
+      return s3PutErrorResponse(err)
+    }
+    return response(200, { ok: true })
+  }
+
+  if (isGalleryHomeUpload) {
+    const auth = requireAuth(event, sessionSecret)
+    if (!auth.ok) return auth.response
+    let body
+    try {
+      body = JSON.parse(parseBody(event))
+    } catch {
+      return response(400, { error: 'Invalid JSON' })
+    }
+    const contentType = typeof body.contentType === 'string' ? body.contentType.trim().toLowerCase() : ''
+    if (!GALLERY_HOME_ALLOWED_TYPES.has(contentType)) {
+      return response(400, { error: 'Unsupported image type (use JPEG, PNG, or WebP).' })
+    }
+    const bucket = process.env.CMS_S3_BUCKET ?? ''
+    if (!bucket) {
+      return response(500, { error: 'CMS_S3_BUCKET not set' })
+    }
+    const filename = makeGalleryUploadFilename(body.filename, contentType)
+    const key = galleryHomeImageKey(filename)
+    try {
+      const uploadUrl = await getSignedUrl(
+        s3,
+        new PutObjectCommand({
+          Bucket: bucket,
+          Key: key,
+          ContentType: contentType,
+          CacheControl: 'public, max-age=31536000, immutable',
+        }),
+        { expiresIn: 300 },
+      )
+      return response(200, { uploadUrl, filename, key })
+    } catch (err) {
+      console.error('Presigned URL failed', err)
+      return response(500, { error: 'Could not create upload URL.' })
+    }
+  }
+
+  if (isGalleryHomeDelete) {
+    const auth = requireAuth(event, sessionSecret)
+    if (!auth.ok) return auth.response
+    let body
+    try {
+      body = JSON.parse(parseBody(event))
+    } catch {
+      return response(400, { error: 'Invalid JSON' })
+    }
+    const filename = typeof body.filename === 'string' ? body.filename.trim() : ''
+    if (!validateGalleryFilename(filename)) {
+      return response(400, { error: 'Invalid image filename.' })
+    }
+    const bucket = process.env.CMS_S3_BUCKET ?? ''
+    if (!bucket) {
+      return response(500, { error: 'CMS_S3_BUCKET not set' })
+    }
+    try {
+      await s3.send(
+        new DeleteObjectCommand({
+          Bucket: bucket,
+          Key: galleryHomeImageKey(filename),
+        }),
+      )
+    } catch (err) {
+      console.error('DeleteObject failed', err)
+      return response(500, { error: 'S3 delete failed. Check CloudWatch logs.' })
     }
     return response(200, { ok: true })
   }
