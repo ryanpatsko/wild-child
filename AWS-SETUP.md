@@ -155,6 +155,13 @@ Shape (abbreviated):
       "Principal": "*",
       "Action": "s3:GetObject",
       "Resource": "arn:aws:s3:::wild-child-cms/gallery-home/*"
+    },
+    {
+      "Sid": "PublicReadGalleryBridal",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
     }
   ]
 }
@@ -184,7 +191,7 @@ Override with **`REACT_APP_MEDIA_CONTENT_URL`** at build time if needed, or edit
 - **Key:** `bridal-content.json` (unless you set **`CMS_S3_BRIDAL_KEY`** on Lambda).
 - **Starting content:** Copy from `src/content/defaultBridalContent.json`.
 
-The JSON holds **overview** (main bridal landing), **services** breakdown, and regional copy for **Pittsburgh** and **Atlanta** (packages, add-ons, CTAs). Gallery/reviews on the overview page are not CMS-driven.
+The JSON holds **overview** (main bridal landing), **services** breakdown, and regional copy for **Pittsburgh** and **Atlanta** (packages, add-ons, CTAs). The **/bridal-gallery** image grid is managed separately (see **Bridal gallery** below).
 
 Default public URL pattern:
 
@@ -246,6 +253,21 @@ Override with **`REACT_APP_GALLERY_HOME_MANIFEST_URL`** at build time if needed.
 }
 ```
 
+### Bridal gallery (`gallery-bridal/`)
+
+- **Prefix:** `gallery-bridal/` (unless you set **`CMS_S3_GALLERY_BRIDAL_PREFIX`** on Lambda).
+- **Manifest key:** `gallery-bridal/manifest.json` — ordered list of image filenames.
+- **Images:** `gallery-bridal/<filename>` (JPEG, PNG, or WebP).
+- **Starting manifest:** Copy from `src/content/defaultGalleryBridalContent.json`, then upload images to matching keys (or use **Admin → Bridal → Gallery** to upload).
+
+Default public manifest URL:
+
+`https://wild-child-cms.s3.us-east-1.amazonaws.com/gallery-bridal/manifest.json`
+
+Override with **`REACT_APP_GALLERY_BRIDAL_MANIFEST_URL`** at build time if needed.
+
+**Bucket policy:** Add public **`GetObject`** on `gallery-bridal/*` (same pattern as `gallery-home/*`).
+
 ---
 
 ## 2. Lambda (`lambda/admin-auth`)
@@ -279,6 +301,7 @@ This writes **`dist/lambda-admin-auth.zip`** (`index.mjs` + `node_modules`). Upl
 | `CMS_S3_BRIDAL_KEY`    | No       | Defaults to `bridal-content.json`. |
 | `CMS_S3_PAGES_KEY`     | No       | Defaults to `pages-content.json`. |
 | `CMS_S3_GALLERY_HOME_PREFIX` | No | Defaults to `gallery-home/` (include trailing slash). |
+| `CMS_S3_GALLERY_BRIDAL_PREFIX` | No | Defaults to `gallery-bridal/` (include trailing slash). |
 
 ### IAM (execution role)
 
@@ -297,13 +320,17 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
         "arn:aws:s3:::wild-child-cms/media-content.json",
         "arn:aws:s3:::wild-child-cms/bridal-content.json",
         "arn:aws:s3:::wild-child-cms/pages-content.json",
-        "arn:aws:s3:::wild-child-cms/gallery-home/*"
+        "arn:aws:s3:::wild-child-cms/gallery-home/*",
+        "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
       ]
     },
     {
       "Effect": "Allow",
       "Action": ["s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::wild-child-cms/gallery-home/*"
+      "Resource": [
+        "arn:aws:s3:::wild-child-cms/gallery-home/*",
+        "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
+      ]
     }
   ]
 }
@@ -332,6 +359,9 @@ Adjust bucket or keys if you use non-default names.
 - `PUT {origin}/gallery-home/manifest` — header `Authorization: Bearer <token>`, body `{ version, images: string[] }`
 - `POST {origin}/gallery-home/upload` — header `Authorization: Bearer <token>`, body `{ filename, contentType }` → `{ uploadUrl, filename, key }` (presigned S3 PUT)
 - `DELETE {origin}/gallery-home/image` — header `Authorization: Bearer <token>`, body `{ filename }`
+- `PUT {origin}/gallery-bridal/manifest` — same body as home gallery manifest
+- `POST {origin}/gallery-bridal/upload` — same as home gallery upload
+- `DELETE {origin}/gallery-bridal/image` — same as home gallery delete
 
 Copy the Function URL **origin only** (no path), e.g.  
 `https://xxxxxxxx.lambda-url.us-east-1.on.aws`

@@ -8,14 +8,16 @@ import {
 } from '../../content/bridalContent';
 import { saveBridalContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import BridalGalleryEditor from './BridalGalleryEditor';
 
-const BRIDAL_PAGES = ['overview', 'services', 'pittsburgh', 'atlanta'];
+const BRIDAL_PAGES = ['overview', 'services', 'pittsburgh', 'atlanta', 'gallery'];
 
 const PAGE_LABELS = {
   overview: 'Overview',
   services: 'Services',
   pittsburgh: 'Pittsburgh',
   atlanta: 'Atlanta',
+  gallery: 'Gallery',
 };
 
 function SaveFeedback() {
@@ -153,6 +155,17 @@ export default function BridalEditor() {
       <p className="admin-status" role="status">
         Loading bridal content…
       </p>
+    );
+  }
+
+  if (bridalPage === 'gallery') {
+    return (
+      <>
+        <h3 className="admin-panel-title">Bridal</h3>
+        <p className="admin-muted">Edit bridal page content and the /bridal-gallery image grid.</p>
+        <SubTabs active={bridalPage} onSelect={selectBridalPage} />
+        <BridalGalleryEditor />
+      </>
     );
   }
 

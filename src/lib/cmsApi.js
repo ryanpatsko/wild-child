@@ -154,13 +154,37 @@ export async function saveBridalContent(token, doc) {
 }
 
 export async function saveGalleryHomeManifest(token, doc) {
+  return saveGalleryManifest(token, 'gallery-home', doc);
+}
+
+export async function requestGalleryHomeUpload(token, payload) {
+  return requestGalleryUpload(token, 'gallery-home', payload);
+}
+
+export async function deleteGalleryHomeImage(token, filename) {
+  return deleteGalleryImage(token, 'gallery-home', filename);
+}
+
+export async function saveGalleryBridalManifest(token, doc) {
+  return saveGalleryManifest(token, 'gallery-bridal', doc);
+}
+
+export async function requestGalleryBridalUpload(token, payload) {
+  return requestGalleryUpload(token, 'gallery-bridal', payload);
+}
+
+export async function deleteGalleryBridalImage(token, filename) {
+  return deleteGalleryImage(token, 'gallery-bridal', filename);
+}
+
+async function saveGalleryManifest(token, slug, doc) {
   const base = getAdminAuthBaseUrl();
   if (!base) {
     return { ok: false, message: 'Admin API is not configured.' };
   }
   let res;
   try {
-    res = await fetch(`${base}/gallery-home/manifest`, {
+    res = await fetch(`${base}/${slug}/manifest`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -181,14 +205,14 @@ export async function saveGalleryHomeManifest(token, doc) {
   return { ok: true };
 }
 
-export async function requestGalleryHomeUpload(token, { filename, contentType }) {
+async function requestGalleryUpload(token, slug, { filename, contentType }) {
   const base = getAdminAuthBaseUrl();
   if (!base) {
     return { ok: false, message: 'Admin API is not configured.' };
   }
   let res;
   try {
-    res = await fetch(`${base}/gallery-home/upload`, {
+    res = await fetch(`${base}/${slug}/upload`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -217,14 +241,14 @@ export async function requestGalleryHomeUpload(token, { filename, contentType })
   }
 }
 
-export async function deleteGalleryHomeImage(token, filename) {
+async function deleteGalleryImage(token, slug, filename) {
   const base = getAdminAuthBaseUrl();
   if (!base) {
     return { ok: false, message: 'Admin API is not configured.' };
   }
   let res;
   try {
-    res = await fetch(`${base}/gallery-home/image`, {
+    res = await fetch(`${base}/${slug}/image`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
