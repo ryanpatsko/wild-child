@@ -17,7 +17,7 @@ const BridalServices = ({ s }) => {
           <Link href="/bridal-hair-makeup-pittsburgh" className="bridal-pricing-cta-btn">
             {s.pittsburghButtonLabel}
           </Link>
-          <Link href="/bridal-hair-makeup-atlanta-new-orleans" className="bridal-pricing-cta-btn">
+          <Link href="/bridal-hair-makeup-atlanta" className="bridal-pricing-cta-btn">
             {s.atlantaButtonLabel}
           </Link>
         </div>

@@ -23,11 +23,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/bridal/page.js"
     ],
-    "/bridal-gallery/page": [
+    "/bridal-hair-makeup-atlanta/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/bridal-gallery/page.css",
-      "static/chunks/app/bridal-gallery/page.js"
+      "static/chunks/app/bridal-hair-makeup-atlanta/page.js"
     ]
   }
 }

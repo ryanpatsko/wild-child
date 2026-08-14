@@ -2,7 +2,7 @@ import { getBridalContent } from '../../lib/serverContent';
 import BridalLayout from '../../components/BridalLayout';
 import BridalAtlanta from '../../components/BridalAtlanta';
 
-const PATH = '/bridal-hair-makeup-atlanta-new-orleans';
+const PATH = '/bridal-hair-makeup-atlanta';
 
 export async function generateMetadata() {
   const { atlanta: r } = await getBridalContent();

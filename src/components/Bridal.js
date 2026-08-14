@@ -53,7 +53,7 @@ const Bridal = ({ bridal, regionsNotice }) => {
           <Link href="/bridal-hair-makeup-pittsburgh" className="bridal-pricing-cta-btn">
             {overview.pittsburghButtonLabel}
           </Link>
-          <Link href="/bridal-hair-makeup-atlanta-new-orleans" className="bridal-pricing-cta-btn">
+          <Link href="/bridal-hair-makeup-atlanta" className="bridal-pricing-cta-btn">
             {overview.atlantaButtonLabel}
           </Link>
         </div>

@@ -20,6 +20,14 @@ const PAGE_LABELS = {
   gallery: 'Gallery',
 };
 
+function moveItem(list, from, to) {
+  if (to < 0 || to >= list.length) return list;
+  const next = [...list];
+  const [item] = next.splice(from, 1);
+  next.splice(to, 0, item);
+  return next;
+}
+
 function SaveFeedback() {
   return (
     <span className="admin-save-feedback" role="status" aria-live="polite">
@@ -607,7 +615,7 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
   const path =
     regionKey === 'pittsburgh'
       ? '/bridal-hair-makeup-pittsburgh'
-      : '/bridal-hair-makeup-atlanta-new-orleans';
+      : '/bridal-hair-makeup-atlanta';
 
   function patchRegion(next) {
     setDraft((d) => ({ ...d, [regionKey]: next }));
@@ -667,20 +675,50 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
         <div key={pi} className="admin-about-item">
           <div className="admin-about-item-head">
             <span className="admin-about-item-label">Package {pi + 1}</span>
-            {data.packages.length > 1 ? (
-              <button
-                type="button"
-                className="admin-text-btn"
-                onClick={() =>
-                  patchRegion({
-                    ...data,
-                    packages: data.packages.filter((_, j) => j !== pi),
-                  })
-                }
-              >
-                Remove
-              </button>
-            ) : null}
+            <div className="admin-about-item-actions">
+              {data.packages.length > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    className="admin-text-btn"
+                    disabled={pi === 0}
+                    onClick={() =>
+                      patchRegion({
+                        ...data,
+                        packages: moveItem(data.packages, pi, pi - 1),
+                      })
+                    }
+                  >
+                    Move up
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-text-btn"
+                    disabled={pi === data.packages.length - 1}
+                    onClick={() =>
+                      patchRegion({
+                        ...data,
+                        packages: moveItem(data.packages, pi, pi + 1),
+                      })
+                    }
+                  >
+                    Move down
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-text-btn"
+                    onClick={() =>
+                      patchRegion({
+                        ...data,
+                        packages: data.packages.filter((_, j) => j !== pi),
+                      })
+                    }
+                  >
+                    Remove
+                  </button>
+                </>
+              ) : null}
+            </div>
           </div>
           <input
             className="admin-input admin-input-full"

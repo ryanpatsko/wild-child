@@ -12,7 +12,7 @@ const bridalNavItems = [
     label: 'Packages and Pricing',
     children: [
       { path: '/bridal-hair-makeup-pittsburgh', label: 'Pittsburgh' },
-      { path: '/bridal-hair-makeup-atlanta-new-orleans', label: 'Atlanta + NOLA' },
+      { path: '/bridal-hair-makeup-atlanta', label: 'Atlanta' },
     ],
   },
 ];

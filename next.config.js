@@ -8,6 +8,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/bridal-hair-makeup-atlanta-new-orleans',
+        destination: '/bridal-hair-makeup-atlanta',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
