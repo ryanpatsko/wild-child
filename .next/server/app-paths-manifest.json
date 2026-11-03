@@ -1,6 +1,4 @@
 {
-  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js"
 }

@@ -369,10 +369,9 @@ const Contact = ({ contact }) => {
                 required
               >
                 <option value="">Select Location</option>
-                <option value="pittsburgh">Pittsburgh & Surrounding</option>
-                <option value="atlanta">Atlanta</option>
-                <option value="new-orleans">New Orleans</option>
-                <option value="other">Other</option>
+                <option value="Atlanta">Atlanta</option>
+                <option value="Pittsburgh">Pittsburgh</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
