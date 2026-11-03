@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 const Contact = ({ contact }) => {
@@ -19,6 +19,7 @@ const Contact = ({ contact }) => {
     bestApplies: '',
     brochureFollowUp: '',
     bridalPricingReviewed: '',
+    mostImportant: '',
     message: '',
     howDidYouHear: ''
   });
@@ -27,6 +28,11 @@ const Contact = ({ contact }) => {
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
   const [honeypot, setHoneypot] = useState(''); // Hidden field for bot detection
   const [lastSubmission, setLastSubmission] = useState(null); // Rate limiting
+
+  useEffect(() => {
+    document.documentElement.classList.add('contact-page');
+    return () => document.documentElement.classList.remove('contact-page');
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -62,6 +68,7 @@ const Contact = ({ contact }) => {
         !formData.phone.trim() || !formData.eventDate.trim() || !formData.eventYear.trim() ||
         !formData.eventType.trim() || !formData.serviceType.trim() || !formData.attendees.trim() ||
         !formData.location.trim() || !formData.eventVenue.trim() || !formData.bestApplies.trim() ||
+        !formData.mostImportant.trim() ||
         !formData.message.trim() || !formData.howDidYouHear.trim()) {
       setSubmitStatus('error');
       setIsSubmitting(false);
@@ -102,6 +109,7 @@ const Contact = ({ contact }) => {
         location: formData.location,
         event_venue: formData.eventVenue,
         best_applies: formData.bestApplies,
+        most_important: formData.mostImportant,
         brochure_follow_up: formData.eventType === 'wedding' ? formData.brochureFollowUp : 'N/A',
         bridal_pricing_reviewed: formData.eventType === 'wedding' ? formData.bridalPricingReviewed : 'N/A',
         message: formData.message,
@@ -131,6 +139,7 @@ const Contact = ({ contact }) => {
         bestApplies: '',
         brochureFollowUp: '',
         bridalPricingReviewed: '',
+        mostImportant: '',
         message: '',
         howDidYouHear: ''
       });
@@ -415,6 +424,22 @@ const Contact = ({ contact }) => {
                 <option value="other">Other</option>
               </select>
             </div>
+          </div>
+
+          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+            <label htmlFor="mostImportant">Most important to you when booking an artist:</label>
+            <select
+              id="mostImportant"
+              name="mostImportant"
+              value={formData.mostImportant}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select an option</option>
+              <option value="Client Experience + Quality of Services">Client Experience + Quality of Services</option>
+              <option value="Pricing + Investment">Pricing + Investment</option>
+              <option value="Date Availability">Date Availability</option>
+            </select>
           </div>
 
           <div className="form-group">

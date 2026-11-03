@@ -2160,6 +2160,29 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 /* =================================
    CONTACT FORM STYLES
    ================================= */
+html.contact-page {
+  scrollbar-color: var(--accent-color) var(--pinstripe-light);
+  scrollbar-width: thin;
+}
+
+html.contact-page::-webkit-scrollbar {
+  width: 12px;
+}
+
+html.contact-page::-webkit-scrollbar-track {
+  background: var(--pinstripe-light);
+}
+
+html.contact-page::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--section-header) 0%, var(--accent-color) 100%);
+  border: 3px solid var(--pinstripe-light);
+  border-radius: 999px;
+}
+
+html.contact-page::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-faq);
+}
+
 .contact-form {
   max-width: 800px;
   margin: 0 auto;
