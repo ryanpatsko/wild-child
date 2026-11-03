@@ -9,17 +9,21 @@ const navItems = [
   { name: 'HOME', path: '/' },
   { name: 'ABOUT', path: '/about-hair-and-makeup-artist' },
   { name: 'CONTACT', path: '/book-hair-and-makeup-artist' },
-  { name: 'On-Set & Production', path: '/film-tv-makeup-artist' },
+  { name: 'On-Set & Production', path: '/atlanta-film-tv-makeup-artist' },
   { name: 'BRIDAL', path: '/bridal' },
-  { name: 'BEAUTY & EVENTS', path: '/event-hair-and-makeup' },
-  { name: 'CLASSES', path: '/makeup-classes' },
-  { name: 'CREATIVE & FX', path: '/creative-fx' },
-  { name: 'FAQ', path: '/faq' },
+  { name: 'BEAUTY & EVENTS', path: '/atlanta-special-event-hair-makeup' },
+  { name: 'CLASSES', path: '/atlanta-makeup-classes' },
+  { name: 'CREATIVE & FX', path: '/atlanta-special-effects-makeup' },
+  { name: 'FAQ', path: '/makeup-faq' },
 ];
 
 function isNavItemActive(path, pathname) {
   if (path === '/bridal') {
-    return pathname.startsWith('/bridal');
+    return (
+      pathname.startsWith('/bridal') ||
+      pathname === '/atlanta-bridal-hair-makeup' ||
+      pathname === '/pittsburgh-bridal-hair-makeup'
+    );
   }
   return pathname === path;
 }

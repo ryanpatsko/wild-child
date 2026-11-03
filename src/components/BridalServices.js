@@ -14,11 +14,11 @@ const BridalServices = ({ s }) => {
         <p className="bridal-pricing-cta-title">{s.pricingCtaTitle}</p>
         <p className="bridal-pricing-cta-sub">{s.pricingCtaSub}</p>
         <div className="bridal-pricing-cta-actions">
-          <Link href="/bridal-hair-makeup-pittsburgh" className="bridal-pricing-cta-btn">
-            {s.pittsburghButtonLabel}
-          </Link>
-          <Link href="/bridal-hair-makeup-atlanta" className="bridal-pricing-cta-btn">
+          <Link href="/atlanta-bridal-hair-makeup" className="bridal-pricing-cta-btn">
             {s.atlantaButtonLabel}
+          </Link>
+          <Link href="/pittsburgh-bridal-hair-makeup" className="bridal-pricing-cta-btn">
+            {s.pittsburghButtonLabel}
           </Link>
         </div>
       </div>

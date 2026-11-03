@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   aboutContentSignature,
   createDefaultAboutContent,
@@ -7,6 +8,14 @@ import {
 } from '../../content/aboutContent';
 import { saveAboutContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import AboutGalleryEditor from './AboutGalleryEditor';
+
+const ABOUT_SECTIONS = ['copy', 'gallery'];
+
+const SECTION_LABELS = {
+  copy: 'Page copy',
+  gallery: 'Gallery',
+};
 
 function SaveFeedback() {
   return (
@@ -33,7 +42,7 @@ function SaveFeedback() {
   );
 }
 
-export default function AboutEditor() {
+function AboutCopyEditor() {
   const [status, setStatus] = useState('loading');
   const [loadError, setLoadError] = useState(null);
   const [savedVersion, setSavedVersion] = useState(1);
@@ -341,5 +350,40 @@ export default function AboutEditor() {
         {saveSucceeded ? <SaveFeedback /> : null}
       </div>
     </form>
+  );
+}
+
+export default function AboutEditor() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const sectionRaw = searchParams.get('aboutSection');
+  const section = ABOUT_SECTIONS.includes(sectionRaw) ? sectionRaw : 'copy';
+
+  function selectSection(id) {
+    const next = new URLSearchParams(searchParams.toString());
+    next.set('tab', 'about');
+    next.set('aboutSection', id);
+    router.replace(`${pathname}?${next.toString()}`);
+  }
+
+  return (
+    <>
+      <div className="admin-bridal-subtabs" role="tablist" aria-label="About CMS sections">
+        {ABOUT_SECTIONS.map((id) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={section === id}
+            className={`admin-bridal-subtab ${section === id ? 'admin-bridal-subtab-active' : ''}`}
+            onClick={() => selectSection(id)}
+          >
+            {SECTION_LABELS[id]}
+          </button>
+        ))}
+      </div>
+      {section === 'gallery' ? <AboutGalleryEditor /> : <AboutCopyEditor />}
+    </>
   );
 }

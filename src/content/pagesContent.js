@@ -126,14 +126,21 @@ function normClassCard(raw, fallback) {
       typeof raw.additionalInfo === 'string' ? raw.additionalInfo : fallback.additionalInfo ?? '',
       MAX_NOTE,
     ),
-    learnMorePath: clampStr(
-      typeof raw.learnMorePath === 'string' ? raw.learnMorePath.trim() : '',
-      MAX_PATH,
-    ),
-    learnMoreLabel: clampStr(
-      typeof raw.learnMoreLabel === 'string' ? raw.learnMoreLabel.trim() : '',
-      MAX_BUTTON,
-    ),
+    learnMorePath: (() => {
+      const path = clampStr(
+        typeof raw.learnMorePath === 'string' ? raw.learnMorePath.trim() : '',
+        MAX_PATH,
+      );
+      return path === '/color-palette-party' ? '' : path;
+    })(),
+    learnMoreLabel: (() => {
+      const path = typeof raw.learnMorePath === 'string' ? raw.learnMorePath.trim() : '';
+      if (path === '/color-palette-party') return '';
+      return clampStr(
+        typeof raw.learnMoreLabel === 'string' ? raw.learnMoreLabel.trim() : '',
+        MAX_BUTTON,
+      );
+    })(),
   };
 }
 

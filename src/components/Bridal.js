@@ -50,11 +50,11 @@ const Bridal = ({ bridal, regionsNotice }) => {
         <p className="bridal-pricing-cta-title">{overview.pricingCtaTitle}</p>
         <p className="bridal-pricing-cta-sub">{overview.pricingCtaSub}</p>
         <div className="bridal-pricing-cta-actions">
-          <Link href="/bridal-hair-makeup-pittsburgh" className="bridal-pricing-cta-btn">
-            {overview.pittsburghButtonLabel}
-          </Link>
-          <Link href="/bridal-hair-makeup-atlanta" className="bridal-pricing-cta-btn">
+          <Link href="/atlanta-bridal-hair-makeup" className="bridal-pricing-cta-btn">
             {overview.atlantaButtonLabel}
+          </Link>
+          <Link href="/pittsburgh-bridal-hair-makeup" className="bridal-pricing-cta-btn">
+            {overview.pittsburghButtonLabel}
           </Link>
         </div>
       </div>

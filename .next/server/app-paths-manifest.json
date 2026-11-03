@@ -1,5 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/bridal-hair-makeup-atlanta/page": "app/bridal-hair-makeup-atlanta/page.js",
-  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js"
+  "/about-hair-and-makeup-artist/page": "app/about-hair-and-makeup-artist/page.js",
+  "/admin/page": "app/admin/page.js"
 }

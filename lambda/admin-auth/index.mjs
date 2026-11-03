@@ -11,9 +11,10 @@
  *   CMS_S3_PAGES_KEY — optional, default pages-content.json
  *   CMS_S3_GALLERY_HOME_PREFIX — optional, default gallery-home/
  *   CMS_S3_GALLERY_BRIDAL_PREFIX — optional, default gallery-bridal/
+ *   CMS_S3_GALLERY_ABOUT_PREFIX — optional, default gallery-about/
  *
- * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/* and gallery-bridal/*.
- * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*, gallery-bridal/*.
+ * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/*, gallery-bridal/*, and gallery-about/*.
+ * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*, gallery-bridal/*, gallery-about/*.
  * CORS: configure only on the Lambda Function URL in AWS (not in this handler).
  */
 
@@ -103,10 +104,11 @@ const GALLERY_EXT_BY_TYPE = {
   'image/png': '.png',
   'image/webp': '.webp',
 }
-const GALLERY_SLUGS = ['gallery-home', 'gallery-bridal']
+const GALLERY_SLUGS = ['gallery-home', 'gallery-bridal', 'gallery-about']
 const GALLERY_PREFIX_ENV = {
   'gallery-home': 'CMS_S3_GALLERY_HOME_PREFIX',
   'gallery-bridal': 'CMS_S3_GALLERY_BRIDAL_PREFIX',
+  'gallery-about': 'CMS_S3_GALLERY_ABOUT_PREFIX',
 }
 
 const s3 = new S3Client({})

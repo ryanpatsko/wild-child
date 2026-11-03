@@ -162,6 +162,13 @@ Shape (abbreviated):
       "Principal": "*",
       "Action": "s3:GetObject",
       "Resource": "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
+    },
+    {
+      "Sid": "PublicReadGalleryAbout",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::wild-child-cms/gallery-about/*"
     }
   ]
 }
@@ -268,6 +275,19 @@ Override with **`REACT_APP_GALLERY_BRIDAL_MANIFEST_URL`** at build time if neede
 
 **Bucket policy:** Add public **`GetObject`** on `gallery-bridal/*` (same pattern as `gallery-home/*`).
 
+### About page photos (`gallery-about/`)
+
+- **Prefix:** `gallery-about/` (unless you set **`CMS_S3_GALLERY_ABOUT_PREFIX`** on Lambda).
+- **Manifest key:** `gallery-about/manifest.json` — ordered list of image filenames.
+- **Images:** `gallery-about/<filename>` (JPEG, PNG, or WebP).
+- **Starting manifest:** Optional. Until this manifest lists at least one image, the About page keeps the built-in photo. Use **Admin → About → Gallery** to upload. One photo matches the current layout. Additional photos stack in the same column.
+
+Default public manifest URL:
+
+`https://wild-child-cms.s3.us-east-1.amazonaws.com/gallery-about/manifest.json`
+
+**Bucket policy:** Add public **`GetObject`** on `gallery-about/*` (same pattern as `gallery-home/*`).
+
 ---
 
 ## 2. Lambda (`lambda/admin-auth`)
@@ -302,6 +322,7 @@ This writes **`dist/lambda-admin-auth.zip`** (`index.mjs` + `node_modules`). Upl
 | `CMS_S3_PAGES_KEY`     | No       | Defaults to `pages-content.json`. |
 | `CMS_S3_GALLERY_HOME_PREFIX` | No | Defaults to `gallery-home/` (include trailing slash). |
 | `CMS_S3_GALLERY_BRIDAL_PREFIX` | No | Defaults to `gallery-bridal/` (include trailing slash). |
+| `CMS_S3_GALLERY_ABOUT_PREFIX` | No | Defaults to `gallery-about/` (include trailing slash). |
 
 ### IAM (execution role)
 
@@ -321,7 +342,8 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
         "arn:aws:s3:::wild-child-cms/bridal-content.json",
         "arn:aws:s3:::wild-child-cms/pages-content.json",
         "arn:aws:s3:::wild-child-cms/gallery-home/*",
-        "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
+        "arn:aws:s3:::wild-child-cms/gallery-bridal/*",
+        "arn:aws:s3:::wild-child-cms/gallery-about/*"
       ]
     },
     {
@@ -329,7 +351,8 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
       "Action": ["s3:DeleteObject"],
       "Resource": [
         "arn:aws:s3:::wild-child-cms/gallery-home/*",
-        "arn:aws:s3:::wild-child-cms/gallery-bridal/*"
+        "arn:aws:s3:::wild-child-cms/gallery-bridal/*",
+        "arn:aws:s3:::wild-child-cms/gallery-about/*"
       ]
     }
   ]
@@ -362,6 +385,9 @@ Adjust bucket or keys if you use non-default names.
 - `PUT {origin}/gallery-bridal/manifest` — same body as home gallery manifest
 - `POST {origin}/gallery-bridal/upload` — same as home gallery upload
 - `DELETE {origin}/gallery-bridal/image` — same as home gallery delete
+- `PUT {origin}/gallery-about/manifest` — same body as home gallery manifest
+- `POST {origin}/gallery-about/upload` — same as home gallery upload
+- `DELETE {origin}/gallery-about/image` — same as home gallery delete
 
 Copy the Function URL **origin only** (no path), e.g.  
 `https://xxxxxxxx.lambda-url.us-east-1.on.aws`

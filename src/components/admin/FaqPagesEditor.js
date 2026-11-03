@@ -19,7 +19,7 @@ export default function FaqPagesEditor() {
   return (
     <form className="admin-bridal-form" onSubmit={onSave}>
       <h3 className="admin-panel-title">FAQ</h3>
-      <p className="admin-muted">Content for /faq.</p>
+      <p className="admin-muted">Content for /makeup-faq.</p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
@@ -27,7 +27,7 @@ export default function FaqPagesEditor() {
       ) : null}
 
       <div className="admin-bridal-panel">
-        <h4 className="admin-subheading">FAQ (/faq)</h4>
+        <h4 className="admin-subheading">FAQ (/makeup-faq)</h4>
         <label className="admin-label" htmlFor="pg-q-doc">
           Browser tab title
         </label>

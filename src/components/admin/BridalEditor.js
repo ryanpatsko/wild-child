@@ -614,8 +614,8 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
   const label = regionKey === 'pittsburgh' ? 'Pittsburgh' : 'Atlanta';
   const path =
     regionKey === 'pittsburgh'
-      ? '/bridal-hair-makeup-pittsburgh'
-      : '/bridal-hair-makeup-atlanta';
+      ? '/pittsburgh-bridal-hair-makeup'
+      : '/atlanta-bridal-hair-makeup';
 
   function patchRegion(next) {
     setDraft((d) => ({ ...d, [regionKey]: next }));
