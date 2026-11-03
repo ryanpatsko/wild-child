@@ -603,13 +603,14 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem 2.5rem 2rem;
+  padding: 0 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
   position: relative;
   background-color: #ffffff;
+  container-type: inline-size;
 }
 
 
@@ -625,6 +626,11 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 }
 
 .site-title-link {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 100%;
+  min-width: 0;
   text-decoration: none;
   color: inherit;
 }
@@ -646,23 +652,22 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 } */
 
 .site-title-brand {
-  display: inline-flex;
-  align-items: baseline;
   white-space: nowrap;
 }
 
 .site-logo {
-  max-width: 52px;
-  height: auto;
+  align-self: center;
+  height: clamp(1.05rem, 2.9vw, 1.45rem);
+  width: auto;
   display: block;
-  flex-shrink: 0;
-  margin-left: 0.1em;
+  margin: 0.4rem 0 0;
   opacity: 0.8;
 }
 
 .site-title {
   font-family: 'Castoro Titling', serif;
-  font-size: 3.8rem;
+  /* Shrinks with the header so the wordmark stays one line until mobile. */
+  font-size: clamp(1.85rem, calc(100cqw / 18.15), 3.8rem);
   font-weight: 400;
   color: #000000;
   margin: 0;
@@ -670,6 +675,33 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   line-height: 1.1;
   position: relative;
   z-index: 2;
+  max-width: 100%;
+}
+
+.site-byline {
+  margin: 0.55rem 0 0;
+  font-family: 'Castoro Titling', serif;
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  color: #222222;
+  text-align: center;
+}
+
+@media (min-width: 769px) {
+  .header-content {
+    align-items: center;
+  }
+
+  .logo-section {
+    justify-content: center;
+  }
+
+  .site-title {
+    white-space: nowrap;
+    text-align: center;
+  }
 }
 
 
@@ -681,9 +713,9 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 .hamburger-menu {
   display: none;
   flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
   background: none;
   border: none;
   cursor: pointer;
@@ -691,19 +723,19 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   z-index: 1001;
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  right: 1.35rem;
 }
 
 .hamburger-line {
   width: 100%;
-  height: 3px;
+  height: 2px;
   background-color: #333;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 
 .hamburger-line.open:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .hamburger-line.open:nth-child(2) {
@@ -711,7 +743,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 }
 
 .hamburger-line.open:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* =================================
@@ -2448,19 +2480,9 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   
   /* Background image removed - no responsive adjustments needed */
   
-  .site-logo {
-    max-width: 50px;
-  }
-  
   .logo-section {
     flex-direction: row;
     gap: 0.5rem;
-  }
-  
-  .site-title { 
-    font-size: 3.2rem; 
-    font-family: 'Castoro Titling', serif;
-    color: #000000;
   }
   
   /* Prevent nav wrapping at medium screen sizes */
@@ -2482,6 +2504,31 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
 
 @media (max-width: 768px) {
   /* Show hamburger menu and hide desktop nav */
+  .main-header {
+    padding-top: 1.7rem;
+  }
+
+  .header-content {
+    align-items: center;
+    /* Match both sides so the lockup stays centered and clear of the menu icon. */
+    padding-left: 4.75rem;
+    padding-right: 4.75rem;
+  }
+
+  .logo-section {
+    justify-content: center;
+  }
+
+  .site-title {
+    text-align: center;
+    font-size: clamp(1.65rem, calc(100cqw / 16.8), 3rem);
+  }
+
+  .site-byline {
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
   .hamburger-menu {
     display: flex;
   }
@@ -2655,23 +2702,31 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   }
 }
 
+@media (max-width: 680px) {
+  .main-header {
+    padding-top: 1.95rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .main-header {
+    padding-top: 2.05rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .site-title {
+    font-size: max(30px, clamp(1.65rem, calc(100cqw / 16.8), 3rem));
+  }
+}
+
 @media (max-width: 600px) {
   /* Background image removed - no responsive adjustments needed */
-  
-  .site-logo {
-    max-width: 40px;
-  }
-  
+
   .logo-section {
     flex-direction: row;
     gap: 0.5rem;
-    justify-content: flex-start;
-  }
-  
-  .site-title { 
-    font-size: 2.6rem; 
-    font-family: 'Castoro Titling', serif;
-    color: #000000;
+    justify-content: center;
   }
   
   .block-nav-item {
@@ -2697,13 +2752,7 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   .logo-section {
     flex-direction: row;
     gap: 0.5rem;
-    justify-content: flex-start;
-  }
-  
-  .site-title { 
-    font-size: 2.0rem; 
-    font-family: 'Castoro Titling', serif;
-    color: #000000;
+    justify-content: center;
   }
   
   .page-container {

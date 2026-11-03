@@ -30,6 +30,7 @@ export default function Navigation() {
   const [isNavSticky, setIsNavSticky] = useState(false);
   const headerRef = useRef(null);
   const navRef = useRef(null);
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -47,6 +48,33 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const button = menuButtonRef.current;
+    const header = headerRef.current;
+    if (!button || !header) return;
+
+    const alignMenu = () => {
+      if (getComputedStyle(button).display === 'none') {
+        button.style.top = '';
+        return;
+      }
+      const title = header.querySelector('.site-title');
+      if (!title) return;
+      const range = document.createRange();
+      range.selectNodeContents(title);
+      const line = range.getClientRects()[0];
+      if (!line) return;
+      const headerTop = header.getBoundingClientRect().top;
+      const top = line.top - headerTop + (line.height - button.offsetHeight) / 2;
+      button.style.top = `${Math.max(0, top)}px`;
+    };
+
+    alignMenu();
+    window.addEventListener('resize', alignMenu);
+    document.fonts?.ready.then(alignMenu);
+    return () => window.removeEventListener('resize', alignMenu);
+  }, []);
+
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
@@ -56,16 +84,16 @@ export default function Navigation() {
           <Link href="/" className="site-title-link" onClick={closeMobileMenu}>
             <h1 className="site-title">
               <span className="site-title-lead">Wild Child </span>
-              <span className="site-title-brand">
-                Fabrications
-                <img src={siteLogo.src} alt="" className="site-logo" aria-hidden="true" />
-              </span>
+              <span className="site-title-brand">Fabrications</span>
             </h1>
+            <p className="site-byline">Hair & Makeup Artistry</p>
+            <img src={siteLogo.src} alt="" className="site-logo" aria-hidden="true" />
           </Link>
         </div>
       </div>
 
       <button
+        ref={menuButtonRef}
         className="hamburger-menu"
         onClick={() => setIsMobileMenuOpen((o) => !o)}
         aria-label="Toggle mobile menu"
