@@ -26,11 +26,6 @@ const nextConfig = {
         destination: '/pittsburgh-bridal-hair-makeup',
         statusCode: 301,
       },
-      {
-        source: '/Pittsburgh-bridal-hair-makeup',
-        destination: '/pittsburgh-bridal-hair-makeup',
-        statusCode: 301,
-      },
     ];
   },
   async headers() {

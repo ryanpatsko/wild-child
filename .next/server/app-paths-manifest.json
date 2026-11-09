@@ -1,4 +1,6 @@
 {
-  "/page": "app/page.js",
-  "/book-hair-and-makeup-artist/page": "app/book-hair-and-makeup-artist/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/pittsburgh-bridal-hair-makeup/page": "app/pittsburgh-bridal-hair-makeup/page.js",
+  "/bridal/page": "app/bridal/page.js",
+  "/atlanta-bridal-hair-makeup/page": "app/atlanta-bridal-hair-makeup/page.js"
 }
