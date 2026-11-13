@@ -12,6 +12,10 @@
 /build
 /dist
 
+# next.js build output (regenerated on every build; contains per-build keys)
+/.next/
+/.next-verify/
+
 # misc
 .DS_Store
 .env.local
