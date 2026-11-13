@@ -58,13 +58,26 @@ export function formatTimestamp(iso) {
   if (!iso) return '';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return '';
-  return d.toLocaleString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-  });
+  const weekday = d.toLocaleDateString('en-US', { weekday: 'short' });
+  const date = d.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return `${weekday} ${date} ${time}`;
+}
+
+/**
+ * Event date as "Sat 6/5/27". Without a 4-digit year the weekday is unknowable, so it's just "6/5";
+ * falls back to the raw text when it isn't a parseable date.
+ */
+export function formatEventDateShort(mmdd, year) {
+  const m = /^\s*(\d{1,2})\s*[/.-]\s*(\d{1,2})\s*$/.exec(String(mmdd ?? ''));
+  if (!m) return [mmdd, year].filter(Boolean).join(' ');
+  const month = Number(m[1]);
+  const day = Number(m[2]);
+  const yearText = String(year ?? '').trim();
+  if (!/^\d{4}$/.test(yearText)) return `${month}/${day}`;
+  const d = new Date(Number(yearText), month - 1, day);
+  const weekday = d.getMonth() === month - 1 ? `${d.toLocaleDateString('en-US', { weekday: 'short' })} ` : '';
+  return `${weekday}${month}/${day}/${yearText.slice(-2)}`;
 }
 
 export function formatDateOnly(iso) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { listClients } from '../../../lib/crmApi';
-import { clientDisplayName, formatEventDate, formatTimestamp } from '../../../lib/proposalMath';
+import { clientDisplayName, formatEventDateShort, formatTimestamp } from '../../../lib/proposalMath';
 
 function StatusCell({ iso }) {
   if (!iso) return <span className="crm-status-empty">—</span>;
@@ -61,10 +61,6 @@ export default function ClientsList({ onOpenClient }) {
   return (
     <div>
       <h3 className="admin-panel-title">Clients</h3>
-      <p className="admin-muted">
-        Every contact form inquiry lands here, newest first. Repeat inquiries from the same email are grouped under one
-        client.
-      </p>
       <label className="visually-hidden" htmlFor="crm-client-search">
         Search clients
       </label>
@@ -87,7 +83,6 @@ export default function ClientsList({ onOpenClient }) {
                 <th>Inquiry received</th>
                 <th>Event date</th>
                 <th>Proposal finalized</th>
-                <th>Proposal downloaded</th>
               </tr>
             </thead>
             <tbody>
@@ -112,12 +107,9 @@ export default function ClientsList({ onOpenClient }) {
                       {formatTimestamp(c.lastSubmittedAt)}
                       {c.submissionCount > 1 ? <div className="crm-subtext">{c.submissionCount} inquiries</div> : null}
                     </td>
-                    <td>{formatEventDate(sub.eventDate, sub.eventYear) || '—'}</td>
+                    <td>{formatEventDateShort(sub.eventDate, sub.eventYear) || '—'}</td>
                     <td>
                       <StatusCell iso={c.latestFinalizedAt} />
-                    </td>
-                    <td>
-                      <StatusCell iso={c.latestDownloadedAt} />
                     </td>
                   </tr>
                 );

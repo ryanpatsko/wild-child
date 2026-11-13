@@ -16,12 +16,7 @@ import {
 export default function HomeGalleryEditor() {
   return (
     <CmsGalleryEditor
-      title="Home gallery"
-      description={
-        <>
-          Images for the home page grid. Reorder with the arrows, then save. Uploads apply immediately.
-        </>
-      }
+      description="Reorder with the arrows, then save. Uploads apply immediately."
       s3Folder="gallery-home"
       inputId="home-gallery-upload"
       loadContent={loadGalleryHomeContent}

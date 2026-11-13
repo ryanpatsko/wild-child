@@ -16,12 +16,7 @@ import {
 export default function AboutGalleryEditor() {
   return (
     <CmsGalleryEditor
-      title="About photos"
-      description={
-        <>
-          Photos beside the About copy. The page shows one image today. Add more and they stack in the same column, in the order you set here. Uploads apply immediately.
-        </>
-      }
+      description="Photos stack beside the About copy in the order set here. Uploads apply immediately."
       s3Folder="gallery-about"
       inputId="about-gallery-upload"
       loadContent={loadGalleryAboutContent}

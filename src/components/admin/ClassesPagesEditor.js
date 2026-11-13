@@ -25,8 +25,6 @@ export default function ClassesPagesEditor() {
 
   return (
     <form className="admin-bridal-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">Classes</h3>
-      <p className="admin-muted">Content for /atlanta-makeup-classes.</p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
@@ -34,7 +32,6 @@ export default function ClassesPagesEditor() {
       ) : null}
 
       <div className="admin-bridal-panel">
-        <h4 className="admin-subheading">Classes (/atlanta-makeup-classes)</h4>
         <label className="admin-label" htmlFor="pg-c-doc">
           Browser tab title
         </label>

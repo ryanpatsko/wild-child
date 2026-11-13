@@ -92,11 +92,6 @@ export default function LocationsEditor() {
 
   return (
     <form className="admin-locations-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">Locations</h3>
-      <p className="admin-muted">
-        This text appears in the yellow regions box on the Home page and in the &quot;Proudly serving the following
-        regions&quot; section on the Bridal overview page.
-      </p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}

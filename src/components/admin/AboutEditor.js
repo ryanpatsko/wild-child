@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   aboutContentSignature,
   createDefaultAboutContent,
@@ -9,13 +8,6 @@ import {
 import { saveAboutContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
 import AboutGalleryEditor from './AboutGalleryEditor';
-
-const ABOUT_SECTIONS = ['copy', 'gallery'];
-
-const SECTION_LABELS = {
-  copy: 'Page copy',
-  gallery: 'Gallery',
-};
 
 function SaveFeedback() {
   return (
@@ -216,10 +208,6 @@ function AboutCopyEditor() {
 
   return (
     <form className="admin-about-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">About</h3>
-      <p className="admin-muted">
-        Edits the <strong>/about-hair-and-makeup-artist</strong> page: title, intro paragraphs, and each feature block (title + description).
-      </p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
@@ -353,37 +341,6 @@ function AboutCopyEditor() {
   );
 }
 
-export default function AboutEditor() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const sectionRaw = searchParams.get('aboutSection');
-  const section = ABOUT_SECTIONS.includes(sectionRaw) ? sectionRaw : 'copy';
-
-  function selectSection(id) {
-    const next = new URLSearchParams(searchParams.toString());
-    next.set('tab', 'about');
-    next.set('aboutSection', id);
-    router.replace(`${pathname}?${next.toString()}`);
-  }
-
-  return (
-    <>
-      <div className="admin-bridal-subtabs" role="tablist" aria-label="About CMS sections">
-        {ABOUT_SECTIONS.map((id) => (
-          <button
-            key={id}
-            type="button"
-            role="tab"
-            aria-selected={section === id}
-            className={`admin-bridal-subtab ${section === id ? 'admin-bridal-subtab-active' : ''}`}
-            onClick={() => selectSection(id)}
-          >
-            {SECTION_LABELS[id]}
-          </button>
-        ))}
-      </div>
-      {section === 'gallery' ? <AboutGalleryEditor /> : <AboutCopyEditor />}
-    </>
-  );
+export default function AboutEditor({ section }) {
+  return section === 'gallery' ? <AboutGalleryEditor /> : <AboutCopyEditor />;
 }

@@ -24,35 +24,102 @@ import {
 import siteLogo from '../assets/wcf-lips-logo.png';
 import './Admin.css';
 
-const TAB_IDS = [
-  'clients',
-  'pricing',
-  'locations',
-  'home',
-  'about',
-  'media',
-  'bridal',
-  'beauty',
-  'classes',
-  'contact',
-  'creativeFx',
-  'faq',
-];
-
 const TAB_LABELS = {
   clients: 'Clients',
   pricing: 'Services & Pricing',
-  locations: 'Locations',
   home: 'Home',
   about: 'About',
   media: 'On-Set & Production',
   bridal: 'Bridal',
   beauty: 'Beauty & Events',
   classes: 'Classes',
-  contact: 'Contact',
   creativeFx: 'Creative & FX',
+  contact: 'Contact',
   faq: 'FAQ',
+  locations: 'Locations',
 };
+
+const NAV_GROUPS = [
+  { id: 'portal', label: 'Client Portal', tabs: ['clients', 'pricing'] },
+  {
+    id: 'content',
+    label: 'Website Content',
+    tabs: ['home', 'about', 'media', 'bridal', 'beauty', 'classes', 'creativeFx', 'contact', 'faq', 'locations'],
+  },
+];
+
+const TAB_IDS = NAV_GROUPS.flatMap((g) => g.tabs);
+
+function pageCopyOnly(path) {
+  return [{ id: 'copy', label: 'Page copy', path }];
+}
+
+function copyAndGallery(path) {
+  return [
+    { id: 'copy', label: 'Page copy', path },
+    { id: 'gallery', label: 'Gallery', path },
+  ];
+}
+
+/**
+ * Sub-tab rows for Website Content tabs; first entry is the default section.
+ * `path` is the live page shown in the header; `note` replaces it when the content isn't tied to one page.
+ */
+const CONTENT_SECTIONS = {
+  home: copyAndGallery('/'),
+  about: copyAndGallery('/about-hair-and-makeup-artist'),
+  media: pageCopyOnly('/atlanta-film-tv-makeup-artist'),
+  bridal: [
+    { id: 'overview', label: 'Overview', path: '/bridal' },
+    { id: 'services', label: 'Services', path: '/bridal-services' },
+    { id: 'pittsburgh', label: 'Pittsburgh', path: '/pittsburgh-bridal-hair-makeup' },
+    { id: 'atlanta', label: 'Atlanta', path: '/atlanta-bridal-hair-makeup' },
+    { id: 'gallery', label: 'Gallery', path: '/bridal-gallery' },
+  ],
+  beauty: pageCopyOnly('/atlanta-special-event-hair-makeup'),
+  classes: pageCopyOnly('/atlanta-makeup-classes'),
+  creativeFx: pageCopyOnly('/atlanta-special-effects-makeup'),
+  contact: pageCopyOnly('/book-hair-and-makeup-artist'),
+  faq: pageCopyOnly('/makeup-faq'),
+  locations: [
+    {
+      id: 'regions',
+      label: 'Regions message',
+      note: 'Shown in the regions box on the Home page and the Bridal overview page.',
+    },
+  ],
+};
+
+function renderTabContent(tab, section) {
+  switch (tab) {
+    case 'clients':
+      return <ClientsSection />;
+    case 'pricing':
+      return <ServicesCatalogEditor />;
+    case 'home':
+      return <HomeEditor section={section} />;
+    case 'about':
+      return <AboutEditor section={section} />;
+    case 'media':
+      return <MediaEditor />;
+    case 'bridal':
+      return <BridalEditor section={section} />;
+    case 'beauty':
+      return <BeautyPagesEditor />;
+    case 'classes':
+      return <ClassesPagesEditor />;
+    case 'creativeFx':
+      return <CreativeFxPagesEditor />;
+    case 'contact':
+      return <ContactPagesEditor />;
+    case 'faq':
+      return <FaqPagesEditor />;
+    case 'locations':
+      return <LocationsEditor />;
+    default:
+      return null;
+  }
+}
 
 function AdminDashboard() {
   const searchParams = useSearchParams();
@@ -60,159 +127,88 @@ function AdminDashboard() {
   const pathname = usePathname();
   const tabParam = searchParams.get('tab');
   const activeTab = TAB_IDS.includes(tabParam) ? tabParam : 'clients';
+  const sections = CONTENT_SECTIONS[activeTab] ?? null;
+  const sectionParam = searchParams.get('section');
+  const activeSectionInfo = sections ? (sections.find((s) => s.id === sectionParam) ?? sections[0]) : null;
+  const activeSection = activeSectionInfo?.id ?? null;
 
   function selectTab(id) {
-    const next = new URLSearchParams(searchParams.toString());
+    const next = new URLSearchParams();
     next.set('tab', id);
-    next.delete('pagesTab');
-    next.delete('client');
-    next.delete('proposal');
+    router.replace(`${pathname}?${next.toString()}`);
+  }
+
+  function selectSection(id) {
+    const next = new URLSearchParams();
+    next.set('tab', activeTab);
+    next.set('section', id);
     router.replace(`${pathname}?${next.toString()}`);
   }
 
   return (
     <PagesContentAdminProvider>
-      <section aria-label="Admin dashboard">
-        <div className="admin-tab-shell">
-          <div className="admin-tab-list" role="tablist" aria-label="Admin sections">
-            {TAB_IDS.map((id) => (
-              <button
-                key={id}
-                type="button"
-                role="tab"
-                id={`admin-tab-${id}`}
-                aria-selected={activeTab === id}
-                aria-controls={`admin-panel-${id}`}
-                tabIndex={activeTab === id ? 0 : -1}
-                className="admin-tab"
-                onClick={() => selectTab(id)}
-              >
-                {TAB_LABELS[id] ?? id}
-              </button>
-            ))}
-          </div>
+      <div className="admin-dashboard">
+        <nav className="admin-sidebar" aria-label="Admin sections">
+          {NAV_GROUPS.map((group) => (
+            <div key={group.id} className="admin-sidebar-group">
+              <h2 className="admin-sidebar-heading" id={`admin-nav-${group.id}`}>
+                {group.label}
+              </h2>
+              <ul className="admin-sidebar-list" aria-labelledby={`admin-nav-${group.id}`}>
+                {group.tabs.map((id) => (
+                  <li key={id}>
+                    <button
+                      type="button"
+                      className={`admin-sidebar-link ${activeTab === id ? 'admin-sidebar-link-active' : ''}`}
+                      aria-current={activeTab === id ? 'page' : undefined}
+                      onClick={() => selectTab(id)}
+                    >
+                      {TAB_LABELS[id]}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
 
-          <div
-            id="admin-panel-clients"
-            role="tabpanel"
-            aria-labelledby="admin-tab-clients"
-            hidden={activeTab !== 'clients'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'clients' ? <ClientsSection /> : null}
-          </div>
-
-          <div
-            id="admin-panel-pricing"
-            role="tabpanel"
-            aria-labelledby="admin-tab-pricing"
-            hidden={activeTab !== 'pricing'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'pricing' ? <ServicesCatalogEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-locations"
-            role="tabpanel"
-            aria-labelledby="admin-tab-locations"
-            hidden={activeTab !== 'locations'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'locations' ? <LocationsEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-home"
-            role="tabpanel"
-            aria-labelledby="admin-tab-home"
-            hidden={activeTab !== 'home'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'home' ? <HomeEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-about"
-            role="tabpanel"
-            aria-labelledby="admin-tab-about"
-            hidden={activeTab !== 'about'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'about' ? <AboutEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-media"
-            role="tabpanel"
-            aria-labelledby="admin-tab-media"
-            hidden={activeTab !== 'media'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'media' ? <MediaEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-bridal"
-            role="tabpanel"
-            aria-labelledby="admin-tab-bridal"
-            hidden={activeTab !== 'bridal'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'bridal' ? <BridalEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-beauty"
-            role="tabpanel"
-            aria-labelledby="admin-tab-beauty"
-            hidden={activeTab !== 'beauty'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'beauty' ? <BeautyPagesEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-classes"
-            role="tabpanel"
-            aria-labelledby="admin-tab-classes"
-            hidden={activeTab !== 'classes'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'classes' ? <ClassesPagesEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-contact"
-            role="tabpanel"
-            aria-labelledby="admin-tab-contact"
-            hidden={activeTab !== 'contact'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'contact' ? <ContactPagesEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-creativeFx"
-            role="tabpanel"
-            aria-labelledby="admin-tab-creativeFx"
-            hidden={activeTab !== 'creativeFx'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'creativeFx' ? <CreativeFxPagesEditor /> : null}
-          </div>
-
-          <div
-            id="admin-panel-faq"
-            role="tabpanel"
-            aria-labelledby="admin-tab-faq"
-            hidden={activeTab !== 'faq'}
-            className="admin-tab-panel"
-          >
-            {activeTab === 'faq' ? <FaqPagesEditor /> : null}
-          </div>
-        </div>
-      </section>
+        <section className="admin-panel admin-main" aria-label={TAB_LABELS[activeTab]}>
+          {sections ? (
+            <header className="admin-content-header">
+              <div className="admin-content-heading">
+                <h2 className="admin-content-title">{TAB_LABELS[activeTab]}</h2>
+                {activeSectionInfo.path ? (
+                  <a
+                    className="admin-content-slug"
+                    href={activeSectionInfo.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Open live page in a new tab"
+                  >
+                    {activeSectionInfo.path}
+                  </a>
+                ) : null}
+                {activeSectionInfo.note ? <span className="admin-content-note">{activeSectionInfo.note}</span> : null}
+              </div>
+              <div className="admin-bridal-subtabs" role="tablist" aria-label={`${TAB_LABELS[activeTab]} sections`}>
+                {sections.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeSection === s.id}
+                    className={`admin-bridal-subtab ${activeSection === s.id ? 'admin-bridal-subtab-active' : ''}`}
+                    onClick={() => selectSection(s.id)}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </header>
+          ) : null}
+          {renderTabContent(activeTab, activeSection)}
+        </section>
+      </div>
     </PagesContentAdminProvider>
   );
 }
@@ -347,9 +343,7 @@ export default function Admin() {
             </form>
           </section>
         ) : (
-          <div className="admin-panel">
-            <AdminDashboard />
-          </div>
+          <AdminDashboard />
         )}
       </div>
     </div>

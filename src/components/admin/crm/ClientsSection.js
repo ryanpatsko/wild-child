@@ -10,14 +10,19 @@ export default function ClientsSection() {
   const pathname = usePathname();
   const client = searchParams.get('client');
   const proposal = searchParams.get('proposal');
+  const clientTab = searchParams.get('clientTab');
 
-  function go(params) {
+  function withParams(params) {
     const next = new URLSearchParams(searchParams.toString());
     for (const [k, v] of Object.entries(params)) {
       if (v) next.set(k, v);
       else next.delete(k);
     }
-    router.push(`${pathname}?${next.toString()}`);
+    return next.toString();
+  }
+
+  function go(params) {
+    router.push(`${pathname}?${withParams(params)}`);
   }
 
   return (
@@ -33,8 +38,10 @@ export default function ClientsSection() {
         <ClientProfile
           key={client}
           email={client}
-          onBack={() => go({ client: null, proposal: null })}
-          onOpenProposal={(id) => go({ proposal: id })}
+          tab={clientTab}
+          onSelectTab={(id) => router.replace(`${pathname}?${withParams({ clientTab: id })}`)}
+          onBack={() => go({ client: null, proposal: null, clientTab: null })}
+          onOpenProposal={(id) => go({ proposal: id, clientTab: 'proposals' })}
         />
       ) : (
         <ClientsList onOpenClient={(email) => go({ client: email })} />

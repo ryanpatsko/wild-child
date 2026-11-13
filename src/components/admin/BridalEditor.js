@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import {
   bridalContentSignature,
   createDefaultBridalContent,
@@ -11,14 +10,6 @@ import { getStoredSessionToken } from '../../lib/adminAuth';
 import BridalGalleryEditor from './BridalGalleryEditor';
 
 const BRIDAL_PAGES = ['overview', 'services', 'pittsburgh', 'atlanta', 'gallery'];
-
-const PAGE_LABELS = {
-  overview: 'Overview',
-  services: 'Services',
-  pittsburgh: 'Pittsburgh',
-  atlanta: 'Atlanta',
-  gallery: 'Gallery',
-};
 
 function moveItem(list, from, to) {
   if (to < 0 || to >= list.length) return list;
@@ -53,38 +44,8 @@ function SaveFeedback() {
   );
 }
 
-function SubTabs({ active, onSelect }) {
-  return (
-    <div className="admin-bridal-subtabs" role="tablist" aria-label="Bridal CMS sections">
-      {BRIDAL_PAGES.map((id) => (
-        <button
-          key={id}
-          type="button"
-          role="tab"
-          aria-selected={active === id}
-          className={`admin-bridal-subtab ${active === id ? 'admin-bridal-subtab-active' : ''}`}
-          onClick={() => onSelect(id)}
-        >
-          {PAGE_LABELS[id]}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-export default function BridalEditor() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const bridalPageRaw = searchParams.get('bridalPage');
-  const bridalPage = BRIDAL_PAGES.includes(bridalPageRaw) ? bridalPageRaw : 'overview';
-
-  function selectBridalPage(id) {
-    const next = new URLSearchParams(searchParams.toString());
-    next.set('tab', 'bridal');
-    next.set('bridalPage', id);
-    router.replace(`${pathname}?${next.toString()}`);
-  }
+export default function BridalEditor({ section }) {
+  const bridalPage = BRIDAL_PAGES.includes(section) ? section : 'overview';
 
   const [status, setStatus] = useState('loading');
   const [loadError, setLoadError] = useState(null);
@@ -167,14 +128,7 @@ export default function BridalEditor() {
   }
 
   if (bridalPage === 'gallery') {
-    return (
-      <>
-        <h3 className="admin-panel-title">Bridal</h3>
-        <p className="admin-muted">Edit bridal page content and the /bridal-gallery image grid.</p>
-        <SubTabs active={bridalPage} onSelect={selectBridalPage} />
-        <BridalGalleryEditor />
-      </>
-    );
+    return <BridalGalleryEditor />;
   }
 
   const ov = draft.overview;
@@ -184,19 +138,14 @@ export default function BridalEditor() {
 
   return (
     <form className="admin-bridal-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">Bridal</h3>
-      <p className="admin-muted">Edit all content on the /bridal tab here</p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
         </p>
       ) : null}
 
-      <SubTabs active={bridalPage} onSelect={selectBridalPage} />
-
       {bridalPage === 'overview' ? (
         <div className="admin-bridal-panel">
-          <h4 className="admin-subheading">Overview (/bridal)</h4>
           <label className="admin-label" htmlFor="be-ov-doctitle">
             Browser tab title
           </label>
@@ -350,7 +299,6 @@ export default function BridalEditor() {
 
       {bridalPage === 'services' ? (
         <div className="admin-bridal-panel">
-          <h4 className="admin-subheading">Services (/bridal-services)</h4>
           <label className="admin-label">Page header</label>
           <input
             className="admin-input admin-input-full"
@@ -611,21 +559,12 @@ export default function BridalEditor() {
 }
 
 function RegionalBridalPanel({ regionKey, data, setDraft }) {
-  const label = regionKey === 'pittsburgh' ? 'Pittsburgh' : 'Atlanta';
-  const path =
-    regionKey === 'pittsburgh'
-      ? '/pittsburgh-bridal-hair-makeup'
-      : '/atlanta-bridal-hair-makeup';
-
   function patchRegion(next) {
     setDraft((d) => ({ ...d, [regionKey]: next }));
   }
 
   return (
     <div className="admin-bridal-panel">
-      <h4 className="admin-subheading">
-        {label} ({path})
-      </h4>
       <label className="admin-label">Browser tab title</label>
       <input
         className="admin-input admin-input-full"

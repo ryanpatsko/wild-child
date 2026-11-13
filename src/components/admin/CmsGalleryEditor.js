@@ -14,7 +14,6 @@ function moveItem(list, from, to) {
 }
 
 export default function CmsGalleryEditor({
-  title,
   description,
   s3Folder,
   inputId,
@@ -188,8 +187,7 @@ export default function CmsGalleryEditor({
 
   return (
     <div className="admin-bridal-form">
-      <h3 className="admin-panel-title">{title}</h3>
-      <p className="admin-muted">{description}</p>
+      <p className="admin-hint">{description}</p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}

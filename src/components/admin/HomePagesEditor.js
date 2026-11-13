@@ -18,8 +18,6 @@ export default function HomePagesEditor() {
 
   return (
     <form className="admin-bridal-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">Home</h3>
-      <p className="admin-muted">Content for / (hero title and intro text).</p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
@@ -27,7 +25,6 @@ export default function HomePagesEditor() {
       ) : null}
 
       <div className="admin-bridal-panel">
-        <h4 className="admin-subheading">Home hero (/)</h4>
         <label className="admin-label" htmlFor="pg-home-doc">
           Browser tab title
         </label>

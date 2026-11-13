@@ -16,12 +16,7 @@ import {
 export default function BridalGalleryEditor() {
   return (
     <CmsGalleryEditor
-      title="Bridal gallery"
-      description={
-        <>
-          Images for the /bridal-gallery page. Reorder with the arrows, then save. Uploads apply immediately.
-        </>
-      }
+      description="Reorder with the arrows, then save. Uploads apply immediately."
       s3Folder="gallery-bridal"
       inputId="bridal-gallery-upload"
       loadContent={loadGalleryBridalContent}

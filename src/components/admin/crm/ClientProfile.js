@@ -70,7 +70,9 @@ function Submission({ sub, defaultOpen }) {
   );
 }
 
-export default function ClientProfile({ email, onBack, onOpenProposal }) {
+const PROFILE_TABS = ['client', 'proposals', 'inquiries'];
+
+export default function ClientProfile({ email, tab, onSelectTab, onBack, onOpenProposal }) {
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -213,136 +215,180 @@ export default function ClientProfile({ email, onBack, onOpenProposal }) {
 
   const { client, submissions } = data;
   const latest = client.latestSubmission ?? {};
+  const activeTab = PROFILE_TABS.includes(tab) ? tab : 'client';
+  const tabLabels = {
+    client: 'Client',
+    proposals: `Proposals (${proposals.length})`,
+    inquiries: `Inquiries (${submissions.length})`,
+  };
+  const eventLine = latest.eventDate ? formatEventDate(latest.eventDate, latest.eventYear) : '';
 
   return (
     <div className="crm-profile">
-      <button type="button" className="admin-link-btn crm-back" onClick={onBack}>
-        ← All clients
-      </button>
-      <h3 className="admin-panel-title crm-profile-title">{clientDisplayName({ ...client, displayName })}</h3>
-      <p className="admin-muted">
-        <a className="admin-external-link" href={`mailto:${client.email}`}>
-          {client.email}
-        </a>
-        {latest.phone ? ` · ${latest.phone}` : ''}
-        {latest.eventDate ? ` · Event ${formatEventDate(latest.eventDate, latest.eventYear)}` : ''}
-        {latest.eventVenue ? ` · ${latest.eventVenue}` : ''}
-      </p>
-
-      <form className="admin-card-editor" onSubmit={onSaveProfile}>
-        <label className="admin-label" htmlFor="crm-display-name">
-          Client display name
-        </label>
-        <input
-          id="crm-display-name"
-          className="admin-input"
-          value={displayName}
-          maxLength={200}
-          placeholder={[latest.firstName, latest.lastName].filter(Boolean).join(' ') || 'e.g. Ashley & Olivia'}
-          onChange={(ev) => setDisplayName(ev.target.value)}
-        />
-        <p className="admin-hint crm-hint-tight">Shown in the client list and used as &quot;Prepared for&quot; on new proposals.</p>
-        <label className="admin-label" htmlFor="crm-notes">
-          Notes
-        </label>
-        <textarea
-          id="crm-notes"
-          className="admin-textarea"
-          rows={6}
-          value={notes}
-          maxLength={20000}
-          placeholder="Anything to remember about this client or their wedding"
-          onChange={(ev) => setNotes(ev.target.value)}
-        />
-        <div className="admin-save-row">
-          <button type="submit" className="admin-submit" disabled={saving || !isDirty}>
-            {saving ? 'Saving…' : 'Save client'}
+      <header className="admin-content-header">
+        <div className="crm-profile-header-row">
+          <div className="admin-content-heading">
+            <h3 className="admin-content-title">{clientDisplayName({ ...client, displayName })}</h3>
+            <a className="admin-content-slug crm-profile-email" href={`mailto:${client.email}`}>
+              {client.email}
+            </a>
+          </div>
+          <button type="button" className="admin-secondary-btn crm-back" onClick={onBack}>
+            ← All clients
           </button>
-          {saveMsg && !isDirty ? (
-            <span className={saveMsg.ok ? 'admin-save-feedback' : 'admin-error'} role="status">
-              {saveMsg.text}
-            </span>
-          ) : null}
         </div>
-      </form>
+        <div className="admin-bridal-subtabs" role="tablist" aria-label="Client sections">
+          {PROFILE_TABS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === id}
+              className={`admin-bridal-subtab ${activeTab === id ? 'admin-bridal-subtab-active' : ''}`}
+              onClick={() => onSelectTab(id)}
+            >
+              {tabLabels[id]}
+            </button>
+          ))}
+        </div>
+      </header>
 
-      <div className="crm-section-head">
-        <h4 className="admin-subheading">Proposals</h4>
-        <button type="button" className="admin-submit" onClick={onNewProposal} disabled={busy}>
-          New proposal
-        </button>
-      </div>
       {actionError ? (
         <p className="admin-error" role="alert">
           {actionError}
         </p>
       ) : null}
-      {proposals.length === 0 ? (
-        <p className="admin-muted">No proposals yet.</p>
-      ) : (
-        <div className="crm-table-wrap">
-          <table className="crm-table">
-            <thead>
-              <tr>
-                <th>Proposal</th>
-                <th>Total</th>
-                <th>Last edited</th>
-                <th>Finalized</th>
-                <th>Downloaded</th>
-                <th aria-label="Actions" />
-              </tr>
-            </thead>
-            <tbody>
-              {proposals.map((p) => {
-                const downloads = p.downloads ?? [];
-                return (
-                  <tr key={p.id}>
-                    <td>
-                      <button type="button" className="crm-row-link" onClick={() => onOpenProposal(p.id)}>
-                        {p.title || 'Proposal'}
-                      </button>
-                      <div className="crm-subtext">Created {formatTimestamp(p.createdAt)}</div>
-                    </td>
-                    <td>{formatMoney(computeProposalTotals(p).overallCents)}</td>
-                    <td>{formatTimestamp(p.updatedAt)}</td>
-                    <td>{p.finalizedAt ? <span className="crm-status-done">✓ {formatTimestamp(p.finalizedAt)}</span> : 'Draft'}</td>
-                    <td>
-                      {downloads.length ? (
-                        <span className="crm-status-done">
-                          ✓ {formatTimestamp(downloads[downloads.length - 1])}
-                          {downloads.length > 1 ? <span className="crm-subtext"> ({downloads.length}×)</span> : null}
-                        </span>
-                      ) : (
-                        '—'
-                      )}
-                    </td>
-                    <td className="crm-row-actions">
-                      <button type="button" className="admin-link-btn" onClick={() => onDuplicate(p)} disabled={busy}>
-                        Duplicate
-                      </button>
-                      <button type="button" className="admin-text-btn" onClick={() => onDeleteProposal(p)} disabled={busy}>
-                        Delete
-                      </button>
-                    </td>
+
+      {activeTab === 'client' ? (
+        <>
+          {latest.phone || eventLine || latest.eventVenue ? (
+            <dl className="crm-dl crm-profile-facts">
+              {latest.phone ? (
+                <>
+                  <dt>Phone</dt>
+                  <dd>{latest.phone}</dd>
+                </>
+              ) : null}
+              {eventLine ? (
+                <>
+                  <dt>Event date</dt>
+                  <dd>{eventLine}</dd>
+                </>
+              ) : null}
+              {latest.eventVenue ? (
+                <>
+                  <dt>Venue</dt>
+                  <dd>{latest.eventVenue}</dd>
+                </>
+              ) : null}
+            </dl>
+          ) : null}
+
+          <form className="admin-card-editor" onSubmit={onSaveProfile}>
+            <label className="admin-label" htmlFor="crm-display-name">
+              Client display name
+            </label>
+            <input
+              id="crm-display-name"
+              className="admin-input"
+              value={displayName}
+              maxLength={200}
+              placeholder={[latest.firstName, latest.lastName].filter(Boolean).join(' ') || 'e.g. Ashley & Olivia'}
+              onChange={(ev) => setDisplayName(ev.target.value)}
+            />
+            <p className="admin-hint crm-hint-tight">Shown in the client list and used as &quot;Prepared for&quot; on new proposals.</p>
+            <label className="admin-label" htmlFor="crm-notes">
+              Notes
+            </label>
+            <textarea
+              id="crm-notes"
+              className="admin-textarea"
+              rows={6}
+              value={notes}
+              maxLength={20000}
+              placeholder="Anything to remember about this client or their wedding"
+              onChange={(ev) => setNotes(ev.target.value)}
+            />
+            <div className="admin-save-row">
+              <button type="submit" className="admin-submit" disabled={saving || !isDirty}>
+                {saving ? 'Saving…' : 'Save client'}
+              </button>
+              {saveMsg && !isDirty ? (
+                <span className={saveMsg.ok ? 'admin-save-feedback' : 'admin-error'} role="status">
+                  {saveMsg.text}
+                </span>
+              ) : null}
+            </div>
+          </form>
+
+          <div className="crm-danger-zone">
+            <button type="button" className="admin-text-btn" onClick={onDeleteClient} disabled={busy}>
+              Delete this client and all their records
+            </button>
+            <span className="admin-hint"> (for spam or duplicate inquiries)</span>
+          </div>
+        </>
+      ) : null}
+
+      {activeTab === 'proposals' ? (
+        <>
+          <div className="crm-tab-actions">
+            <button type="button" className="admin-submit" onClick={onNewProposal} disabled={busy}>
+              New proposal
+            </button>
+          </div>
+          {proposals.length === 0 ? (
+            <p className="admin-muted">No proposals yet.</p>
+          ) : (
+            <div className="crm-table-wrap">
+              <table className="crm-table">
+                <thead>
+                  <tr>
+                    <th>Proposal</th>
+                    <th>Total</th>
+                    <th>Last edited</th>
+                    <th>Finalized</th>
+                    <th aria-label="Actions" />
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                </thead>
+                <tbody>
+                  {proposals.map((p) => {
+                    return (
+                      <tr key={p.id}>
+                        <td>
+                          <button type="button" className="crm-row-link" onClick={() => onOpenProposal(p.id)}>
+                            {p.title || 'Proposal'}
+                          </button>
+                          <div className="crm-subtext">Created {formatTimestamp(p.createdAt)}</div>
+                        </td>
+                        <td>{formatMoney(computeProposalTotals(p).overallCents)}</td>
+                        <td>{formatTimestamp(p.updatedAt)}</td>
+                        <td>{p.finalizedAt ? <span className="crm-status-done">✓ {formatTimestamp(p.finalizedAt)}</span> : 'Draft'}</td>
+                        <td className="crm-row-actions">
+                          <button type="button" className="admin-link-btn" onClick={() => onDuplicate(p)} disabled={busy}>
+                            Duplicate
+                          </button>
+                          <button type="button" className="admin-text-btn" onClick={() => onDeleteProposal(p)} disabled={busy}>
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
+      ) : null}
 
-      <h4 className="admin-subheading">Contact form inquiries ({submissions.length})</h4>
-      {submissions.map((sub, i) => (
-        <Submission key={sub.submittedAt + i} sub={sub} defaultOpen={i === 0} />
-      ))}
-
-      <div className="crm-danger-zone">
-        <button type="button" className="admin-text-btn" onClick={onDeleteClient} disabled={busy}>
-          Delete this client and all their records
-        </button>
-        <span className="admin-hint"> (for spam or duplicate inquiries)</span>
-      </div>
+      {activeTab === 'inquiries' ? (
+        submissions.length === 0 ? (
+          <p className="admin-muted">No inquiries on record.</p>
+        ) : (
+          submissions.map((sub, i) => <Submission key={sub.submittedAt + i} sub={sub} defaultOpen={i === 0} />)
+        )
+      ) : null}
     </div>
   );
 }

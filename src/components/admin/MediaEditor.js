@@ -305,11 +305,6 @@ export default function MediaEditor() {
 
   return (
     <form className="admin-media-form" onSubmit={onSave}>
-      <h3 className="admin-panel-title">On-Set &amp; Production</h3>
-      <p className="admin-muted">
-        Edits the <strong>/atlanta-film-tv-makeup-artist</strong> page (banner image stays in the codebase). Match the main site nav label:
-        On-Set &amp; Production.
-      </p>
       {loadError ? (
         <p className="admin-warn" role="status">
           {loadError}
