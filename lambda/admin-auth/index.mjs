@@ -12,6 +12,7 @@
  *   CMS_S3_GALLERY_HOME_PREFIX — optional, default gallery-home/
  *   CMS_S3_GALLERY_BRIDAL_PREFIX — optional, default gallery-bridal/
  *   CMS_S3_GALLERY_ABOUT_PREFIX — optional, default gallery-about/
+ *   CRM_TABLE_NAME — optional, default wild-child-crm (client intake; see crm.mjs)
  *
  * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/*, gallery-bridal/*, and gallery-about/*.
  * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*, gallery-bridal/*, gallery-about/*.
@@ -21,6 +22,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { handleCrmRoute } from './crm.mjs'
 
 const SESSION_HOURS = 24
 const ADMIN_SUB = 'wc-cms-admin'
@@ -1263,6 +1265,13 @@ export async function handler(event) {
   const isSavePages =
     method === 'PUT' && (path === '/pages-content' || path.endsWith('/pages-content'))
   const galleryRoute = parseGalleryRoute(path, method)
+
+  const crmResponse = await handleCrmRoute(event, {
+    method,
+    path,
+    isAuthorized: () => Boolean(verifyJwt(bearerToken(event), sessionSecret)),
+  })
+  if (crmResponse) return crmResponse
 
   if (isLogin) {
     let password = ''

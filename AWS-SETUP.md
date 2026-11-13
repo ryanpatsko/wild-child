@@ -290,6 +290,39 @@ Default public manifest URL:
 
 ---
 
+## 1b. DynamoDB table for client intake (`wild-child-crm`)
+
+Contact form inquiries, client profiles/notes, the services & pricing list, and contract proposals are **private** and live in DynamoDB (never in the public S3 bucket). The Lambda reads and writes them; the browser never talks to DynamoDB directly.
+
+Create the table (**DynamoDB → Tables → Create table**):
+
+| Setting | Value |
+|---------|-------|
+| Table name | `wild-child-crm` (or set `CRM_TABLE_NAME` on Lambda) |
+| Partition key | `PK` (String) |
+| Sort key | `SK` (String) |
+| Capacity | On-demand |
+
+Then add one **global secondary index** (**Indexes → Create index**):
+
+| Setting | Value |
+|---------|-------|
+| Index name | `GSI1` (exact name) |
+| Partition key | `GSI1PK` (String) |
+| Sort key | `GSI1SK` (String) |
+| Projected attributes | All |
+
+Optional but recommended: turn on **Point-in-time recovery** (Backups tab) so client data can be restored if something is deleted by mistake.
+
+Item layout (single-table design; new record types can be added later under the same client key):
+
+- `CLIENT#<email>` / `PROFILE` — display name, notes, latest inquiry summary, proposal status rollup (indexed by `GSI1` for the newest-first client list)
+- `CLIENT#<email>` / `SUB#<timestamp>#<id>` — one contact form submission
+- `CLIENT#<email>` / `PROPOSAL#<id>` — one contract proposal (line items, fees, finalized + download timestamps)
+- `CATALOG` / `CATALOG` — services & pricing list and proposal defaults
+
+---
+
 ## 2. Lambda (`lambda/admin-auth`)
 
 ### Build the deployment zip
@@ -300,7 +333,7 @@ From the **repository root**:
 npm run package:lambda
 ```
 
-This writes **`dist/lambda-admin-auth.zip`** (`index.mjs` + `node_modules`). Upload this artifact to AWS when the Lambda code or its dependencies change.
+This writes **`dist/lambda-admin-auth.zip`** (`index.mjs`, `crm.mjs`, and `node_modules`). Upload this artifact to AWS when the Lambda code or its dependencies change.
 
 ### Runtime
 
@@ -323,6 +356,7 @@ This writes **`dist/lambda-admin-auth.zip`** (`index.mjs` + `node_modules`). Upl
 | `CMS_S3_GALLERY_HOME_PREFIX` | No | Defaults to `gallery-home/` (include trailing slash). |
 | `CMS_S3_GALLERY_BRIDAL_PREFIX` | No | Defaults to `gallery-bridal/` (include trailing slash). |
 | `CMS_S3_GALLERY_ABOUT_PREFIX` | No | Defaults to `gallery-about/` (include trailing slash). |
+| `CRM_TABLE_NAME` | No | DynamoDB table for client intake. Defaults to `wild-child-crm`. |
 
 ### IAM (execution role)
 
@@ -354,12 +388,27 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
         "arn:aws:s3:::wild-child-cms/gallery-bridal/*",
         "arn:aws:s3:::wild-child-cms/gallery-about/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Query",
+        "dynamodb:BatchWriteItem"
+      ],
+      "Resource": [
+        "arn:aws:dynamodb:us-east-1:<ACCOUNT_ID>:table/wild-child-crm",
+        "arn:aws:dynamodb:us-east-1:<ACCOUNT_ID>:table/wild-child-crm/index/*"
+      ]
     }
   ]
 }
 ```
 
-Adjust bucket or keys if you use non-default names.
+Adjust bucket, table, region, or keys if you use non-default names.
 
 ### Function URL
 
@@ -388,6 +437,19 @@ Adjust bucket or keys if you use non-default names.
 - `PUT {origin}/gallery-about/manifest` — same body as home gallery manifest
 - `POST {origin}/gallery-about/upload` — same as home gallery upload
 - `DELETE {origin}/gallery-about/image` — same as home gallery delete
+
+Client intake (see `lambda/admin-auth/crm.mjs`):
+
+- `POST {origin}/contact-submissions` — **public, no auth**; the Contact page calls this alongside EmailJS. Because the site's own pages call it, the Function URL CORS **allowed origins must include every public site origin** (production, `www`, previews), not just the admin.
+- `GET {origin}/crm/clients` — newest-first client list
+- `GET | PUT | DELETE {origin}/crm/clients/{email}` — client profile with inquiries and proposals; PUT body `{ displayName, notes }`
+- `GET | PUT {origin}/crm/catalog` — services & pricing list
+- `POST {origin}/crm/clients/{email}/proposals` — create proposal
+- `PUT | DELETE {origin}/crm/clients/{email}/proposals/{id}` — save or delete proposal
+- `PUT {origin}/crm/clients/{email}/proposals/{id}/status` — body `{ final: boolean }`
+- `POST {origin}/crm/clients/{email}/proposals/{id}/downloads` — records a PDF download timestamp
+
+All `/crm/*` routes require `Authorization: Bearer <token>`.
 
 Copy the Function URL **origin only** (no path), e.g.  
 `https://xxxxxxxx.lambda-url.us-east-1.on.aws`

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { saveContactSubmission } from '../lib/crmApi';
 
 const Contact = ({ contact }) => {
   const [formData, setFormData] = useState({
@@ -117,9 +118,17 @@ const Contact = ({ contact }) => {
         to_name: 'Wild Child Fabrications'
       };
 
-      // Send email
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
-      
+      // Send the email and save the inquiry for the admin client list; either one landing counts as received.
+      const [emailResult, saveResult] = await Promise.allSettled([
+        emailjs.send(serviceId, templateId, templateParams, publicKey),
+        saveContactSubmission({ ...formData, website: honeypot }),
+      ]);
+      if (emailResult.status === 'rejected') console.error('Error sending email:', emailResult.reason);
+      if (saveResult.status === 'rejected') console.error('Error saving inquiry:', saveResult.reason);
+      if (emailResult.status === 'rejected' && saveResult.status === 'rejected') {
+        throw emailResult.reason;
+      }
+
       setSubmitStatus('success');
       setLastSubmission(now);
       

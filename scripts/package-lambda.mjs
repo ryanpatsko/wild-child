@@ -1,9 +1,9 @@
 /**
  * Builds dist/lambda-admin-auth.zip for AWS Lambda upload.
- * Runs npm ci in lambda/admin-auth, then zips index.mjs + node_modules.
+ * Runs npm ci in lambda/admin-auth, then zips every *.mjs module + node_modules.
  */
 import { execSync } from 'node:child_process';
-import { createWriteStream, mkdirSync } from 'node:fs';
+import { createWriteStream, mkdirSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import archiver from 'archiver';
@@ -30,7 +30,9 @@ await new Promise((resolve, reject) => {
   output.on('error', reject);
   archive.on('error', reject);
   archive.pipe(output);
-  archive.file(path.join(lambdaDir, 'index.mjs'), { name: 'index.mjs' });
+  for (const file of readdirSync(lambdaDir).filter((f) => f.endsWith('.mjs'))) {
+    archive.file(path.join(lambdaDir, file), { name: file });
+  }
   archive.directory(path.join(lambdaDir, 'node_modules'), 'node_modules');
   void archive.finalize();
 });

@@ -11,6 +11,8 @@ import ClassesPagesEditor from './admin/ClassesPagesEditor';
 import ContactPagesEditor from './admin/ContactPagesEditor';
 import CreativeFxPagesEditor from './admin/CreativeFxPagesEditor';
 import FaqPagesEditor from './admin/FaqPagesEditor';
+import ClientsSection from './admin/crm/ClientsSection';
+import ServicesCatalogEditor from './admin/crm/ServicesCatalogEditor';
 import { PagesContentAdminProvider } from '../context/PagesContentAdminContext';
 import {
   adminLogin,
@@ -22,9 +24,24 @@ import {
 import siteLogo from '../assets/wcf-lips-logo.png';
 import './Admin.css';
 
-const TAB_IDS = ['locations', 'home', 'about', 'media', 'bridal', 'beauty', 'classes', 'contact', 'creativeFx', 'faq'];
+const TAB_IDS = [
+  'clients',
+  'pricing',
+  'locations',
+  'home',
+  'about',
+  'media',
+  'bridal',
+  'beauty',
+  'classes',
+  'contact',
+  'creativeFx',
+  'faq',
+];
 
 const TAB_LABELS = {
+  clients: 'Clients',
+  pricing: 'Services & Pricing',
   locations: 'Locations',
   home: 'Home',
   about: 'About',
@@ -42,12 +59,14 @@ function AdminDashboard() {
   const router = useRouter();
   const pathname = usePathname();
   const tabParam = searchParams.get('tab');
-  const activeTab = TAB_IDS.includes(tabParam) ? tabParam : 'locations';
+  const activeTab = TAB_IDS.includes(tabParam) ? tabParam : 'clients';
 
   function selectTab(id) {
     const next = new URLSearchParams(searchParams.toString());
     next.set('tab', id);
     next.delete('pagesTab');
+    next.delete('client');
+    next.delete('proposal');
     router.replace(`${pathname}?${next.toString()}`);
   }
 
@@ -71,6 +90,26 @@ function AdminDashboard() {
                 {TAB_LABELS[id] ?? id}
               </button>
             ))}
+          </div>
+
+          <div
+            id="admin-panel-clients"
+            role="tabpanel"
+            aria-labelledby="admin-tab-clients"
+            hidden={activeTab !== 'clients'}
+            className="admin-tab-panel"
+          >
+            {activeTab === 'clients' ? <ClientsSection /> : null}
+          </div>
+
+          <div
+            id="admin-panel-pricing"
+            role="tabpanel"
+            aria-labelledby="admin-tab-pricing"
+            hidden={activeTab !== 'pricing'}
+            className="admin-tab-panel"
+          >
+            {activeTab === 'pricing' ? <ServicesCatalogEditor /> : null}
           </div>
 
           <div

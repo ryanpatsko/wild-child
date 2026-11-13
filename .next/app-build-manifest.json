@@ -6,20 +6,17 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/pittsburgh-bridal-hair-makeup/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/pittsburgh-bridal-hair-makeup/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
-    "/atlanta-bridal-hair-makeup/page": [
+    "/admin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/atlanta-bridal-hair-makeup/page.js"
-    ],
-    "/bridal/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/bridal/page.js"
+      "static/css/app/admin/page.css",
+      "static/chunks/app/admin/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
