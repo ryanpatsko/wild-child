@@ -1,15 +1,28 @@
-import fx1 from '../assets/gallery-fx/fx-1.jpg';
-import fx6 from '../assets/gallery-fx/fx-6.jpg';
-import fx3 from '../assets/gallery-fx/fx-3.jpg';
-import fx4 from '../assets/gallery-fx/fx-4.jpg';
-import fx5 from '../assets/gallery-fx/fx-5.jpg';
+import { fxPhotoSrc } from '../content/fxBundledPhotos';
 
-const CreativeFX = ({ creativeFx }) => {
+function FxRow({ images }) {
+  const photos = images.filter((ref) => fxPhotoSrc(ref));
+  if (photos.length === 0) return null;
+  return (
+    <div className="fx-images-row">
+      {photos.map((ref, i) => (
+        <div key={`${ref}-${i}`} className="fx-image-container">
+          <img src={fxPhotoSrc(ref)} alt={`Creative FX work ${i + 1}`} className="fx-image" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const CreativeFX = ({ creativeFx, photos }) => {
+  const headerSrc = fxPhotoSrc(photos.header);
   return (
     <div className="page-container">
-      <div className="page-header">
-        <img src={fx1.src} alt="Page Banner - Creative & FX" className="page-header-image" />
-      </div>
+      {headerSrc ? (
+        <div className="page-header">
+          <img src={headerSrc} alt="Page Banner - Creative & FX" className="page-header-image" />
+        </div>
+      ) : null}
       <h1 className="page-title">{creativeFx.pageTitle}</h1>
       <p className="intro-text">{creativeFx.introText}</p>
 
@@ -22,14 +35,7 @@ const CreativeFX = ({ creativeFx }) => {
         </ul>
       </section>
 
-      <div className="fx-images-row">
-        <div className="fx-image-container">
-          <img src={fx4.src} alt="Creative FX Work 4" className="fx-image" />
-        </div>
-        <div className="fx-image-container">
-          <img src={fx5.src} alt="Creative FX Work 5" className="fx-image" />
-        </div>
-      </div>
+      <FxRow images={photos.afterServices} />
 
       <section className="section-card">
         <h2 className="section-title section-title-creative">{creativeFx.pricingTitle}</h2>
@@ -47,14 +53,7 @@ const CreativeFX = ({ creativeFx }) => {
         ))}
       </section>
 
-      <div className="fx-images-row">
-        <div className="fx-image-container">
-          <img src={fx6.src} alt="Creative FX Work 6" className="fx-image" />
-        </div>
-        <div className="fx-image-container">
-          <img src={fx3.src} alt="Creative FX Work 3" className="fx-image" />
-        </div>
-      </div>
+      <FxRow images={photos.afterBooking} />
     </div>
   );
 };

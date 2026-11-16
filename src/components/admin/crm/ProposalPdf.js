@@ -1,7 +1,7 @@
 import React from 'react';
 import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import siteLogo from '../../../assets/wcf-lips-logo.png';
-import { computeProposalTotals, formatMoney } from '../../../lib/proposalMath';
+import { computeProposalTotals, formatMoney, toNumericDate } from '../../../lib/proposalMath';
 
 const INK = '#1f1a1c';
 const MUTED = '#7a6d72';
@@ -39,19 +39,19 @@ function registerFonts() {
 const s = StyleSheet.create({
   page: {
     backgroundColor: PAPER,
-    paddingTop: 32,
-    paddingBottom: 54,
-    paddingHorizontal: 64,
+    paddingTop: 26,
+    paddingBottom: 46,
+    paddingHorizontal: 52,
     fontFamily: 'RedHat',
     fontSize: 9.5,
     color: INK,
   },
   frame: {
     position: 'absolute',
-    top: 22,
-    left: 22,
-    right: 22,
-    bottom: 22,
+    top: 16,
+    left: 16,
+    right: 16,
+    bottom: 16,
     borderWidth: 0.75,
     borderColor: HAIRLINE,
   },
@@ -85,6 +85,7 @@ const s = StyleSheet.create({
   colRate: { width: 70, textAlign: 'right' },
   colAmount: { width: 82, textAlign: 'right' },
   lineName: { fontSize: 10 },
+  included: { fontFamily: 'Playfair', fontStyle: 'italic', fontSize: 8, color: ACCENT },
   lineDetail: { fontFamily: 'Playfair', fontStyle: 'italic', fontSize: 8.5, color: MUTED, marginTop: 2 },
   subtotalRow: { flexDirection: 'row', paddingTop: 6 },
   subtotalLabel: { flex: 1, textAlign: 'right', paddingRight: 12, fontSize: 9, color: MUTED },
@@ -109,9 +110,9 @@ const s = StyleSheet.create({
 
   footer: {
     position: 'absolute',
-    bottom: 26,
-    left: 64,
-    right: 64,
+    bottom: 22,
+    left: 52,
+    right: 52,
     alignItems: 'center',
   },
   footerRule: { width: 28, borderBottomWidth: 0.5, borderBottomColor: ACCENT, marginBottom: 6 },
@@ -175,7 +176,7 @@ export function ProposalDocument({ proposal, preparedOn, footerText }) {
 
         <View style={s.details}>
           <Detail label="Prepared for" value={proposal.clientName} />
-          <Detail label="Wedding date" value={proposal.eventDate} />
+          <Detail label="Wedding date" value={toNumericDate(proposal.eventDate)} />
           <Detail label="Prepared on" value={preparedOn} />
           <Detail label="Location" value={proposal.venue} />
           <Detail label="Serving" value={proposal.regionLabel} />
@@ -189,11 +190,12 @@ export function ProposalDocument({ proposal, preparedOn, footerText }) {
               <View key={i} style={s.row} wrap={false}>
                 <Text style={[s.colName, s.lineName]}>{line.name}</Text>
                 <Text style={s.colQty}>{line.quantity}</Text>
-                <Text style={s.colRate}>
-                  {formatMoney(line.unitPriceCents, { compact: true })}
-                  {line.priceMayVary ? '*' : ''}
+                <Text style={line.unitPriceCents > 0 ? s.colRate : [s.colRate, s.included]}>
+                  {line.unitPriceCents > 0
+                    ? `${formatMoney(line.unitPriceCents, { compact: true })}${line.priceMayVary ? '*' : ''}`
+                    : 'Included'}
                 </Text>
-                <Text style={s.colAmount}>{formatMoney(line.totalCents)}</Text>
+                <Text style={s.colAmount}>{line.unitPriceCents > 0 ? formatMoney(line.totalCents) : ''}</Text>
               </View>
             ))}
             <View style={s.subtotalRow}>

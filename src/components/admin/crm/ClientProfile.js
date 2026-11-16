@@ -285,17 +285,17 @@ export default function ClientProfile({ email, tab, onSelectTab, onBack, onOpenP
           ) : null}
 
           <form className="admin-card-editor" onSubmit={onSaveProfile}>
-            <label className="admin-label" htmlFor="crm-display-name">
-              Client display name
+            <label className="crm-field" htmlFor="crm-display-name">
+              <span className="admin-label">Client display name</span>
+              <input
+                id="crm-display-name"
+                className="admin-input"
+                value={displayName}
+                maxLength={200}
+                placeholder={[latest.firstName, latest.lastName].filter(Boolean).join(' ') || 'e.g. Ashley & Olivia'}
+                onChange={(ev) => setDisplayName(ev.target.value)}
+              />
             </label>
-            <input
-              id="crm-display-name"
-              className="admin-input"
-              value={displayName}
-              maxLength={200}
-              placeholder={[latest.firstName, latest.lastName].filter(Boolean).join(' ') || 'e.g. Ashley & Olivia'}
-              onChange={(ev) => setDisplayName(ev.target.value)}
-            />
             <p className="admin-hint crm-hint-tight">Shown in the client list and used as &quot;Prepared for&quot; on new proposals.</p>
             <label className="admin-label" htmlFor="crm-notes">
               Notes

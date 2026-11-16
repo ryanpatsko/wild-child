@@ -1,4 +1,4 @@
-import { getPagesContent } from '../../lib/serverContent';
+import { getGalleryFxContent, getPagesContent } from '../../lib/serverContent';
 import CreativeFX from '../../components/CreativeFX';
 
 const PATH = '/atlanta-special-effects-makeup';
@@ -14,6 +14,6 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const { creativeFx } = await getPagesContent();
-  return <CreativeFX creativeFx={creativeFx} />;
+  const [{ creativeFx }, photos] = await Promise.all([getPagesContent(), getGalleryFxContent()]);
+  return <CreativeFX creativeFx={creativeFx} photos={photos} />;
 }

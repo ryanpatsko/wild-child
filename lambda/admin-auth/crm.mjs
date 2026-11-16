@@ -118,6 +118,13 @@ function cents(v) {
   return n
 }
 
+/** Expense rates may carry a tenth of a cent (e.g. $0.725/mile is 72.5). */
+function rateCents(v) {
+  const n = Math.round(Number(v) * 10) / 10
+  if (!Number.isFinite(n) || n < 0 || n > MAX_CENTS) return null
+  return n
+}
+
 function qty(v) {
   const n = Math.floor(Number(v))
   if (!Number.isFinite(n) || n < 0 || n > MAX_QTY) return null
@@ -418,7 +425,7 @@ function validateCatalog(body) {
   const expenses = []
   for (const [i, e] of body.expenses.entries()) {
     const name = str(e?.name, NAME_MAX)
-    const priceCents = cents(e?.priceCents)
+    const priceCents = rateCents(e?.priceCents)
     if (!name) return { error: `expenses[${i}]: name is required.` }
     if (priceCents === null) return { error: `expenses[${i}]: price is invalid.` }
     expenses.push({
@@ -513,7 +520,7 @@ function validateProposal(body) {
   const expenses = []
   for (const [i, e] of body.expenses.entries()) {
     const name = str(e?.name, NAME_MAX)
-    const unitPriceCents = cents(e?.unitPriceCents)
+    const unitPriceCents = rateCents(e?.unitPriceCents)
     const quantity = qty(e?.quantity)
     if (!name) return { error: `Expense line ${i + 1}: name is required.` }
     if (unitPriceCents === null) return { error: `Expense line ${i + 1}: price is invalid.` }

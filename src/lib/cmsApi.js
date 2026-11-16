@@ -189,6 +189,18 @@ export async function deleteGalleryAboutImage(token, filename) {
   return deleteGalleryImage(token, 'gallery-about', filename);
 }
 
+export async function saveGalleryFxManifest(token, doc) {
+  return saveGalleryManifest(token, 'gallery-fx', doc);
+}
+
+export async function requestGalleryFxUpload(token, payload) {
+  return requestGalleryUpload(token, 'gallery-fx', payload);
+}
+
+export async function deleteGalleryFxImage(token, filename) {
+  return deleteGalleryImage(token, 'gallery-fx', filename);
+}
+
 async function saveGalleryManifest(token, slug, doc) {
   const base = getAdminAuthBaseUrl();
   if (!base) {

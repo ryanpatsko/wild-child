@@ -13,29 +13,78 @@ const MONTHS = [
   'December',
 ];
 
-/** "$1,925.00"; with `compact`, whole-dollar amounts drop the cents ("$225"). */
+/**
+ * "$1,925.00"; with `compact`, whole-dollar amounts drop the cents ("$225").
+ * Fractional cents (per-unit rates like 72.5¢) show a third decimal ("$0.725").
+ */
 export function formatMoney(cents, { compact = false } = {}) {
-  const value = (Number(cents) || 0) / 100;
+  const n = Number(cents) || 0;
+  const value = n / 100;
   const whole = Number.isInteger(value);
   return value.toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: compact && whole ? 0 : 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: Number.isInteger(n) ? 2 : 3,
   });
 }
 
-/** Parses "225", "$1,925.50" into cents; returns null for anything unparseable. */
-export function parseMoneyToCents(input) {
+/**
+ * Parses "225", "$1,925.50", ".75" into cents; returns null for anything unparseable.
+ * `maxDecimals: 3` allows rates like "0.725", returned as fractional cents (72.5).
+ */
+export function parseMoneyToCents(input, { maxDecimals = 2 } = {}) {
   const cleaned = String(input ?? '').replace(/[$,\s]/g, '');
   if (cleaned === '') return 0;
-  if (!/^\d+(\.\d{0,2})?$/.test(cleaned)) return null;
-  return Math.round(Number(cleaned) * 100);
+  const pattern = new RegExp(`^(?:\\d+(?:\\.\\d{0,${maxDecimals}})?|\\.\\d{1,${maxDecimals}})$`);
+  if (!pattern.test(cleaned)) return null;
+  const scale = 10 ** Math.max(0, maxDecimals - 2);
+  return Math.round(Number(cleaned) * 100 * scale) / scale;
 }
 
 export function centsToInput(cents) {
-  const value = (Number(cents) || 0) / 100;
-  return Number.isInteger(value) ? String(value) : value.toFixed(2);
+  const n = Number(cents) || 0;
+  const value = n / 100;
+  if (Number.isInteger(value)) return String(value);
+  return value.toFixed(Number.isInteger(n) ? 2 : 3);
+}
+
+const pad2 = (n) => String(n).padStart(2, '0');
+
+/**
+ * Normalizes a free-text date ("August 28th, 2027", "Sat, Aug 28 2027", "8/28/27") to "08/28/2027".
+ * Without a year it's "08/28"; text that doesn't look like a date comes back unchanged.
+ */
+export function toNumericDate(text) {
+  const raw = String(text ?? '').trim();
+  const numeric = /^(\d{1,2})\s*[/.-]\s*(\d{1,2})(?:\s*[/.-]\s*(\d{4}|\d{2}))?$/.exec(raw);
+  const named = /^(?:[a-z]+\.?,?\s+)?([a-z]{3,})\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?$/i.exec(raw);
+  let month;
+  let day;
+  let year;
+  if (numeric) {
+    [, month, day, year] = numeric;
+    month = Number(month);
+  } else if (named) {
+    const idx = MONTHS.findIndex((m) => m.toLowerCase().startsWith(named[1].slice(0, 3).toLowerCase()));
+    if (idx === -1) return raw;
+    month = idx + 1;
+    [, , day, year] = named;
+  } else {
+    return raw;
+  }
+  day = Number(day);
+  if (month < 1 || month > 12 || day < 1 || day > 31) return raw;
+  if (year && year.length === 2) year = `20${year}`;
+  return `${pad2(month)}/${pad2(day)}${year ? `/${year}` : ''}`;
+}
+
+/** ISO timestamp as "11/15/2026". */
+export function formatDateNumeric(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return `${pad2(d.getMonth() + 1)}/${pad2(d.getDate())}/${d.getFullYear()}`;
 }
 
 function ordinal(n) {
@@ -80,16 +129,9 @@ export function formatEventDateShort(mmdd, year) {
   return `${weekday}${month}/${day}/${yearText.slice(-2)}`;
 }
 
-export function formatDateOnly(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return '';
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-}
-
 export function expenseLineTotalCents(line) {
   const unit = Number(line.unitPriceCents) || 0;
-  return line.mode === 'perUnit' ? unit * (Number(line.quantity) || 0) : unit;
+  return Math.round(line.mode === 'perUnit' ? unit * (Number(line.quantity) || 0) : unit);
 }
 
 export function computeProposalTotals(proposal) {
@@ -162,7 +204,7 @@ export function buildNewProposal(catalog, client) {
   return {
     title: 'Proposal',
     clientName: clientDisplayName(client),
-    eventDate: formatEventDate(s.eventDate, s.eventYear),
+    eventDate: toNumericDate(formatEventDate(s.eventDate, s.eventYear)),
     regionLabel: d.regionLabel ?? '',
     venue: s.eventVenue ?? '',
     services: [],

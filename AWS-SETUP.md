@@ -169,6 +169,13 @@ Shape (abbreviated):
       "Principal": "*",
       "Action": "s3:GetObject",
       "Resource": "arn:aws:s3:::wild-child-cms/gallery-about/*"
+    },
+    {
+      "Sid": "PublicReadGalleryFx",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::wild-child-cms/gallery-fx/*"
     }
   ]
 }
@@ -288,6 +295,19 @@ Default public manifest URL:
 
 **Bucket policy:** Add public **`GetObject`** on `gallery-about/*` (same pattern as `gallery-home/*`).
 
+### Creative & FX photos (`gallery-fx/`)
+
+- **Prefix:** `gallery-fx/` (unless you set **`CMS_S3_GALLERY_FX_PREFIX`** on Lambda).
+- **Manifest key:** `gallery-fx/manifest.json` — one banner filename plus two ordered lists, `afterServices` and `afterBooking`. A filename prefixed with `bundled:` is one of the photos shipped with the site, not an S3 object.
+- **Images:** `gallery-fx/<filename>` (JPEG, PNG, or WebP).
+- **Starting manifest:** Optional. Until this manifest is saved, the page keeps the built-in banner and the two photo rows. Use **Admin → Creative & FX → Photos** to replace or add photos. Each row holds up to 12 and wraps two across.
+
+Default public manifest URL:
+
+`https://wild-child-cms.s3.us-east-1.amazonaws.com/gallery-fx/manifest.json`
+
+**Bucket policy:** Add public **`GetObject`** on `gallery-fx/*` (same pattern as `gallery-home/*`). The Lambda execution role also needs **`s3:PutObject`** and **`s3:DeleteObject`** on that prefix. Upload `dist/lambda-admin-auth.zip` after pulling this change so `PUT /gallery-fx/manifest` is accepted.
+
 ---
 
 ## 1b. DynamoDB table for client intake (`wild-child-crm`)
@@ -356,6 +376,7 @@ This writes **`dist/lambda-admin-auth.zip`** (`index.mjs`, `crm.mjs`, and `node_
 | `CMS_S3_GALLERY_HOME_PREFIX` | No | Defaults to `gallery-home/` (include trailing slash). |
 | `CMS_S3_GALLERY_BRIDAL_PREFIX` | No | Defaults to `gallery-bridal/` (include trailing slash). |
 | `CMS_S3_GALLERY_ABOUT_PREFIX` | No | Defaults to `gallery-about/` (include trailing slash). |
+| `CMS_S3_GALLERY_FX_PREFIX` | No | Defaults to `gallery-fx/` (include trailing slash). |
 | `CRM_TABLE_NAME` | No | DynamoDB table for client intake. Defaults to `wild-child-crm`. |
 
 ### IAM (execution role)
@@ -377,7 +398,8 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
         "arn:aws:s3:::wild-child-cms/pages-content.json",
         "arn:aws:s3:::wild-child-cms/gallery-home/*",
         "arn:aws:s3:::wild-child-cms/gallery-bridal/*",
-        "arn:aws:s3:::wild-child-cms/gallery-about/*"
+        "arn:aws:s3:::wild-child-cms/gallery-about/*",
+        "arn:aws:s3:::wild-child-cms/gallery-fx/*"
       ]
     },
     {
@@ -386,7 +408,8 @@ Grant **`s3:PutObject`** on each CMS JSON object the admin can save, plus **`s3:
       "Resource": [
         "arn:aws:s3:::wild-child-cms/gallery-home/*",
         "arn:aws:s3:::wild-child-cms/gallery-bridal/*",
-        "arn:aws:s3:::wild-child-cms/gallery-about/*"
+        "arn:aws:s3:::wild-child-cms/gallery-about/*",
+        "arn:aws:s3:::wild-child-cms/gallery-fx/*"
       ]
     },
     {
@@ -437,6 +460,9 @@ Adjust bucket, table, region, or keys if you use non-default names.
 - `PUT {origin}/gallery-about/manifest` — same body as home gallery manifest
 - `POST {origin}/gallery-about/upload` — same as home gallery upload
 - `DELETE {origin}/gallery-about/image` — same as home gallery delete
+- `PUT {origin}/gallery-fx/manifest` — header `Authorization: Bearer <token>`, body `{ version, header, afterServices, afterBooking }`
+- `POST {origin}/gallery-fx/upload` — same as home gallery upload
+- `DELETE {origin}/gallery-fx/image` — same as home gallery delete
 
 Client intake (see `lambda/admin-auth/crm.mjs`):
 

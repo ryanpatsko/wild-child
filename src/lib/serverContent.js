@@ -28,6 +28,11 @@ import {
   normalizeLocationsContent,
   createDefaultLocationsContent,
 } from '../content/locationsContent';
+import {
+  DEFAULT_GALLERY_FX_MANIFEST_URL,
+  normalizeGalleryFxContent,
+  createDefaultGalleryFxContent,
+} from '../content/galleryFxContent';
 
 async function fetchContent(url, normalize, createDefault) {
   try {
@@ -62,4 +67,9 @@ export function getMediaContent() {
 export function getLocationsContent() {
   const url = process.env.LOCATIONS_CONTENT_URL?.trim() || DEFAULT_LOCATIONS_CONTENT_URL;
   return fetchContent(url, normalizeLocationsContent, createDefaultLocationsContent);
+}
+
+export function getGalleryFxContent() {
+  const url = process.env.GALLERY_FX_MANIFEST_URL?.trim() || DEFAULT_GALLERY_FX_MANIFEST_URL;
+  return fetchContent(url, normalizeGalleryFxContent, createDefaultGalleryFxContent);
 }

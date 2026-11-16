@@ -290,7 +290,6 @@ const Contact = ({ contact }) => {
                 <option value="media-shoot">Media Shoot</option>
                 <option value="specialty-makeup">Specialty Makeup</option>
                 <option value="makeup-class">Makeup Class</option>
-                <option value="color-palette-session">Color Palette Session</option>
               </select>
             </div>
             <div className="form-group">

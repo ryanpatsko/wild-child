@@ -83,7 +83,7 @@ function formToCatalog(form) {
     return { id: r.id || undefined, name: r.name.trim(), priceCents: priceCents ?? 0, priceMayVary: r.priceMayVary };
   });
   const expenses = form.expenses.map((r, i) => {
-    const priceCents = parseMoneyToCents(r.price);
+    const priceCents = parseMoneyToCents(r.price, { maxDecimals: 3 });
     if (!r.name.trim()) errors.push(`Expense ${i + 1} needs a name.`);
     if (priceCents === null) errors.push(`Expense ${i + 1} has an invalid price.`);
     return {

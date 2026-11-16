@@ -12,10 +12,11 @@
  *   CMS_S3_GALLERY_HOME_PREFIX — optional, default gallery-home/
  *   CMS_S3_GALLERY_BRIDAL_PREFIX — optional, default gallery-bridal/
  *   CMS_S3_GALLERY_ABOUT_PREFIX — optional, default gallery-about/
+ *   CMS_S3_GALLERY_FX_PREFIX — optional, default gallery-fx/
  *   CRM_TABLE_NAME — optional, default wild-child-crm (client intake; see crm.mjs)
  *
- * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/*, gallery-bridal/*, and gallery-about/*.
- * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*, gallery-bridal/*, gallery-about/*.
+ * IAM: s3:PutObject on each CMS JSON key the admin can save; s3:PutObject and s3:DeleteObject on gallery-home/*, gallery-bridal/*, gallery-about/*, and gallery-fx/*.
+ * Public reads: bucket policy grants s3:GetObject on CMS JSON keys and gallery-home/*, gallery-bridal/*, gallery-about/*, gallery-fx/*.
  * CORS: configure only on the Lambda Function URL in AWS (not in this handler).
  */
 
@@ -106,12 +107,15 @@ const GALLERY_EXT_BY_TYPE = {
   'image/png': '.png',
   'image/webp': '.webp',
 }
-const GALLERY_SLUGS = ['gallery-home', 'gallery-bridal', 'gallery-about']
+const GALLERY_SLUGS = ['gallery-home', 'gallery-bridal', 'gallery-about', 'gallery-fx']
 const GALLERY_PREFIX_ENV = {
   'gallery-home': 'CMS_S3_GALLERY_HOME_PREFIX',
   'gallery-bridal': 'CMS_S3_GALLERY_BRIDAL_PREFIX',
   'gallery-about': 'CMS_S3_GALLERY_ABOUT_PREFIX',
+  'gallery-fx': 'CMS_S3_GALLERY_FX_PREFIX',
 }
+const FX_GRID_MAX = 12
+const FX_BUNDLED_PREFIX = 'bundled:'
 
 const s3 = new S3Client({})
 
@@ -165,6 +169,32 @@ function normalizeGalleryManifestOut(body) {
   return {
     version: Math.max(1, Math.floor(body.version)),
     images: body.images.map((x) => String(x).trim()),
+  }
+}
+
+function validateFxImageRef(ref) {
+  if (typeof ref !== 'string') return false
+  const trimmed = ref.trim()
+  if (trimmed.startsWith(FX_BUNDLED_PREFIX)) return validateGalleryFilename(trimmed.slice(FX_BUNDLED_PREFIX.length))
+  return validateGalleryFilename(trimmed)
+}
+
+function validateFxManifest(body) {
+  if (!body || typeof body !== 'object') return false
+  if (typeof body.version !== 'number' || !Number.isFinite(body.version)) return false
+  if (!validateFxImageRef(body.header)) return false
+  if (!Array.isArray(body.afterServices) || body.afterServices.length > FX_GRID_MAX) return false
+  if (!Array.isArray(body.afterBooking) || body.afterBooking.length > FX_GRID_MAX) return false
+  return body.afterServices.every(validateFxImageRef) && body.afterBooking.every(validateFxImageRef)
+}
+
+function normalizeFxManifestOut(body) {
+  const clean = (ref) => String(ref).trim()
+  return {
+    version: Math.max(1, Math.floor(body.version)),
+    header: clean(body.header),
+    afterServices: body.afterServices.map(clean),
+    afterBooking: body.afterBooking.map(clean),
   }
 }
 
@@ -1588,16 +1618,19 @@ export async function handler(event) {
     } catch {
       return response(400, { error: 'Invalid JSON' })
     }
-    if (!validateGalleryManifest(body)) {
+    const fx = galleryRoute.slug === 'gallery-fx'
+    if (fx ? !validateFxManifest(body) : !validateGalleryManifest(body)) {
       return response(400, {
-        error: `Invalid gallery manifest (version number and up to ${GALLERY_MAX_IMAGES} image filenames).`,
+        error: fx
+          ? `Invalid Creative FX photo list (one banner filename and up to ${FX_GRID_MAX} filenames in each row).`
+          : `Invalid gallery manifest (version number and up to ${GALLERY_MAX_IMAGES} image filenames).`,
       })
     }
     const bucket = process.env.CMS_S3_BUCKET ?? ''
     if (!bucket) {
       return response(500, { error: 'CMS_S3_BUCKET not set' })
     }
-    const payload = JSON.stringify(normalizeGalleryManifestOut(body), null, 2)
+    const payload = JSON.stringify(fx ? normalizeFxManifestOut(body) : normalizeGalleryManifestOut(body), null, 2)
     try {
       await s3.send(
         new PutObjectCommand({

@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "header": "bundled:fx-1.jpg",
+  "afterServices": ["bundled:fx-4.jpg", "bundled:fx-5.jpg"],
+  "afterBooking": ["bundled:fx-6.jpg", "bundled:fx-3.jpg"]
+}

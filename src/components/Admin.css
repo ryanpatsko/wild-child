@@ -521,6 +521,73 @@
   margin-bottom: 1.25rem;
 }
 
+.fx-photo-section {
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #ff44cb;
+}
+
+.fx-photo-save {
+  margin-top: 1.75rem;
+}
+
+.fx-photo-section .admin-subheading {
+  margin-top: 0;
+}
+
+.fx-file-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+}
+
+.fx-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fx-file-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #ff44cb;
+  background: rgba(255, 68, 203, 0.08);
+  color: #fff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fx-file-button:hover {
+  background: rgba(255, 68, 203, 0.18);
+}
+
+.fx-file-input:focus-visible + .fx-file-button {
+  outline: 2px solid #ff44cb;
+  outline-offset: 2px;
+}
+
+.fx-file-input:disabled + .fx-file-button {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.fx-file-hint {
+  color: #888;
+  font-size: 0.85rem;
+}
+
 .admin-gallery-upload input[type='file'] {
   display: block;
   margin-top: 0.35rem;
@@ -573,7 +640,17 @@
 .admin-gallery-item-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.35rem;
+}
+
+.admin-gallery-item-actions .admin-secondary-btn img {
+  width: 36px;
+  height: 27px;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+  border-radius: 3px;
 }
 
 .admin-locations-form .admin-panel-title {

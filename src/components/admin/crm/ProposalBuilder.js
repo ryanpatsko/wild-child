@@ -11,7 +11,7 @@ import {
   clientDisplayName,
   computeProposalTotals,
   expenseLineFromCatalog,
-  formatDateOnly,
+  formatDateNumeric,
   formatMoney,
   formatTimestamp,
   parseMoneyToCents,
@@ -36,8 +36,8 @@ function toForm(p) {
 
 function toContent(form) {
   const errors = [];
-  const lineOut = (kind) => (l, i) => {
-    const cents = parseMoneyToCents(l.priceInput);
+  const lineOut = (kind, maxDecimals) => (l, i) => {
+    const cents = parseMoneyToCents(l.priceInput, { maxDecimals });
     if (!l.name.trim()) errors.push(`${kind} line ${i + 1} needs a name.`);
     if (cents === null) errors.push(`${kind} line ${i + 1} has an invalid price.`);
     const quantity = Math.max(0, Math.floor(Number(l.quantity) || 0));
@@ -57,7 +57,7 @@ function toContent(form) {
     content: proposalContent({
       ...form,
       services: form.services.map(lineOut('Service')),
-      expenses: form.expenses.map(lineOut('Expense')),
+      expenses: form.expenses.map(lineOut('Expense', 3)),
       gratuityPercent: Number.isFinite(gratuityPercent) ? gratuityPercent : 0,
       depositCents: depositCents ?? 0,
       balanceDueDaysBefore: Number.isInteger(days) ? days : 0,
@@ -229,7 +229,7 @@ export default function ProposalBuilder({ email, proposalId, onBack }) {
     const { renderProposalPdfBlob } = await import('./ProposalPdf');
     return renderProposalPdfBlob({
       proposal: derived.content,
-      preparedOn: formatDateOnly(record.finalizedAt || new Date().toISOString()),
+      preparedOn: formatDateNumeric(record.finalizedAt || new Date().toISOString()),
       footerText: catalog?.defaults?.footerText ?? '',
     });
   }

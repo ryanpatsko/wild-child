@@ -9,7 +9,7 @@ import BridalEditor from './admin/BridalEditor';
 import BeautyPagesEditor from './admin/BeautyPagesEditor';
 import ClassesPagesEditor from './admin/ClassesPagesEditor';
 import ContactPagesEditor from './admin/ContactPagesEditor';
-import CreativeFxPagesEditor from './admin/CreativeFxPagesEditor';
+import CreativeFxEditor from './admin/CreativeFxEditor';
 import FaqPagesEditor from './admin/FaqPagesEditor';
 import ClientsSection from './admin/crm/ClientsSection';
 import ServicesCatalogEditor from './admin/crm/ServicesCatalogEditor';
@@ -78,7 +78,10 @@ const CONTENT_SECTIONS = {
   ],
   beauty: pageCopyOnly('/atlanta-special-event-hair-makeup'),
   classes: pageCopyOnly('/atlanta-makeup-classes'),
-  creativeFx: pageCopyOnly('/atlanta-special-effects-makeup'),
+  creativeFx: [
+    { id: 'copy', label: 'Page copy', path: '/atlanta-special-effects-makeup' },
+    { id: 'photos', label: 'Photos', path: '/atlanta-special-effects-makeup' },
+  ],
   contact: pageCopyOnly('/book-hair-and-makeup-artist'),
   faq: pageCopyOnly('/makeup-faq'),
   locations: [
@@ -109,7 +112,7 @@ function renderTabContent(tab, section) {
     case 'classes':
       return <ClassesPagesEditor />;
     case 'creativeFx':
-      return <CreativeFxPagesEditor />;
+      return <CreativeFxEditor section={section} />;
     case 'contact':
       return <ContactPagesEditor />;
     case 'faq':
