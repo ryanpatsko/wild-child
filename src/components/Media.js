@@ -1,3 +1,20 @@
+function GroupBody({ text }) {
+  const lines = String(text ?? '')
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*[•\-*]\s*/, '').trim())
+    .filter(Boolean);
+  if (lines.length < 2) {
+    return <p className="body-text">{text}</p>;
+  }
+  return (
+    <ul className="media-group-list">
+      {lines.map((line, i) => (
+        <li key={i}>{line}</li>
+      ))}
+    </ul>
+  );
+}
+
 const Media = ({ m }) => {
   return (
     <div className="page-container">
@@ -41,7 +58,7 @@ const Media = ({ m }) => {
           {m.clientGroups.map((group, index) => (
             <div key={index} className="content-card">
               <h3 className="accent-text">{group.title}</h3>
-              <p className="body-text">{group.body}</p>
+              <GroupBody text={group.body} />
             </div>
           ))}
         </div>

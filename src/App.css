@@ -1307,10 +1307,25 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* FX images in rows get responsive max-width */
+/* Photo rows share one square cell. Cover crops the edges instead of stretching. */
+.fx-images-row .fx-image-container {
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .fx-images-row .fx-image {
-  max-width: 100%;
   width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Single FX image (fx-1) gets responsive max-width */
@@ -1817,6 +1832,22 @@ body:has(.block-nav.sticky-active) .bridal-sidebar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
+}
+
+.media-group-list {
+  list-style: disc;
+  margin: 0.35rem 0 0;
+  padding-left: 1.15rem;
+  text-align: left;
+}
+
+.media-group-list li {
+  margin-bottom: 0.4rem;
+  line-height: 1.45;
+}
+
+.media-group-list li:last-child {
+  margin-bottom: 0;
 }
 
 /* =================================

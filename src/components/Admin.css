@@ -143,6 +143,25 @@
   font-weight: 600;
 }
 
+h4.admin-subheading {
+  margin-top: 1.75rem;
+  margin-bottom: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid #ff44cb;
+  color: #ff44cb;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+form > h4.admin-subheading:first-child,
+.admin-bridal-panel > h4.admin-subheading:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
 .admin-muted-tight {
   margin-top: -0.5rem;
   margin-bottom: 1rem;

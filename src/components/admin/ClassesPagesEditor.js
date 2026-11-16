@@ -71,6 +71,7 @@ export default function ClassesPagesEditor() {
           onChange={(e) => setDraft((d) => patchClasses(d, { introText: e.target.value }))}
         />
 
+        <h4 className="admin-subheading">Class cards</h4>
         {classesContent.cards.map((card, idx) => (
           <div key={idx} className="admin-card-editor">
             <h5 className="admin-subheading">{`Class ${idx + 1}`}</h5>
@@ -163,6 +164,7 @@ export default function ClassesPagesEditor() {
           Add class card
         </button>
 
+        <h4 className="admin-subheading">Logistics</h4>
         <label className="admin-label" htmlFor="pg-c-hourly">
           Hourly add-on note (centered)
         </label>
@@ -187,6 +189,7 @@ export default function ClassesPagesEditor() {
           items={classesContent.logisticsItems}
           onChange={(items) => setDraft((d) => patchClasses(d, { logisticsItems: items }))}
         />
+        <h4 className="admin-subheading">Footer</h4>
         <span className="admin-label">Footer CTA</span>
         <input
           className="admin-input admin-input-full"

@@ -67,6 +67,7 @@ export default function BeautyPagesEditor() {
           value={beauty.introText}
           onChange={(e) => setDraft((d) => ({ ...d, beauty: { ...d.beauty, introText: e.target.value } }))}
         />
+        <h4 className="admin-subheading">Hair and makeup</h4>
         <label className="admin-label" htmlFor="pg-b-hair-title">
           Hair / makeup section title
         </label>
@@ -85,6 +86,7 @@ export default function BeautyPagesEditor() {
           inlineRemove
           onChange={(items) => setDraft((d) => ({ ...d, beauty: { ...d.beauty, hairItems: items } }))}
         />
+        <h4 className="admin-subheading">Location</h4>
         <label className="admin-label" htmlFor="pg-b-loc-title">
           Location section title
         </label>
@@ -103,6 +105,7 @@ export default function BeautyPagesEditor() {
           inlineRemove
           onChange={(items) => setDraft((d) => ({ ...d, beauty: { ...d.beauty, locationItems: items } }))}
         />
+        <h4 className="admin-subheading">Rates</h4>
         <label className="admin-label" htmlFor="pg-b-rates-title">
           Rates section title
         </label>
@@ -173,6 +176,7 @@ export default function BeautyPagesEditor() {
           items={beauty.ratesNotes}
           onChange={(items) => setDraft((d) => ({ ...d, beauty: { ...d.beauty, ratesNotes: items } }))}
         />
+        <h4 className="admin-subheading">Footer</h4>
         <span className="admin-label">Footer CTA</span>
         <input
           className="admin-input admin-input-full"

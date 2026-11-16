@@ -66,6 +66,7 @@ export default function FaqPagesEditor() {
           onChange={(e) => setDraft((d) => ({ ...d, faq: { ...d.faq, introText: e.target.value } }))}
         />
 
+        <h4 className="admin-subheading">Questions</h4>
         {faq.items.map((item, idx) => (
           <div key={idx} className="admin-card-editor">
             <h5 className="admin-subheading">{`Question ${idx + 1}`}</h5>

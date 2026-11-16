@@ -74,6 +74,7 @@ export default function CreativeFxPagesEditor() {
             setDraft((d) => ({ ...d, creativeFx: { ...d.creativeFx, introText: e.target.value } }))
           }
         />
+        <h4 className="admin-subheading">Services</h4>
         <label className="admin-label" htmlFor="pg-fx-svc-title">
           Services section title
         </label>
@@ -96,6 +97,7 @@ export default function CreativeFxPagesEditor() {
             setDraft((d) => ({ ...d, creativeFx: { ...d.creativeFx, serviceItems: items } }))
           }
         />
+        <h4 className="admin-subheading">Pricing</h4>
         <label className="admin-label" htmlFor="pg-fx-pr-title">
           Pricing section title
         </label>
@@ -118,6 +120,7 @@ export default function CreativeFxPagesEditor() {
             setDraft((d) => ({ ...d, creativeFx: { ...d.creativeFx, pricingItems: items } }))
           }
         />
+        <h4 className="admin-subheading">Booking</h4>
         <label className="admin-label" htmlFor="pg-fx-book-title">
           Booking section title
         </label>
