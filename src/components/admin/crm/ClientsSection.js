@@ -26,7 +26,7 @@ export default function ClientsSection() {
   }
 
   return (
-    <div className="admin-crm-wide">
+    <>
       {client && proposal ? (
         <ProposalBuilder
           key={`${client}/${proposal}`}
@@ -46,6 +46,6 @@ export default function ClientsSection() {
       ) : (
         <ClientsList onOpenClient={(email) => go({ client: email })} />
       )}
-    </div>
+    </>
   );
 }

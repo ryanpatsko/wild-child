@@ -61,3 +61,16 @@ export const deleteProposal = (email, id) => adminRequest('DELETE', proposalPath
 export const setProposalFinal = (email, id, final) =>
   adminRequest('PUT', `${proposalPath(email, id)}/status`, { final });
 export const recordProposalDownload = (email, id) => adminRequest('POST', `${proposalPath(email, id)}/downloads`);
+
+const invoicePath = (id) => `/crm/invoices/${encodeURIComponent(id)}`;
+
+export const listInvoices = () => adminRequest('GET', '/crm/invoices');
+export const getInvoice = (id) => adminRequest('GET', invoicePath(id));
+export const createInvoice = (invoice) => adminRequest('POST', '/crm/invoices', invoice);
+export const updateInvoice = (id, invoice) => adminRequest('PUT', invoicePath(id), invoice);
+export const deleteInvoice = (id) => adminRequest('DELETE', invoicePath(id));
+export const setInvoiceDates = (id, dates) => adminRequest('PUT', `${invoicePath(id)}/dates`, dates);
+export const recordInvoiceDownload = (id, body) => adminRequest('POST', `${invoicePath(id)}/downloads`, body ?? {});
+
+export const getInvoiceCatalog = () => adminRequest('GET', '/crm/invoice-catalog');
+export const saveInvoiceCatalog = (catalog) => adminRequest('PUT', '/crm/invoice-catalog', catalog);

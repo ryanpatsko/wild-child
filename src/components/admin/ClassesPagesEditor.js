@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePagesContentAdmin } from '../../context/PagesContentAdminContext';
+import { AdminIconButton } from './AdminControls';
 import {
   AdminHtmlList,
   AdminStringList,
@@ -74,7 +75,22 @@ export default function ClassesPagesEditor() {
         <h4 className="admin-subheading">Class cards</h4>
         {classesContent.cards.map((card, idx) => (
           <div key={idx} className="admin-card-editor">
-            <h5 className="admin-subheading">{`Class ${idx + 1}`}</h5>
+            <div className="admin-about-item-head">
+              <h5 className="admin-subheading">{`Class ${idx + 1}`}</h5>
+              <AdminIconButton
+                icon="remove"
+                label={`Remove class ${idx + 1}`}
+                onClick={() =>
+                  setDraft((d) => ({
+                    ...d,
+                    classes: {
+                      ...d.classes,
+                      cards: d.classes.cards.filter((_, j) => j !== idx),
+                    },
+                  }))
+                }
+              />
+            </div>
             <input
               className="admin-input admin-input-full"
               placeholder="Name"
@@ -134,21 +150,6 @@ export default function ClassesPagesEditor() {
               value={card.learnMoreLabel}
               onChange={(e) => setDraft((d) => patchClassCard(d, idx, { learnMoreLabel: e.target.value }))}
             />
-            <button
-              type="button"
-              className="admin-secondary-btn"
-              onClick={() =>
-                setDraft((d) => ({
-                  ...d,
-                  classes: {
-                    ...d.classes,
-                    cards: d.classes.cards.filter((_, j) => j !== idx),
-                  },
-                }))
-              }
-            >
-              Remove this class
-            </button>
           </div>
         ))}
         <button

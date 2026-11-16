@@ -7,6 +7,7 @@ import {
 } from '../../content/bridalContent';
 import { saveBridalContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import { AdminIconButton } from './AdminControls';
 import BridalGalleryEditor from './BridalGalleryEditor';
 
 const BRIDAL_PAGES = ['overview', 'services', 'pittsburgh', 'atlanta', 'gallery'];
@@ -244,9 +245,9 @@ export default function BridalEditor({ section }) {
               <div className="admin-about-item-head">
                 <span className="admin-about-item-label">Paragraph {i + 1}</span>
                 {ov.leadParagraphs.length > 1 ? (
-                  <button
-                    type="button"
-                    className="admin-text-btn"
+                  <AdminIconButton
+                    icon="remove"
+                    label={`Remove paragraph ${i + 1}`}
                     onClick={() =>
                       setDraft((d) => ({
                         ...d,
@@ -256,9 +257,7 @@ export default function BridalEditor({ section }) {
                         },
                       }))
                     }
-                  >
-                    Remove
-                  </button>
+                  />
                 ) : null}
               </div>
               <textarea
@@ -373,9 +372,9 @@ export default function BridalEditor({ section }) {
               <div className="admin-about-item-head">
                 <span className="admin-about-item-label">Section {si + 1}</span>
                 {sv.sections.length > 1 ? (
-                  <button
-                    type="button"
-                    className="admin-text-btn"
+                  <AdminIconButton
+                    icon="remove"
+                    label={`Remove section ${si + 1}`}
                     onClick={() =>
                       setDraft((d) => ({
                         ...d,
@@ -385,9 +384,7 @@ export default function BridalEditor({ section }) {
                         },
                       }))
                     }
-                  >
-                    Remove section
-                  </button>
+                  />
                 ) : null}
               </div>
               <input
@@ -409,7 +406,7 @@ export default function BridalEditor({ section }) {
                 maxLength={400}
               />
               {sec.paragraphs.map((p, pi) => (
-                <div key={pi} style={{ marginTop: '0.5rem' }}>
+                <div key={pi} className="admin-row-gap admin-html-list-row" style={{ marginTop: '0.5rem' }}>
                   <label className="admin-label visually-hidden">Paragraph {pi + 1}</label>
                   <textarea
                     className="admin-textarea"
@@ -435,9 +432,9 @@ export default function BridalEditor({ section }) {
                     maxLength={12000}
                   />
                   {sec.paragraphs.length > 1 ? (
-                    <button
-                      type="button"
-                      className="admin-text-btn"
+                    <AdminIconButton
+                      icon="remove"
+                      label={`Remove paragraph ${pi + 1}`}
                       onClick={() =>
                         setDraft((d) => ({
                           ...d,
@@ -454,9 +451,7 @@ export default function BridalEditor({ section }) {
                           },
                         }))
                       }
-                    >
-                      Remove paragraph
-                    </button>
+                    />
                   ) : null}
                 </div>
               ))}
@@ -617,9 +612,9 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
             <div className="admin-about-item-actions">
               {data.packages.length > 1 ? (
                 <>
-                  <button
-                    type="button"
-                    className="admin-text-btn"
+                  <AdminIconButton
+                    icon="up"
+                    label={`Move package ${pi + 1} up`}
                     disabled={pi === 0}
                     onClick={() =>
                       patchRegion({
@@ -627,12 +622,10 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
                         packages: moveItem(data.packages, pi, pi - 1),
                       })
                     }
-                  >
-                    Move up
-                  </button>
-                  <button
-                    type="button"
-                    className="admin-text-btn"
+                  />
+                  <AdminIconButton
+                    icon="down"
+                    label={`Move package ${pi + 1} down`}
                     disabled={pi === data.packages.length - 1}
                     onClick={() =>
                       patchRegion({
@@ -640,21 +633,17 @@ function RegionalBridalPanel({ regionKey, data, setDraft }) {
                         packages: moveItem(data.packages, pi, pi + 1),
                       })
                     }
-                  >
-                    Move down
-                  </button>
-                  <button
-                    type="button"
-                    className="admin-text-btn"
+                  />
+                  <AdminIconButton
+                    icon="remove"
+                    label={`Remove package ${pi + 1}`}
                     onClick={() =>
                       patchRegion({
                         ...data,
                         packages: data.packages.filter((_, j) => j !== pi),
                       })
                     }
-                  >
-                    Remove
-                  </button>
+                  />
                 </>
               ) : null}
             </div>

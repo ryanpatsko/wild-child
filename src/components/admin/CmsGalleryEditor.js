@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import { AdminIconButton } from './AdminControls';
 import { PagesEditorSaveRow } from './pagesEditorShared';
 
 const MAX_IMAGES = 30;
@@ -244,32 +245,24 @@ export default function CmsGalleryEditor({
                 <span className="admin-muted">Position {index + 1}</span>
               </div>
               <div className="admin-gallery-item-actions">
-                <button
-                  type="button"
-                  className="admin-secondary-btn"
+                <AdminIconButton
+                  icon="up"
+                  label={`Move ${filename} up`}
                   disabled={index === 0 || saving || uploading}
                   onClick={() => setImages(moveItem(images, index, index - 1))}
-                  aria-label={`Move ${filename} up`}
-                >
-                  ↑
-                </button>
-                <button
-                  type="button"
-                  className="admin-secondary-btn"
+                />
+                <AdminIconButton
+                  icon="down"
+                  label={`Move ${filename} down`}
                   disabled={index === images.length - 1 || saving || uploading}
                   onClick={() => setImages(moveItem(images, index, index + 1))}
-                  aria-label={`Move ${filename} down`}
-                >
-                  ↓
-                </button>
-                <button
-                  type="button"
-                  className="admin-secondary-btn"
+                />
+                <AdminIconButton
+                  icon="remove"
+                  label={`Delete ${filename}`}
                   disabled={saving || uploading}
                   onClick={() => void onDelete(filename)}
-                >
-                  Delete
-                </button>
+                />
               </div>
             </li>
           ))}

@@ -339,7 +339,10 @@ Item layout (single-table design; new record types can be added later under the 
 - `CLIENT#<email>` / `PROFILE` — display name, notes, latest inquiry summary, proposal status rollup (indexed by `GSI1` for the newest-first client list)
 - `CLIENT#<email>` / `SUB#<timestamp>#<id>` — one contact form submission
 - `CLIENT#<email>` / `PROPOSAL#<id>` — one contract proposal (line items, fees, finalized + download timestamps)
-- `CATALOG` / `CATALOG` — services & pricing list and proposal defaults
+- `CATALOG` / `CATALOG` — bridal services & pricing list and proposal defaults
+- `INVOICE#<id>` / `INVOICE` — one invoice, not tied to a wedding client (indexed by `GSI1` with `GSI1PK=INVOICE` for the newest-first list). Holds line items plus sent and paid dates.
+- `INVOICE_CATALOG` / `INVOICE_CATALOG` — invoice services and fees. Separate from the bridal catalog.
+- `INVOICE_COUNTER` / `INVOICE_COUNTER` — assigns the next invoice number, starting at 1001
 
 ---
 
@@ -474,8 +477,14 @@ Client intake (see `lambda/admin-auth/crm.mjs`):
 - `PUT | DELETE {origin}/crm/clients/{email}/proposals/{id}` — save or delete proposal
 - `PUT {origin}/crm/clients/{email}/proposals/{id}/status` — body `{ final: boolean }`
 - `POST {origin}/crm/clients/{email}/proposals/{id}/downloads` — records a PDF download timestamp
+- `GET {origin}/crm/invoices` — newest-first invoice list
+- `POST {origin}/crm/invoices` — create an invoice (a blank `invoiceNumber` is assigned)
+- `GET | PUT | DELETE {origin}/crm/invoices/{id}` — one invoice
+- `PUT {origin}/crm/invoices/{id}/dates` — body `{ sentAt?, paidAt? }`, each a `YYYY-MM-DD` date or `null`
+- `POST {origin}/crm/invoices/{id}/downloads` — records a PDF download and, the first time, the sent date. Body `{ sentOn: "YYYY-MM-DD" }`
+- `GET | PUT {origin}/crm/invoice-catalog` — invoice services & fees (not the bridal price list)
 
-All `/crm/*` routes require `Authorization: Bearer <token>`.
+All `/crm/*` routes require `Authorization: Bearer <token>`. Upload `dist/lambda-admin-auth.zip` after pulling invoice changes so these routes exist on Lambda.
 
 Copy the Function URL **origin only** (no path), e.g.  
 `https://xxxxxxxx.lambda-url.us-east-1.on.aws`

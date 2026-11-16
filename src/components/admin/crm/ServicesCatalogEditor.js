@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { AdminIconButton, AdminToggle } from '../AdminControls';
+import AdminSelect from '../AdminSelect';
 import { getCatalog, saveCatalog } from '../../../lib/crmApi';
 import { centsToInput, parseMoneyToCents } from '../../../lib/proposalMath';
 
@@ -246,7 +248,7 @@ export default function ServicesCatalogEditor() {
 
       <h4 className="admin-subheading">Services</h4>
       <p className="admin-hint">
-        Tick &quot;Rate may vary&quot; to mark a service with an asterisk on the proposal (uses the note below).
+        Turn on &quot;Rate may vary&quot; to mark a service with an asterisk on the proposal (uses the note below).
       </p>
       <div className="crm-table-wrap">
         <table className="crm-table crm-edit-table">
@@ -280,28 +282,30 @@ export default function ServicesCatalogEditor() {
                   />
                 </td>
                 <td className="crm-center">
-                  <input
-                    type="checkbox"
-                    aria-label={`Service ${i + 1} rate may vary`}
+                  <AdminToggle
+                    ariaLabel={`Service ${i + 1} rate may vary`}
                     checked={row.priceMayVary}
                     onChange={(ev) => updateRow('services', i, { priceMayVary: ev.target.checked })}
                   />
                 </td>
                 <td className="crm-row-actions">
-                  <button type="button" className="admin-link-btn" onClick={() => update({ services: moveItem(form.services, i, -1) })} disabled={i === 0}>
-                    Up
-                  </button>
-                  <button
-                    type="button"
-                    className="admin-link-btn"
-                    onClick={() => update({ services: moveItem(form.services, i, 1) })}
+                  <AdminIconButton
+                    icon="up"
+                    label={`Move service ${i + 1} up`}
+                    disabled={i === 0}
+                    onClick={() => update({ services: moveItem(form.services, i, -1) })}
+                  />
+                  <AdminIconButton
+                    icon="down"
+                    label={`Move service ${i + 1} down`}
                     disabled={i === form.services.length - 1}
-                  >
-                    Down
-                  </button>
-                  <button type="button" className="admin-text-btn" onClick={() => update({ services: form.services.filter((_, j) => j !== i) })}>
-                    Remove
-                  </button>
+                    onClick={() => update({ services: moveItem(form.services, i, 1) })}
+                  />
+                  <AdminIconButton
+                    icon="remove"
+                    label={`Remove service ${i + 1}`}
+                    onClick={() => update({ services: form.services.filter((_, j) => j !== i) })}
+                  />
                 </td>
               </tr>
             ))}
@@ -344,14 +348,15 @@ export default function ServicesCatalogEditor() {
             </label>
             <label className="crm-field">
               <span className="admin-label">Charged</span>
-              <select
+              <AdminSelect
                 className="admin-input admin-input-full"
                 value={row.mode}
                 onChange={(ev) => updateRow('expenses', i, { mode: ev.target.value })}
-              >
-                <option value="flat">Flat fee</option>
-                <option value="perUnit">Per unit</option>
-              </select>
+                options={[
+                  { value: 'flat', label: 'Flat fee' },
+                  { value: 'perUnit', label: 'Per unit' },
+                ]}
+              />
             </label>
             {row.mode === 'perUnit' ? (
               <label className="crm-field">
@@ -375,37 +380,34 @@ export default function ServicesCatalogEditor() {
             </label>
           </div>
           <div className="crm-checkbox-row">
-            <label>
-              <input
-                type="checkbox"
-                checked={row.ifApplicable}
-                onChange={(ev) => updateRow('expenses', i, { ifApplicable: ev.target.checked })}
-              />{' '}
-              If applicable (not in total)
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={row.autoAdd}
-                onChange={(ev) => updateRow('expenses', i, { autoAdd: ev.target.checked })}
-              />{' '}
-              Auto-add to new proposals
-            </label>
+            <AdminToggle
+              checked={row.ifApplicable}
+              label="If applicable (not in total)"
+              onChange={(ev) => updateRow('expenses', i, { ifApplicable: ev.target.checked })}
+            />
+            <AdminToggle
+              checked={row.autoAdd}
+              label="Auto-add to new proposals"
+              onChange={(ev) => updateRow('expenses', i, { autoAdd: ev.target.checked })}
+            />
             <span className="crm-row-actions">
-              <button type="button" className="admin-link-btn" onClick={() => update({ expenses: moveItem(form.expenses, i, -1) })} disabled={i === 0}>
-                Up
-              </button>
-              <button
-                type="button"
-                className="admin-link-btn"
-                onClick={() => update({ expenses: moveItem(form.expenses, i, 1) })}
+              <AdminIconButton
+                icon="up"
+                label={`Move expense ${i + 1} up`}
+                disabled={i === 0}
+                onClick={() => update({ expenses: moveItem(form.expenses, i, -1) })}
+              />
+              <AdminIconButton
+                icon="down"
+                label={`Move expense ${i + 1} down`}
                 disabled={i === form.expenses.length - 1}
-              >
-                Down
-              </button>
-              <button type="button" className="admin-text-btn" onClick={() => update({ expenses: form.expenses.filter((_, j) => j !== i) })}>
-                Remove
-              </button>
+                onClick={() => update({ expenses: moveItem(form.expenses, i, 1) })}
+              />
+              <AdminIconButton
+                icon="remove"
+                label={`Remove expense ${i + 1}`}
+                onClick={() => update({ expenses: form.expenses.filter((_, j) => j !== i) })}
+              />
             </span>
           </div>
         </div>

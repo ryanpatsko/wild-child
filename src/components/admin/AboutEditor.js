@@ -7,6 +7,7 @@ import {
 } from '../../content/aboutContent';
 import { saveAboutContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import { AdminIconButton } from './AdminControls';
 import AboutGalleryEditor from './AboutGalleryEditor';
 
 function SaveFeedback() {
@@ -284,13 +285,7 @@ function AboutCopyEditor() {
           <div className="admin-about-item-head">
             <span className="admin-about-item-label">Item {index + 1}</span>
             {items.length > 1 ? (
-              <button
-                type="button"
-                className="admin-text-btn"
-                onClick={() => removeItem(index)}
-              >
-                Remove
-              </button>
+              <AdminIconButton icon="remove" label={`Remove item ${index + 1}`} onClick={() => removeItem(index)} />
             ) : null}
           </div>
           <label className="admin-label visually-hidden" htmlFor={`wc-about-item-title-${index}`}>

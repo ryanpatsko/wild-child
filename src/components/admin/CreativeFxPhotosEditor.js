@@ -19,6 +19,7 @@ import {
   requestGalleryFxUpload,
   saveGalleryFxManifest,
 } from '../../lib/cmsApi';
+import { AdminIconButton } from './AdminControls';
 import { PagesEditorSaveRow } from './pagesEditorShared';
 
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -408,27 +409,24 @@ function PhotoGrid({
                 </span>
               </div>
               <div className="admin-gallery-item-actions">
-                <button
-                  type="button"
-                  className="admin-secondary-btn"
+                <AdminIconButton
+                  icon="up"
+                  label={`Move photo ${index + 1} up`}
                   disabled={index === 0 || busy}
                   onClick={() => onMove(index, index - 1)}
-                  aria-label={`Move photo ${index + 1} up`}
-                >
-                  ↑
-                </button>
-                <button
-                  type="button"
-                  className="admin-secondary-btn"
+                />
+                <AdminIconButton
+                  icon="down"
+                  label={`Move photo ${index + 1} down`}
                   disabled={index === images.length - 1 || busy}
                   onClick={() => onMove(index, index + 1)}
-                  aria-label={`Move photo ${index + 1} down`}
-                >
-                  ↓
-                </button>
-                <button type="button" className="admin-secondary-btn" disabled={busy} onClick={() => onRemove(ref)}>
-                  Remove
-                </button>
+                />
+                <AdminIconButton
+                  icon="remove"
+                  label={`Remove photo ${index + 1}`}
+                  disabled={busy}
+                  onClick={() => onRemove(ref)}
+                />
               </div>
             </li>
           ))}

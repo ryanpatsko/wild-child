@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePagesContentAdmin } from '../../context/PagesContentAdminContext';
+import { AdminIconButton } from './AdminControls';
 import { PagesEditorSaveRow } from './pagesEditorShared';
 
 export default function FaqPagesEditor() {
@@ -69,7 +70,19 @@ export default function FaqPagesEditor() {
         <h4 className="admin-subheading">Questions</h4>
         {faq.items.map((item, idx) => (
           <div key={idx} className="admin-card-editor">
-            <h5 className="admin-subheading">{`Question ${idx + 1}`}</h5>
+            <div className="admin-about-item-head">
+              <h5 className="admin-subheading">{`Question ${idx + 1}`}</h5>
+              <AdminIconButton
+                icon="remove"
+                label={`Remove question ${idx + 1}`}
+                onClick={() =>
+                  setDraft((d) => ({
+                    ...d,
+                    faq: { ...d.faq, items: d.faq.items.filter((_, j) => j !== idx) },
+                  }))
+                }
+              />
+            </div>
             <input
               className="admin-input admin-input-full"
               placeholder="Question"
@@ -95,18 +108,6 @@ export default function FaqPagesEditor() {
                 setDraft((d) => ({ ...d, faq: { ...d.faq, items } }));
               }}
             />
-            <button
-              type="button"
-              className="admin-secondary-btn"
-              onClick={() =>
-                setDraft((d) => ({
-                  ...d,
-                  faq: { ...d.faq, items: d.faq.items.filter((_, j) => j !== idx) },
-                }))
-              }
-            >
-              Remove Q&amp;A
-            </button>
           </div>
         ))}
         <button

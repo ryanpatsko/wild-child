@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { AdminIconButton, AdminToggle } from '../AdminControls';
+import AdminSelect from '../AdminSelect';
 import {
   getCatalog,
   getClient,
@@ -432,29 +434,27 @@ export default function ProposalBuilder({ email, proposalId, onBack }) {
                         />
                       </td>
                       <td className="crm-center">
-                        <input
-                          type="checkbox"
-                          aria-label={`Service line ${i + 1} rate may vary`}
+                        <AdminToggle
+                          ariaLabel={`Service line ${i + 1} rate may vary`}
                           checked={l.priceMayVary}
                           onChange={(ev) => patchLine('services', i, { priceMayVary: ev.target.checked })}
                         />
                       </td>
                       <td className="crm-money">{formatMoney(totals.serviceLines[i]?.totalCents ?? 0)}</td>
                       <td className="crm-row-actions">
-                        <button type="button" className="admin-link-btn" onClick={() => moveLine('services', i, -1)} disabled={i === 0}>
-                          ↑
-                        </button>
-                        <button
-                          type="button"
-                          className="admin-link-btn"
-                          onClick={() => moveLine('services', i, 1)}
+                        <AdminIconButton
+                          icon="up"
+                          label={`Move service line ${i + 1} up`}
+                          disabled={i === 0}
+                          onClick={() => moveLine('services', i, -1)}
+                        />
+                        <AdminIconButton
+                          icon="down"
+                          label={`Move service line ${i + 1} down`}
                           disabled={i === form.services.length - 1}
-                        >
-                          ↓
-                        </button>
-                        <button type="button" className="admin-text-btn" onClick={() => removeLine('services', i)}>
-                          Remove
-                        </button>
+                          onClick={() => moveLine('services', i, 1)}
+                        />
+                        <AdminIconButton icon="remove" label={`Remove service line ${i + 1}`} onClick={() => removeLine('services', i)} />
                       </td>
                     </tr>
                   ))}
@@ -465,21 +465,20 @@ export default function ProposalBuilder({ email, proposalId, onBack }) {
             <p className="admin-muted">No services added yet.</p>
           )}
           <div className="crm-add-row">
-            <select
+            <AdminSelect
               className="admin-input"
-              aria-label="Service to add"
+              ariaLabel="Service to add"
               value={addServiceId}
               onChange={(ev) => setAddServiceId(ev.target.value)}
-            >
-              <option value="">Choose a service…</option>
-              {catalogServices.map((svc) => (
-                <option key={svc.id} value={svc.id}>
-                  {svc.name} — {formatMoney(svc.priceCents, { compact: true })}
-                  {svc.priceMayVary ? '*' : ''}
-                </option>
-              ))}
-              <option value="__custom">Custom line…</option>
-            </select>
+              options={[
+                { value: '', label: 'Choose a service…' },
+                ...catalogServices.map((svc) => ({
+                  value: svc.id,
+                  label: `${svc.name} — ${formatMoney(svc.priceCents, { compact: true })}${svc.priceMayVary ? '*' : ''}`,
+                })),
+                { value: '__custom', label: 'Custom line…' },
+              ]}
+            />
             <input
               className="admin-input crm-qty-input"
               aria-label="Quantity"
@@ -523,14 +522,15 @@ export default function ProposalBuilder({ email, proposalId, onBack }) {
                 </label>
                 <label className="crm-field">
                   <span className="admin-label">Charged</span>
-                  <select
+                  <AdminSelect
                     className="admin-input admin-input-full"
                     value={l.mode}
                     onChange={(ev) => patchLine('expenses', i, { mode: ev.target.value })}
-                  >
-                    <option value="flat">Flat fee</option>
-                    <option value="perUnit">Per unit</option>
-                  </select>
+                    options={[
+                      { value: 'flat', label: 'Flat fee' },
+                      { value: 'perUnit', label: 'Per unit' },
+                    ]}
+                  />
                 </label>
                 <label className="crm-field">
                   <span className="admin-label">{l.mode === 'perUnit' ? 'Rate per unit ($)' : 'Amount ($)'}</span>
@@ -576,52 +576,49 @@ export default function ProposalBuilder({ email, proposalId, onBack }) {
                 </label>
               </div>
               <div className="crm-checkbox-row">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={l.ifApplicable}
-                    onChange={(ev) => patchLine('expenses', i, { ifApplicable: ev.target.checked })}
-                  />{' '}
-                  If applicable (shown as TBD, not in total)
-                </label>
+                <AdminToggle
+                  checked={l.ifApplicable}
+                  label="If applicable (shown as TBD, not in total)"
+                  onChange={(ev) => patchLine('expenses', i, { ifApplicable: ev.target.checked })}
+                />
                 <span className="crm-money">
                   {l.ifApplicable ? 'TBD' : formatMoney(totals.expenseLines[i]?.totalCents ?? 0)}
                 </span>
                 <span className="crm-row-actions">
-                  <button type="button" className="admin-link-btn" onClick={() => moveLine('expenses', i, -1)} disabled={i === 0}>
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    className="admin-link-btn"
-                    onClick={() => moveLine('expenses', i, 1)}
+                  <AdminIconButton
+                    icon="up"
+                    label={`Move expense ${i + 1} up`}
+                    disabled={i === 0}
+                    onClick={() => moveLine('expenses', i, -1)}
+                  />
+                  <AdminIconButton
+                    icon="down"
+                    label={`Move expense ${i + 1} down`}
                     disabled={i === form.expenses.length - 1}
-                  >
-                    ↓
-                  </button>
-                  <button type="button" className="admin-text-btn" onClick={() => removeLine('expenses', i)}>
-                    Remove
-                  </button>
+                    onClick={() => moveLine('expenses', i, 1)}
+                  />
+                  <AdminIconButton icon="remove" label={`Remove expense ${i + 1}`} onClick={() => removeLine('expenses', i)} />
                 </span>
               </div>
             </div>
           ))}
           <div className="crm-add-row">
-            <select
+            <AdminSelect
               className="admin-input"
-              aria-label="Expense to add"
+              ariaLabel="Expense to add"
               value={addExpenseId}
               onChange={(ev) => setAddExpenseId(ev.target.value)}
-            >
-              <option value="">Choose an expense or fee…</option>
-              {catalogExpenses.map((exp) => (
-                <option key={exp.id} value={exp.id}>
-                  {exp.name} — {formatMoney(exp.priceCents, { compact: true })}
-                  {exp.mode === 'perUnit' && exp.unitLabel ? ` per ${exp.unitLabel}` : ''}
-                </option>
-              ))}
-              <option value="__custom">Custom line…</option>
-            </select>
+              options={[
+                { value: '', label: 'Choose an expense or fee…' },
+                ...catalogExpenses.map((exp) => ({
+                  value: exp.id,
+                  label: `${exp.name} — ${formatMoney(exp.priceCents, { compact: true })}${
+                    exp.mode === 'perUnit' && exp.unitLabel ? ` per ${exp.unitLabel}` : ''
+                  }`,
+                })),
+                { value: '__custom', label: 'Custom line…' },
+              ]}
+            />
             <button type="button" className="admin-secondary-btn" onClick={addExpense} disabled={!addExpenseId}>
               Add
             </button>

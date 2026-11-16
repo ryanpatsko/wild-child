@@ -7,6 +7,7 @@ import {
 } from '../../content/mediaContent';
 import { saveMediaContent } from '../../lib/cmsApi';
 import { getStoredSessionToken } from '../../lib/adminAuth';
+import { AdminIconButton } from './AdminControls';
 
 function SaveFeedback() {
   return (
@@ -400,9 +401,7 @@ export default function MediaEditor() {
           <div className="admin-about-item-head">
             <span className="admin-about-item-label">Highlight {index + 1}</span>
             {pillars.length > 1 ? (
-              <button type="button" className="admin-text-btn" onClick={() => removePillar(index)}>
-                Remove
-              </button>
+              <AdminIconButton icon="remove" label={`Remove highlight ${index + 1}`} onClick={() => removePillar(index)} />
             ) : null}
           </div>
           <input
@@ -458,9 +457,7 @@ export default function MediaEditor() {
           <div className="admin-about-item-head">
             <span className="admin-about-item-label">Rate {index + 1}</span>
             {rates.length > 1 ? (
-              <button type="button" className="admin-text-btn" onClick={() => removeRate(index)}>
-                Remove
-              </button>
+              <AdminIconButton icon="remove" label={`Remove rate ${index + 1}`} onClick={() => removeRate(index)} />
             ) : null}
           </div>
           <input
@@ -513,9 +510,7 @@ export default function MediaEditor() {
           <div className="admin-about-item-head">
             <span className="admin-about-item-label">Group {index + 1}</span>
             {clientGroups.length > 1 ? (
-              <button type="button" className="admin-text-btn" onClick={() => removeClient(index)}>
-                Remove
-              </button>
+              <AdminIconButton icon="remove" label={`Remove group ${index + 1}`} onClick={() => removeClient(index)} />
             ) : null}
           </div>
           <input

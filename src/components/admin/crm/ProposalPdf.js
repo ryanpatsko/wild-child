@@ -1,7 +1,8 @@
 import React from 'react';
-import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import siteLogo from '../../../assets/wcf-lips-logo.png';
 import { computeProposalTotals, formatMoney, toNumericDate } from '../../../lib/proposalMath';
+import { registerPdfFonts } from './pdfFonts';
 
 const INK = '#1f1a1c';
 const MUTED = '#7a6d72';
@@ -9,32 +10,6 @@ const ACCENT = '#b23a68';
 const BLUSH = '#f6e4ea';
 const HAIRLINE = '#e8d6dd';
 const PAPER = '#fffdfb';
-
-let fontsRegistered = false;
-
-function registerFonts() {
-  if (fontsRegistered) return;
-  const base = `${window.location.origin}/fonts/proposal`;
-  Font.register({
-    family: 'Playfair',
-    fonts: [
-      { src: `${base}/PlayfairDisplay-Regular.ttf` },
-      { src: `${base}/PlayfairDisplay-Italic.ttf`, fontStyle: 'italic' },
-      { src: `${base}/PlayfairDisplay-SemiBold.ttf`, fontWeight: 600 },
-    ],
-  });
-  Font.register({
-    family: 'RedHat',
-    fonts: [
-      { src: `${base}/RedHatDisplay-Regular.ttf` },
-      { src: `${base}/RedHatDisplay-Medium.ttf`, fontWeight: 500 },
-      { src: `${base}/RedHatDisplay-Bold.ttf`, fontWeight: 700 },
-    ],
-  });
-  Font.register({ family: 'Castoro', src: `${base}/CastoroTitling-Regular.ttf` });
-  Font.registerHyphenationCallback((word) => [word]);
-  fontsRegistered = true;
-}
 
 const s = StyleSheet.create({
   page: {
@@ -288,7 +263,7 @@ export function ProposalDocument({ proposal, preparedOn, footerText }) {
 }
 
 export async function renderProposalPdfBlob(props) {
-  registerFonts();
+  registerPdfFonts();
   const { pdf } = await import('@react-pdf/renderer');
   return pdf(<ProposalDocument {...props} />).toBlob();
 }

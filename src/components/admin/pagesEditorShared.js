@@ -1,4 +1,5 @@
 import React from 'react';
+import { AdminIconButton } from './AdminControls';
 
 export function SaveFeedback() {
   return (
@@ -25,17 +26,15 @@ export function SaveFeedback() {
   );
 }
 
-export function AdminStringList({ label, items, onChange, idPrefix, inlineRemove }) {
-  const rowClass = inlineRemove ? 'admin-string-list-row' : 'admin-row-gap';
-  const inputClass = inlineRemove ? 'admin-input' : 'admin-input admin-input-full';
+export function AdminStringList({ label, items, onChange, idPrefix }) {
   return (
     <div className="admin-field-block">
       <span className="admin-label">{label}</span>
       {items.map((item, i) => (
-        <div key={`${idPrefix}-${i}`} className={rowClass}>
+        <div key={`${idPrefix}-${i}`} className="admin-string-list-row">
           <input
             id={`${idPrefix}-${i}`}
-            className={inputClass}
+            className="admin-input"
             value={item}
             onChange={(e) => {
               const next = [...items];
@@ -43,13 +42,7 @@ export function AdminStringList({ label, items, onChange, idPrefix, inlineRemove
               onChange(next);
             }}
           />
-          <button
-            type="button"
-            className="admin-secondary-btn"
-            onClick={() => onChange(items.filter((_, j) => j !== i))}
-          >
-            Remove
-          </button>
+          <AdminIconButton icon="remove" label={`Remove ${label} line ${i + 1}`} onClick={() => onChange(items.filter((_, j) => j !== i))} />
         </div>
       ))}
       <button type="button" className="admin-secondary-btn" onClick={() => onChange([...items, ''])}>
@@ -65,7 +58,7 @@ export function AdminHtmlList({ label, items, onChange, idPrefix, hint }) {
       <span className="admin-label">{label}</span>
       {hint ? <p className="admin-hint admin-muted">{hint}</p> : null}
       {items.map((item, i) => (
-        <div key={`${idPrefix}-${i}`} className="admin-row-gap">
+        <div key={`${idPrefix}-${i}`} className="admin-row-gap admin-html-list-row">
           <textarea
             id={`${idPrefix}-${i}`}
             className="admin-textarea admin-textarea-tall"
@@ -77,13 +70,7 @@ export function AdminHtmlList({ label, items, onChange, idPrefix, hint }) {
               onChange(next);
             }}
           />
-          <button
-            type="button"
-            className="admin-secondary-btn"
-            onClick={() => onChange(items.filter((_, j) => j !== i))}
-          >
-            Remove
-          </button>
+          <AdminIconButton icon="remove" label={`Remove ${label} line ${i + 1}`} onClick={() => onChange(items.filter((_, j) => j !== i))} />
         </div>
       ))}
       <button type="button" className="admin-secondary-btn" onClick={() => onChange([...items, ''])}>

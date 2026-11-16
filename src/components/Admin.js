@@ -12,6 +12,7 @@ import ContactPagesEditor from './admin/ContactPagesEditor';
 import CreativeFxEditor from './admin/CreativeFxEditor';
 import FaqPagesEditor from './admin/FaqPagesEditor';
 import ClientsSection from './admin/crm/ClientsSection';
+import InvoicesSection from './admin/crm/InvoicesSection';
 import ServicesCatalogEditor from './admin/crm/ServicesCatalogEditor';
 import { PagesContentAdminProvider } from '../context/PagesContentAdminContext';
 import {
@@ -27,6 +28,7 @@ import './Admin.css';
 const TAB_LABELS = {
   clients: 'Clients',
   pricing: 'Services & Pricing',
+  invoices: 'Invoice Admin',
   home: 'Home',
   about: 'About',
   media: 'On-Set & Production',
@@ -40,7 +42,7 @@ const TAB_LABELS = {
 };
 
 const NAV_GROUPS = [
-  { id: 'portal', label: 'Client Portal', tabs: ['clients', 'pricing'] },
+  { id: 'portal', label: 'Client Portal', tabs: ['clients', 'pricing', 'invoices'] },
   {
     id: 'content',
     label: 'Website Content',
@@ -99,6 +101,8 @@ function renderTabContent(tab, section) {
       return <ClientsSection />;
     case 'pricing':
       return <ServicesCatalogEditor />;
+    case 'invoices':
+      return <InvoicesSection />;
     case 'home':
       return <HomeEditor section={section} />;
     case 'about':

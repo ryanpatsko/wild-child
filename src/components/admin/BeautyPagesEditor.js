@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePagesContentAdmin } from '../../context/PagesContentAdminContext';
+import { AdminIconButton } from './AdminControls';
 import { AdminHtmlList, AdminStringList, PagesEditorSaveRow } from './pagesEditorShared';
 
 export default function BeautyPagesEditor() {
@@ -140,9 +141,9 @@ export default function BeautyPagesEditor() {
                 setDraft((d) => ({ ...d, beauty: { ...d.beauty, ratesTable: next } }));
               }}
             />
-            <button
-              type="button"
-              className="admin-secondary-btn"
+            <AdminIconButton
+              icon="remove"
+              label={`Remove rate row ${i + 1}`}
               onClick={() =>
                 setDraft((d) => ({
                   ...d,
@@ -152,9 +153,7 @@ export default function BeautyPagesEditor() {
                   },
                 }))
               }
-            >
-              Remove row
-            </button>
+            />
           </div>
         ))}
         <button
